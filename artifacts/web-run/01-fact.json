@@ -1,0 +1,43 @@
+{
+  "id": "01-fact",
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Назови столицу Франции. Ответь одним словом по-русски."
+      }
+    ],
+    "think": false
+  },
+  "expected": "Париж",
+  "events": [
+    {
+      "type": "start",
+      "model": "qwen3:8b",
+      "messages_used": 1
+    },
+    {
+      "type": "delta",
+      "text": "П"
+    },
+    {
+      "type": "delta",
+      "text": "ари"
+    },
+    {
+      "type": "delta",
+      "text": "ж"
+    },
+    {
+      "type": "done",
+      "model": "qwen3:8b",
+      "seconds": 23.76614051,
+      "tokens": 4
+    }
+  ],
+  "answer": "Париж",
+  "thinking": "",
+  "elapsed_seconds": 23.778357,
+  "passed": true,
+  "failures": []
+}

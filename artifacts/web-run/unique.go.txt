@@ -1,0 +1,14 @@
+func Unique(values []int) []int {
+	if values == nil || len(values) == 0 {
+		return []int{}
+	}
+	seen := make(map[int]bool)
+	result := []int{}
+	for _, v := range values {
+		if !seen[v] {
+			seen[v] = true
+			result = append(result, v)
+		}
+	}
+	return result
+}

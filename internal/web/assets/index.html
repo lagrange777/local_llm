@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Local — чат с вашей моделью</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="brand" href="/"><span class="brand-mark">L<span>·</span></span><span>Local<span class="brand-sub">Ваше пространство для идей</span></span></a>
+      <button id="new-chat" class="new-chat" type="button"><span>＋</span> Новый диалог</button>
+      <div class="sidebar-label">ДИАЛОГ</div>
+      <div class="current-chat"><span class="chat-icon">◌</span><span id="sidebar-title">Новый диалог</span><span id="turn-count" class="count">0</span></div>
+      <div class="settings">
+        <div class="sidebar-label">НАСТРОЙКИ</div>
+        <label class="think-setting" for="think"><span>Рассуждения</span><input id="think" type="checkbox"><span class="toggle" aria-hidden="true"></span></label>
+        <p>Более подробный анализ перед ответом. Может занять больше времени.</p>
+      </div>
+      <div class="sidebar-footer"><span class="local-icon">◎</span><div>Локальная модель<span>Без облачной генерации</span></div></div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div><div class="eyebrow">ЛОКАЛЬНЫЙ ЧАТ</div><h1 id="dialog-title">Новый диалог</h1></div>
+        <button id="connection" class="connection" type="button" title="Проверить состояние модели"><span id="status-dot" class="status-dot"></span><span id="model">Qwen3</span><span id="status-label">Проверка…</span></button>
+      </header>
+      <div id="notice" class="notice" role="alert" hidden></div>
+      <div id="messages" class="messages">
+        <section id="welcome" class="welcome">
+          <div class="hero-symbol">✳</div>
+          <div class="eyebrow">МЫСЛИ ПРЕВРАЩАЮТСЯ В ОТВЕТЫ</div>
+          <h2>Спросите свою модель.</h2>
+          <p>Разберитесь в сложном, проверьте расчёт<br>или начните с чистого листа.</p>
+          <div class="suggestions">
+            <button type="button" data-prompt="Назови столицу Франции. Ответь одним предложением по-русски."><span class="suggestion-icon">↗</span><strong>Узнать новое</strong><span>Задайте простой вопрос</span></button>
+            <button type="button" data-prompt="Покупатель берёт 3 товара по 1200 рублей. Скидка 15% на всю сумму. Сколько он заплатит? Покажи вычисление и итог."><span class="suggestion-icon">∑</span><strong>Проверить расчёт</strong><span>Покупка со скидкой</span></button>
+            <button type="button" data-prompt="Напиши на Go функцию Unique(values []int) []int: убери дубликаты, сохрани порядок. Используй map. Для [3, 1, 3, 2, 1] результат [3, 1, 2]. Только код функции."><span class="suggestion-icon">⌘</span><strong>Написать код</strong><span>Go-функция без дубликатов</span></button>
+          </div>
+        </section>
+        <div id="conversation"></div>
+        <div id="bottom-anchor"></div>
+      </div>
+      <div class="composer-wrap">
+        <form id="chat-form" class="composer">
+          <label for="prompt" class="sr-only">Сообщение</label>
+          <textarea id="prompt" rows="2" maxlength="4000" placeholder="Напишите сообщение…" required></textarea>
+          <div class="composer-bottom"><span id="composer-hint">Enter — отправить · Shift + Enter — новая строка</span><button id="stop" class="stop" type="button" hidden>■ Остановить</button><button id="send" class="send" type="submit" aria-label="Отправить сообщение">↑</button></div>
+        </form>
+        <div class="composer-foot"><span>История сохраняется в этом браузере</span><span>Ответы модели могут быть неточными</span></div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
