@@ -1,0 +1,13 @@
+.git
+.DS_Store
+.env
+.env.*
+!.env.example
+bin
+tmp
+data
+models
+.ollama
+artifacts
+*.log
+*.gguf
