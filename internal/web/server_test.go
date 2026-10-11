@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"local-llm-service/internal/ollama"
+	"local-llm-service/internal/rag"
 )
 
 func decodeEvents(t *testing.T, body io.Reader) []event {
@@ -162,6 +163,47 @@ func TestBusyAndBrowserCancellation(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	request, _ := http.NewRequestWithContext(ctx, "POST", app.URL+"/api/chat", strings.NewReader(`{"messages":[{"role":"user","content":"hello"}]}`))
+	res, err := http.DefaultClient.Do(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer res.Body.Close()
+	select {
+	case <-upstreamStarted:
+	case <-time.After(time.Second):
+		t.Fatal("upstream not reached")
+	}
+	second, err := http.Post(app.URL+"/api/chat", "application/json", strings.NewReader(`{"messages":[{"role":"user","content":"second"}]}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	second.Body.Close()
+	if second.StatusCode != 429 {
+		t.Fatalf("concurrent generation was accepted: %d", second.StatusCode)
+	}
+	cancel()
+	select {
+	case <-upstreamCanceled:
+	case <-time.After(time.Second):
+		t.Fatal("browser cancellation did not reach Ollama")
+	}
+}
+func TestRAGBusyAndBrowserCancellation(t *testing.T) {
+	upstreamStarted := make(chan struct{}, 2)
+	upstreamCanceled := make(chan struct{}, 2)
+	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var body any
+		json.NewDecoder(r.Body).Decode(&body)
+		upstreamStarted <- struct{}{}
+		<-r.Context().Done()
+		upstreamCanceled <- struct{}{}
+	}))
+	defer upstream.Close()
+	app := httptest.NewServer(New(ollama.Client{BaseURL: upstream.URL}, Config{Timeout: time.Second, Index: ragFixture(t), RAG: rag.DefaultConfig()}))
+	defer app.Close()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	request, _ := http.NewRequestWithContext(ctx, "POST", app.URL+"/api/chat", strings.NewReader(`{"messages":[{"role":"user","content":"История JSON временный файл"}],"rag":true}`))
 	res, err := http.DefaultClient.Do(request)
 	if err != nil {
 		t.Fatal(err)

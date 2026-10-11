@@ -1,0 +1,49 @@
+{
+  "created_at": "2026-10-11T19:13:18.170149+00:00",
+  "hardware": "Apple M1 Pro; Docker Desktop Linux ARM64 CPU inference",
+  "docker_memory_bytes": 8321515520,
+  "containers": {
+    "app": {
+      "image": "local-llm-web:local",
+      "image_id": "sha256:069a4bdeec7efc6e7b6b2f9e134182221b10c3ff36f04907529cc5f1bc97961b",
+      "networks": [
+        "local-llm_runtime"
+      ],
+      "health": "healthy",
+      "published_ports": {
+        "8080/tcp": null
+      }
+    },
+    "ollama": {
+      "image": "ollama/ollama:0.40.3@sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99",
+      "image_id": "sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99",
+      "networks": [
+        "local-llm_runtime"
+      ],
+      "health": "healthy",
+      "published_ports": {
+        "11434/tcp": null
+      }
+    },
+    "gateway": {
+      "image": "nginx:stable-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94",
+      "image_id": "sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94",
+      "networks": [
+        "local-llm_ingress",
+        "local-llm_runtime"
+      ],
+      "health": "healthy",
+      "published_ports": {
+        "8080/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "8081"
+          }
+        ]
+      }
+    }
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "source_index_unchanged": true,
+  "runtime_internal": true
+}

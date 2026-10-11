@@ -1,0 +1,8 @@
+[
+ {"id":"c01","query":"Где по умолчанию хранится файл истории?","source":"ARCHITECTURE.md","answerable":true},
+ {"id":"c02","query":"Как вызвать команду запоминания факта?","source":"MEMORY.md","answerable":true},
+ {"id":"c03","query":"Какие стратегии управления контекстом поддерживает приложение?","source":"ARCHITECTURE.md","answerable":true},
+ {"id":"c04","query":"Какие параметры содержит профиль персонализации?","source":"PERSONALIZATION.md","answerable":true},
+ {"id":"c05","query":"Как настроена репликация Kafka?","answerable":false},
+ {"id":"c06","query":"Как оплачивать подписку Stripe в этом проекте?","answerable":false}
+]
