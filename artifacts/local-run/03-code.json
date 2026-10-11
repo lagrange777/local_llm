@@ -1,0 +1,34 @@
+{
+  "test": {
+    "id": "03-code",
+    "difficulty": "complex",
+    "prompt": "Напиши на Go функцию Unique(values []int) []int, которая удаляет дубликаты и сохраняет порядок первого появления. Только функция в блоке go, без package и import. Для [3, 1, 3, 2, 1] результат [3, 1, 2]. Пустой или nil ввод должен давать пустой результат. Сложность O(n) в среднем; используй map для проверки встреченных чисел.",
+    "expected": "Корректная функция с map, сохранением порядка; тесты на дубликаты, отрицательные числа, nil и пустой срез проходят."
+  },
+  "request": {
+    "model": "qwen3:4b",
+    "prompt": "Напиши на Go функцию Unique(values []int) []int, которая удаляет дубликаты и сохраняет порядок первого появления. Только функция в блоке go, без package и import. Для [3, 1, 3, 2, 1] результат [3, 1, 2]. Пустой или nil ввод должен давать пустой результат. Сложность O(n) в среднем; используй map для проверки встреченных чисел.",
+    "stream": false,
+    "think": true,
+    "keep_alive": "30m",
+    "options": {
+      "temperature": 0.6,
+      "num_ctx": 4096,
+      "num_predict": 3072
+    }
+  },
+  "answer": {
+    "model": "qwen3:4b",
+    "created_at": "2026-10-11T15:51:15.419968Z",
+    "response": "func Unique(values []int) []int {\n    if values == nil {\n        return []int{}\n    }\n    seen := make(map[int]bool)\n    result := []int{}\n    for _, v := range values {\n        if !seen[v] {\n            seen[v] = true\n            result = append(result, v)\n        }\n    }\n    return result\n}",
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 66682585959,
+    "load_duration": 3469459,
+    "prompt_eval_count": 122,
+    "eval_count": 2697,
+    "eval_duration": 66349831999
+  },
+  "elapsed_seconds": 66.698379625,
+  "tokens_per_second": 40.64818129517868
+}

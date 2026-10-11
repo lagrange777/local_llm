@@ -1,0 +1,109 @@
+{
+  "base_url": "http://127.0.0.1:11434",
+  "model": "qwen3:4b",
+  "completed_at": "2026-10-11T15:51:15Z",
+  "results": [
+    {
+      "test": {
+        "id": "01-simple",
+        "difficulty": "simple",
+        "prompt": "Назови столицу Франции. Ответь одним предложением на русском языке.",
+        "expected": "Париж."
+      },
+      "request": {
+        "model": "qwen3:4b",
+        "prompt": "Назови столицу Франции. Ответь одним предложением на русском языке.",
+        "stream": false,
+        "think": true,
+        "keep_alive": "30m",
+        "options": {
+          "temperature": 0.6,
+          "num_ctx": 4096,
+          "num_predict": 3072
+        }
+      },
+      "answer": {
+        "model": "qwen3:4b",
+        "created_at": "2026-10-11T15:49:43.270511Z",
+        "response": "Столица Франции — Париж.",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 6296037542,
+        "load_duration": 7252250,
+        "prompt_eval_count": 36,
+        "eval_count": 260,
+        "eval_duration": 6098128000
+      },
+      "elapsed_seconds": 6.300199833,
+      "tokens_per_second": 42.63603518981563
+    },
+    {
+      "test": {
+        "id": "02-reasoning",
+        "difficulty": "medium",
+        "prompt": "Покупатель берёт 3 товара по 1200 рублей каждый. Скидка 15% применяется ко всей сумме. Сколько он заплатит? Покажи вычисление и итог.",
+        "expected": "3600 рублей до скидки; скидка 540 рублей; итог 3060 рублей."
+      },
+      "request": {
+        "model": "qwen3:4b",
+        "prompt": "Покупатель берёт 3 товара по 1200 рублей каждый. Скидка 15% применяется ко всей сумме. Сколько он заплатит? Покажи вычисление и итог.",
+        "stream": false,
+        "think": true,
+        "keep_alive": "30m",
+        "options": {
+          "temperature": 0.6,
+          "num_ctx": 4096,
+          "num_predict": 3072
+        }
+      },
+      "answer": {
+        "model": "qwen3:4b",
+        "created_at": "2026-10-11T15:50:08.733531Z",
+        "response": "Чтобы определить, сколько покупатель заплатит, выполним следующие шаги:\n\n1. **Вычислим общую стоимость товаров без скидки**:  \n   Каждый товар стоит 1200 рублей, а покупатель берет 3 товара.  \n   $$\n   1200 \\times 3 = 3600 \\text{ рублей}\n   $$\n\n2. **Найдем сумму скидки**:  \n   Скидка составляет 15% от общей суммы.  \n   $$\n   3600 \\times 0.15 = 540 \\text{ рублей}\n   $$\n\n3. **Вычислим итоговую сумму после скидки**:  \n   $$\n   3600 - 540 = 3060 \\text{ рублей}\n   $$\n\nИли можно рассчитать напрямую, учитывая, что покупатель платит 85% от общей суммы:  \n$$\n3600 \\times 0.85 = 3060 \\text{ рублей}\n$$\n\n**Итог**: Покупатель заплатит **3060 рублей**.\n\n$$\n\\boxed{3060}\n$$",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 25458688250,
+        "load_duration": 2453375,
+        "prompt_eval_count": 64,
+        "eval_count": 1064,
+        "eval_duration": 25296921000
+      },
+      "elapsed_seconds": 25.462633833,
+      "tokens_per_second": 42.06045470909286
+    },
+    {
+      "test": {
+        "id": "03-code",
+        "difficulty": "complex",
+        "prompt": "Напиши на Go функцию Unique(values []int) []int, которая удаляет дубликаты и сохраняет порядок первого появления. Только функция в блоке go, без package и import. Для [3, 1, 3, 2, 1] результат [3, 1, 2]. Пустой или nil ввод должен давать пустой результат. Сложность O(n) в среднем; используй map для проверки встреченных чисел.",
+        "expected": "Корректная функция с map, сохранением порядка; тесты на дубликаты, отрицательные числа, nil и пустой срез проходят."
+      },
+      "request": {
+        "model": "qwen3:4b",
+        "prompt": "Напиши на Go функцию Unique(values []int) []int, которая удаляет дубликаты и сохраняет порядок первого появления. Только функция в блоке go, без package и import. Для [3, 1, 3, 2, 1] результат [3, 1, 2]. Пустой или nil ввод должен давать пустой результат. Сложность O(n) в среднем; используй map для проверки встреченных чисел.",
+        "stream": false,
+        "think": true,
+        "keep_alive": "30m",
+        "options": {
+          "temperature": 0.6,
+          "num_ctx": 4096,
+          "num_predict": 3072
+        }
+      },
+      "answer": {
+        "model": "qwen3:4b",
+        "created_at": "2026-10-11T15:51:15.419968Z",
+        "response": "func Unique(values []int) []int {\n    if values == nil {\n        return []int{}\n    }\n    seen := make(map[int]bool)\n    result := []int{}\n    for _, v := range values {\n        if !seen[v] {\n            seen[v] = true\n            result = append(result, v)\n        }\n    }\n    return result\n}",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 66682585959,
+        "load_duration": 3469459,
+        "prompt_eval_count": 122,
+        "eval_count": 2697,
+        "eval_duration": 66349831999
+      },
+      "elapsed_seconds": 66.698379625,
+      "tokens_per_second": 40.64818129517868
+    }
+  ]
+}

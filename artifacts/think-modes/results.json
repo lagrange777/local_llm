@@ -1,0 +1,215 @@
+{
+  "base_url": "http://127.0.0.1:11434",
+  "model": "qwen3:8b",
+  "completed_at": "2026-10-11T16:33:41Z",
+  "results": [
+    {
+      "question": {
+        "id": "fact",
+        "prompt": "Назови столицу Франции. Ответь одним словом по-русски.",
+        "expected": "Париж"
+      },
+      "request": {
+        "model": "qwen3:8b",
+        "prompt": "Назови столицу Франции. Ответь одним словом по-русски.",
+        "stream": false,
+        "think": false,
+        "keep_alive": "30m",
+        "options": {
+          "seed": 42,
+          "temperature": 0,
+          "num_ctx": 4096,
+          "num_predict": 2048
+        }
+      },
+      "answer": {
+        "model": "qwen3:8b",
+        "created_at": "2026-10-11T16:32:46.60029Z",
+        "response": "Париж",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 526932125,
+        "load_duration": 36912750,
+        "prompt_eval_count": 38,
+        "eval_count": 4,
+        "eval_duration": 130945000
+      },
+      "elapsed_seconds": 0.550585666,
+      "passed": true
+    },
+    {
+      "question": {
+        "id": "fact",
+        "prompt": "Назови столицу Франции. Ответь одним словом по-русски.",
+        "expected": "Париж"
+      },
+      "request": {
+        "model": "qwen3:8b",
+        "prompt": "Назови столицу Франции. Ответь одним словом по-русски.",
+        "stream": false,
+        "think": true,
+        "keep_alive": "30m",
+        "options": {
+          "seed": 42,
+          "temperature": 0,
+          "num_ctx": 4096,
+          "num_predict": 2048
+        }
+      },
+      "answer": {
+        "thinking": "Хорошо, пользователь спрашивает столицу Франции на русском языке, требуя ответ одним словом. Нужно вспомнить, как называется столица Франции. Это Париж. Проверю, нет ли других возможных вариантов. Нет, Париж — официальное название. Убедиться, что ответ на русском языке. Париж на русском пишется так же. Нужно ли добавлять что-то еще? Нет, просто слово. Проверю, нет ли ошибок в написании. Все верно. Ответ готов.\n",
+        "model": "qwen3:8b",
+        "created_at": "2026-10-11T16:32:53.385457Z",
+        "response": "Париж",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 6782618416,
+        "load_duration": 4348916,
+        "prompt_eval_count": 32,
+        "eval_count": 156,
+        "eval_duration": 6648694000
+      },
+      "elapsed_seconds": 6.78567,
+      "passed": true
+    },
+    {
+      "question": {
+        "id": "math",
+        "prompt": "Сколько будет 17 * 23? Ответь только целым числом.",
+        "expected": "391"
+      },
+      "request": {
+        "model": "qwen3:8b",
+        "prompt": "Сколько будет 17 * 23? Ответь только целым числом.",
+        "stream": false,
+        "think": false,
+        "keep_alive": "30m",
+        "options": {
+          "seed": 42,
+          "temperature": 0,
+          "num_ctx": 4096,
+          "num_predict": 2048
+        }
+      },
+      "answer": {
+        "model": "qwen3:8b",
+        "created_at": "2026-10-11T16:32:53.786868Z",
+        "response": "391",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 398119250,
+        "load_duration": 2512833,
+        "prompt_eval_count": 37,
+        "eval_count": 4,
+        "eval_duration": 129190000
+      },
+      "elapsed_seconds": 0.399337625,
+      "passed": true
+    },
+    {
+      "question": {
+        "id": "math",
+        "prompt": "Сколько будет 17 * 23? Ответь только целым числом.",
+        "expected": "391"
+      },
+      "request": {
+        "model": "qwen3:8b",
+        "prompt": "Сколько будет 17 * 23? Ответь только целым числом.",
+        "stream": false,
+        "think": true,
+        "keep_alive": "30m",
+        "options": {
+          "seed": 42,
+          "temperature": 0,
+          "num_ctx": 4096,
+          "num_predict": 2048
+        }
+      },
+      "answer": {
+        "thinking": "Okay, let's see. I need to calculate 17 multiplied by 23. Hmm, I remember that multiplying two numbers can sometimes be done using different methods, like the standard algorithm or maybe breaking them down into easier parts. Let me think about how to approach this.\n\nFirst, maybe I can use the distributive property. So, 17 times 23. Let me break down 23 into 20 and 3. That might make it easier. So, 17 times 20 plus 17 times 3. Let me calculate each part separately.\n\n17 times 20. Well, 17 times 2 is 34, so 17 times 20 would be 34 times 10, which is 340. Okay, that seems right. Then 17 times 3. Let me do that: 10 times 3 is 30, and 7 times 3 is 21, so 30 plus 21 is 51. So adding those two results together: 340 plus 51. Let me add those. 340 plus 50 is 390, and then plus 1 more is 391. So, is the answer 391?\n\nWait, let me check that again to make sure I didn't make a mistake. Maybe I can use another method to verify. Let's try the standard multiplication algorithm.\n\nMultiplying 17 by 23:\n\nFirst, multiply 17 by 3. That's 51, as before. Then multiply 17 by 20 (since the 2 is in the tens place, so it's actually 2 times 10). 17 times 2 is 34, and then we add a zero because it's the tens place, making it 340. Then add 51 and 340. 340 + 51 is indeed 391. Okay, that matches my previous result.\n\nAlternatively, maybe I can use the formula (a + b)(a - b) = a² - b², but I don't know if that applies here. Let me see. If I can express 17 and 23 as something like (a + b) and (a - b). Let me think. The average of 17 and 23 is (17 + 23)/2 = 40/2 = 20. So, 20 is the middle point. Then 17 is 20 - 3, and 23 is 20 + 3. Oh, that works! So, using the difference of squares formula: (20 - 3)(20 + 3) = 20² - 3² = 400 - 9 = 391. Wow, that's a neat way to do it. So that confirms the answer again is 391.\n\nJust to be absolutely sure, maybe I can do it step by step again. Let's write it out:\n\n   17\nx 23\n-------\n   51  (17 x 3)\n+340   (17 x 20, shifted one position to the left)\n-------\n  391\n\nYes, adding 51 and 340 gives 391. All methods point to the same answer. I think that's solid. I don't see any mistakes in my calculations. So, the final answer should be 391.\n",
+        "model": "qwen3:8b",
+        "created_at": "2026-10-11T16:33:27.584897Z",
+        "response": "391",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 33795470875,
+        "load_duration": 3097416,
+        "prompt_eval_count": 31,
+        "eval_count": 776,
+        "eval_duration": 33662357000
+      },
+      "elapsed_seconds": 33.805066958,
+      "passed": true
+    },
+    {
+      "question": {
+        "id": "explanation",
+        "prompt": "Объясни по-русски, что такое RAG: опиши поиск информации во внешних источниках и генерацию ответа на её основе. Не более двух предложений.",
+        "expected": "Объяснение поиска внешней информации и генерации ответа на её основе."
+      },
+      "request": {
+        "model": "qwen3:8b",
+        "prompt": "Объясни по-русски, что такое RAG: опиши поиск информации во внешних источниках и генерацию ответа на её основе. Не более двух предложений.",
+        "stream": false,
+        "think": false,
+        "keep_alive": "30m",
+        "options": {
+          "seed": 42,
+          "temperature": 0,
+          "num_ctx": 4096,
+          "num_predict": 2048
+        }
+      },
+      "answer": {
+        "model": "qwen3:8b",
+        "created_at": "2026-10-11T16:33:30.68442Z",
+        "response": "RAG — это подход, при котором система ищет информацию в внешних источниках и использует её для генерации точного и актуального ответа на запрос. Он позволяет модели отвечать на вопросы, основываясь на данных из надежных источников, а не только на предобученных данных.",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 3089416375,
+        "load_duration": 5166291,
+        "prompt_eval_count": 58,
+        "eval_count": 71,
+        "eval_duration": 3028478000
+      },
+      "elapsed_seconds": 3.091253541,
+      "passed": true
+    },
+    {
+      "question": {
+        "id": "explanation",
+        "prompt": "Объясни по-русски, что такое RAG: опиши поиск информации во внешних источниках и генерацию ответа на её основе. Не более двух предложений.",
+        "expected": "Объяснение поиска внешней информации и генерации ответа на её основе."
+      },
+      "request": {
+        "model": "qwen3:8b",
+        "prompt": "Объясни по-русски, что такое RAG: опиши поиск информации во внешних источниках и генерацию ответа на её основе. Не более двух предложений.",
+        "stream": false,
+        "think": true,
+        "keep_alive": "30m",
+        "options": {
+          "seed": 42,
+          "temperature": 0,
+          "num_ctx": 4096,
+          "num_predict": 2048
+        }
+      },
+      "answer": {
+        "thinking": "Хорошо, пользователь попросил объяснить, что такое RAG на русском, с акцентом на поиск информации во внешних источниках и генерацию ответа. Нужно уложиться в два предложения. Сначала определю RAG как подход, который использует внешние данные. Затем объясню процесс: сначала система ищет информацию, а потом генерирует ответ на основе найденных данных. Проверю, чтобы было понятно и кратко. Возможно, стоит упомянуть, что это помогает в ответах на сложные вопросы. Убедиться, что термины переведены правильно и нет ошибок.\n",
+        "model": "qwen3:8b",
+        "created_at": "2026-10-11T16:33:41.166306Z",
+        "response": "RAG (Retrieval-Augmented Generation) — это подход, при котором модель сначала ищет информацию в внешних источниках, а затем генерирует ответ на основе найденных данных, чтобы обеспечить точность и актуальность. Система комбинирует поиск и генерацию, чтобы предоставлять более надежные и информативные ответы.",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 10479795875,
+        "load_duration": 5138416,
+        "prompt_eval_count": 52,
+        "eval_count": 243,
+        "eval_duration": 10343155000
+      },
+      "elapsed_seconds": 10.494906459,
+      "passed": true
+    }
+  ],
+  "failure_count": 0
+}

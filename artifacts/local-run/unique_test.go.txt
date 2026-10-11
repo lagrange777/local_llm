@@ -1,0 +1,28 @@
+package generated
+
+import (
+    "reflect"
+    "testing"
+)
+
+func TestUnique(t *testing.T) {
+    cases := []struct {
+        name string
+        input []int
+        want []int
+    }{
+        {"example", []int{3, 1, 3, 2, 1}, []int{3, 1, 2}},
+        {"nil", nil, []int{}},
+        {"empty", []int{}, []int{}},
+        {"duplicates", []int{7, 7, 7}, []int{7}},
+        {"negative and zero", []int{-2, 0, -2, 1, 0}, []int{-2, 0, 1}},
+        {"already unique", []int{4, 2, 9}, []int{4, 2, 9}},
+    }
+    for _, tc := range cases {
+        t.Run(tc.name, func(t *testing.T) {
+            if got := Unique(tc.input); !reflect.DeepEqual(got, tc.want) {
+                t.Fatalf("Unique(%v) = %v; want %v", tc.input, got, tc.want)
+            }
+        })
+    }
+}

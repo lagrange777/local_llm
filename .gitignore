@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+/bin/
+/tmp/
+/data/
+/models/
+/.ollama/
+*.log
+*.gguf

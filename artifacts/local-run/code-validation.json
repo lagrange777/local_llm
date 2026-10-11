@@ -1,0 +1,13 @@
+{
+  "command": [
+    "go",
+    "test",
+    "-v",
+    "./..."
+  ],
+  "scope": "Generated Unique function, six cases",
+  "exit_code": 0,
+  "stdout": "=== RUN   TestUnique\n=== RUN   TestUnique/example\n=== RUN   TestUnique/nil\n=== RUN   TestUnique/empty\n=== RUN   TestUnique/duplicates\n=== RUN   TestUnique/negative_and_zero\n=== RUN   TestUnique/already_unique\n--- PASS: TestUnique (0.00s)\n    --- PASS: TestUnique/example (0.00s)\n    --- PASS: TestUnique/nil (0.00s)\n    --- PASS: TestUnique/empty (0.00s)\n    --- PASS: TestUnique/duplicates (0.00s)\n    --- PASS: TestUnique/negative_and_zero (0.00s)\n    --- PASS: TestUnique/already_unique (0.00s)\nPASS\nok  \tgenerated-unique\t0.786s\n",
+  "stderr": "",
+  "notes": "The answer contained a plain function rather than the requested fenced Go block; code extracted without edits."
+}
