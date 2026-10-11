@@ -1,0 +1,2292 @@
+{
+  "base_url": "http://127.0.0.1:8081",
+  "completed_at": "2026-10-11T17:23:05.808334+00:00",
+  "results": [
+    {
+      "id": "01-fact",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Назови столицу Франции. Ответь одним словом по-русски."
+          }
+        ],
+        "think": false
+      },
+      "expected": "Париж",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 1
+        },
+        {
+          "type": "delta",
+          "text": "П"
+        },
+        {
+          "type": "delta",
+          "text": "ари"
+        },
+        {
+          "type": "delta",
+          "text": "ж"
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 23.76614051,
+          "tokens": 4
+        }
+      ],
+      "answer": "Париж",
+      "thinking": "",
+      "elapsed_seconds": 23.778357,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "02-math",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Покупатель берёт 3 товара по 1200 рублей. Скидка 15% на всю сумму. Сколько он заплатит? Покажи вычисление и итог."
+          }
+        ],
+        "think": false
+      },
+      "expected": "3060",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 1
+        },
+        {
+          "type": "delta",
+          "text": "С"
+        },
+        {
+          "type": "delta",
+          "text": "нач"
+        },
+        {
+          "type": "delta",
+          "text": "ала"
+        },
+        {
+          "type": "delta",
+          "text": " по"
+        },
+        {
+          "type": "delta",
+          "text": "с"
+        },
+        {
+          "type": "delta",
+          "text": "чит"
+        },
+        {
+          "type": "delta",
+          "text": "аем"
+        },
+        {
+          "type": "delta",
+          "text": " общ"
+        },
+        {
+          "type": "delta",
+          "text": "ую"
+        },
+        {
+          "type": "delta",
+          "text": " стоимость"
+        },
+        {
+          "type": "delta",
+          "text": " тр"
+        },
+        {
+          "type": "delta",
+          "text": "ё"
+        },
+        {
+          "type": "delta",
+          "text": "х"
+        },
+        {
+          "type": "delta",
+          "text": " товаров"
+        },
+        {
+          "type": "delta",
+          "text": ":\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "times"
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "1"
+        },
+        {
+          "type": "delta",
+          "text": "2"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": "6"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "text"
+        },
+        {
+          "type": "delta",
+          "text": "{"
+        },
+        {
+          "type": "delta",
+          "text": " рублей"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "Т"
+        },
+        {
+          "type": "delta",
+          "text": "еп"
+        },
+        {
+          "type": "delta",
+          "text": "ерь"
+        },
+        {
+          "type": "delta",
+          "text": " по"
+        },
+        {
+          "type": "delta",
+          "text": "с"
+        },
+        {
+          "type": "delta",
+          "text": "чит"
+        },
+        {
+          "type": "delta",
+          "text": "аем"
+        },
+        {
+          "type": "delta",
+          "text": " с"
+        },
+        {
+          "type": "delta",
+          "text": "ки"
+        },
+        {
+          "type": "delta",
+          "text": "д"
+        },
+        {
+          "type": "delta",
+          "text": "ку"
+        },
+        {
+          "type": "delta",
+          "text": " в"
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "1"
+        },
+        {
+          "type": "delta",
+          "text": "5"
+        },
+        {
+          "type": "delta",
+          "text": "%"
+        },
+        {
+          "type": "delta",
+          "text": " от"
+        },
+        {
+          "type": "delta",
+          "text": " об"
+        },
+        {
+          "type": "delta",
+          "text": "щей"
+        },
+        {
+          "type": "delta",
+          "text": " сум"
+        },
+        {
+          "type": "delta",
+          "text": "мы"
+        },
+        {
+          "type": "delta",
+          "text": ":\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": "6"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "times"
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "."
+        },
+        {
+          "type": "delta",
+          "text": "1"
+        },
+        {
+          "type": "delta",
+          "text": "5"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "5"
+        },
+        {
+          "type": "delta",
+          "text": "4"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "text"
+        },
+        {
+          "type": "delta",
+          "text": "{"
+        },
+        {
+          "type": "delta",
+          "text": " рублей"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "Т"
+        },
+        {
+          "type": "delta",
+          "text": "еп"
+        },
+        {
+          "type": "delta",
+          "text": "ерь"
+        },
+        {
+          "type": "delta",
+          "text": " вы"
+        },
+        {
+          "type": "delta",
+          "text": "ч"
+        },
+        {
+          "type": "delta",
+          "text": "тем"
+        },
+        {
+          "type": "delta",
+          "text": " с"
+        },
+        {
+          "type": "delta",
+          "text": "ки"
+        },
+        {
+          "type": "delta",
+          "text": "д"
+        },
+        {
+          "type": "delta",
+          "text": "ку"
+        },
+        {
+          "type": "delta",
+          "text": " из"
+        },
+        {
+          "type": "delta",
+          "text": " об"
+        },
+        {
+          "type": "delta",
+          "text": "щей"
+        },
+        {
+          "type": "delta",
+          "text": " сум"
+        },
+        {
+          "type": "delta",
+          "text": "мы"
+        },
+        {
+          "type": "delta",
+          "text": ":\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": "6"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " -"
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "5"
+        },
+        {
+          "type": "delta",
+          "text": "4"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "6"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "text"
+        },
+        {
+          "type": "delta",
+          "text": "{"
+        },
+        {
+          "type": "delta",
+          "text": " рублей"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "**"
+        },
+        {
+          "type": "delta",
+          "text": "И"
+        },
+        {
+          "type": "delta",
+          "text": "т"
+        },
+        {
+          "type": "delta",
+          "text": "ог"
+        },
+        {
+          "type": "delta",
+          "text": ":**"
+        },
+        {
+          "type": "delta",
+          "text": " П"
+        },
+        {
+          "type": "delta",
+          "text": "ок"
+        },
+        {
+          "type": "delta",
+          "text": "уп"
+        },
+        {
+          "type": "delta",
+          "text": "атель"
+        },
+        {
+          "type": "delta",
+          "text": " зап"
+        },
+        {
+          "type": "delta",
+          "text": "лат"
+        },
+        {
+          "type": "delta",
+          "text": "ит"
+        },
+        {
+          "type": "delta",
+          "text": " **"
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "6"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " рублей"
+        },
+        {
+          "type": "delta",
+          "text": "**"
+        },
+        {
+          "type": "delta",
+          "text": "."
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 37.831094393,
+          "tokens": 146
+        }
+      ],
+      "answer": "Сначала посчитаем общую стоимость трёх товаров:\n\n$$\n3 \\times 1200 = 3600 \\text{ рублей}\n$$\n\nТеперь посчитаем скидку в 15% от общей суммы:\n\n$$\n3600 \\times 0.15 = 540 \\text{ рублей}\n$$\n\nТеперь вычтем скидку из общей суммы:\n\n$$\n3600 - 540 = 3060 \\text{ рублей}\n$$\n\n**Итог:** Покупатель заплатит **3060 рублей**.",
+      "thinking": "",
+      "elapsed_seconds": 37.836532584000004,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "03-history",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Покупатель берёт 3 товара по 1200 рублей. Скидка 15% на всю сумму. Сколько он заплатит? Покажи вычисление и итог."
+          },
+          {
+            "role": "assistant",
+            "content": "Сначала посчитаем общую стоимость трёх товаров:\n\n$$\n3 \\times 1200 = 3600 \\text{ рублей}\n$$\n\nТеперь посчитаем скидку в 15% от общей суммы:\n\n$$\n3600 \\times 0.15 = 540 \\text{ рублей}\n$$\n\nТеперь вычтем скидку из общей суммы:\n\n$$\n3600 - 540 = 3060 \\text{ рублей}\n$$\n\n**Итог:** Покупатель заплатит **3060 рублей**."
+          },
+          {
+            "role": "user",
+            "content": "А если скидка 20%? Покажи обновлённый расчёт и итог."
+          }
+        ],
+        "think": false
+      },
+      "expected": "2880",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 3
+        },
+        {
+          "type": "delta",
+          "text": "С"
+        },
+        {
+          "type": "delta",
+          "text": "нач"
+        },
+        {
+          "type": "delta",
+          "text": "ала"
+        },
+        {
+          "type": "delta",
+          "text": " по"
+        },
+        {
+          "type": "delta",
+          "text": "с"
+        },
+        {
+          "type": "delta",
+          "text": "чит"
+        },
+        {
+          "type": "delta",
+          "text": "аем"
+        },
+        {
+          "type": "delta",
+          "text": " общ"
+        },
+        {
+          "type": "delta",
+          "text": "ую"
+        },
+        {
+          "type": "delta",
+          "text": " стоимость"
+        },
+        {
+          "type": "delta",
+          "text": " тр"
+        },
+        {
+          "type": "delta",
+          "text": "ё"
+        },
+        {
+          "type": "delta",
+          "text": "х"
+        },
+        {
+          "type": "delta",
+          "text": " товаров"
+        },
+        {
+          "type": "delta",
+          "text": ":\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "times"
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "1"
+        },
+        {
+          "type": "delta",
+          "text": "2"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": "6"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "text"
+        },
+        {
+          "type": "delta",
+          "text": "{"
+        },
+        {
+          "type": "delta",
+          "text": " рублей"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "Т"
+        },
+        {
+          "type": "delta",
+          "text": "еп"
+        },
+        {
+          "type": "delta",
+          "text": "ерь"
+        },
+        {
+          "type": "delta",
+          "text": " по"
+        },
+        {
+          "type": "delta",
+          "text": "с"
+        },
+        {
+          "type": "delta",
+          "text": "чит"
+        },
+        {
+          "type": "delta",
+          "text": "аем"
+        },
+        {
+          "type": "delta",
+          "text": " с"
+        },
+        {
+          "type": "delta",
+          "text": "ки"
+        },
+        {
+          "type": "delta",
+          "text": "д"
+        },
+        {
+          "type": "delta",
+          "text": "ку"
+        },
+        {
+          "type": "delta",
+          "text": " в"
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "2"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "%"
+        },
+        {
+          "type": "delta",
+          "text": " от"
+        },
+        {
+          "type": "delta",
+          "text": " об"
+        },
+        {
+          "type": "delta",
+          "text": "щей"
+        },
+        {
+          "type": "delta",
+          "text": " сум"
+        },
+        {
+          "type": "delta",
+          "text": "мы"
+        },
+        {
+          "type": "delta",
+          "text": ":\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": "6"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "times"
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "."
+        },
+        {
+          "type": "delta",
+          "text": "2"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "7"
+        },
+        {
+          "type": "delta",
+          "text": "2"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "text"
+        },
+        {
+          "type": "delta",
+          "text": "{"
+        },
+        {
+          "type": "delta",
+          "text": " рублей"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "Т"
+        },
+        {
+          "type": "delta",
+          "text": "еп"
+        },
+        {
+          "type": "delta",
+          "text": "ерь"
+        },
+        {
+          "type": "delta",
+          "text": " вы"
+        },
+        {
+          "type": "delta",
+          "text": "ч"
+        },
+        {
+          "type": "delta",
+          "text": "тем"
+        },
+        {
+          "type": "delta",
+          "text": " с"
+        },
+        {
+          "type": "delta",
+          "text": "ки"
+        },
+        {
+          "type": "delta",
+          "text": "д"
+        },
+        {
+          "type": "delta",
+          "text": "ку"
+        },
+        {
+          "type": "delta",
+          "text": " из"
+        },
+        {
+          "type": "delta",
+          "text": " об"
+        },
+        {
+          "type": "delta",
+          "text": "щей"
+        },
+        {
+          "type": "delta",
+          "text": " сум"
+        },
+        {
+          "type": "delta",
+          "text": "мы"
+        },
+        {
+          "type": "delta",
+          "text": ":\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "3"
+        },
+        {
+          "type": "delta",
+          "text": "6"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " -"
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "7"
+        },
+        {
+          "type": "delta",
+          "text": "2"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "2"
+        },
+        {
+          "type": "delta",
+          "text": "8"
+        },
+        {
+          "type": "delta",
+          "text": "8"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " \\"
+        },
+        {
+          "type": "delta",
+          "text": "text"
+        },
+        {
+          "type": "delta",
+          "text": "{"
+        },
+        {
+          "type": "delta",
+          "text": " рублей"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "$$"
+        },
+        {
+          "type": "delta",
+          "text": "\n\n"
+        },
+        {
+          "type": "delta",
+          "text": "**"
+        },
+        {
+          "type": "delta",
+          "text": "И"
+        },
+        {
+          "type": "delta",
+          "text": "т"
+        },
+        {
+          "type": "delta",
+          "text": "ог"
+        },
+        {
+          "type": "delta",
+          "text": ":**"
+        },
+        {
+          "type": "delta",
+          "text": " П"
+        },
+        {
+          "type": "delta",
+          "text": "ок"
+        },
+        {
+          "type": "delta",
+          "text": "уп"
+        },
+        {
+          "type": "delta",
+          "text": "атель"
+        },
+        {
+          "type": "delta",
+          "text": " зап"
+        },
+        {
+          "type": "delta",
+          "text": "лат"
+        },
+        {
+          "type": "delta",
+          "text": "ит"
+        },
+        {
+          "type": "delta",
+          "text": " **"
+        },
+        {
+          "type": "delta",
+          "text": "2"
+        },
+        {
+          "type": "delta",
+          "text": "8"
+        },
+        {
+          "type": "delta",
+          "text": "8"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " рублей"
+        },
+        {
+          "type": "delta",
+          "text": "**"
+        },
+        {
+          "type": "delta",
+          "text": "."
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 50.743601688,
+          "tokens": 146
+        }
+      ],
+      "answer": "Сначала посчитаем общую стоимость трёх товаров:\n\n$$\n3 \\times 1200 = 3600 \\text{ рублей}\n$$\n\nТеперь посчитаем скидку в 20% от общей суммы:\n\n$$\n3600 \\times 0.20 = 720 \\text{ рублей}\n$$\n\nТеперь вычтем скидку из общей суммы:\n\n$$\n3600 - 720 = 2880 \\text{ рублей}\n$$\n\n**Итог:** Покупатель заплатит **2880 рублей**.",
+      "thinking": "",
+      "elapsed_seconds": 50.74955891700001,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "04-code",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Напиши на Go только функцию Unique(values []int) []int, без package и import. Она удаляет дубликаты, сохраняет порядок первого появления, использует map и работает за O(n) в среднем. Для nil и пустого ввода длина результата 0. Для [3, 1, 3, 2, 1] результат [3, 1, 2]."
+          }
+        ],
+        "think": false
+      },
+      "expected": "Unique",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 1
+        },
+        {
+          "type": "delta",
+          "text": "func"
+        },
+        {
+          "type": "delta",
+          "text": " Unique"
+        },
+        {
+          "type": "delta",
+          "text": "(values"
+        },
+        {
+          "type": "delta",
+          "text": " []"
+        },
+        {
+          "type": "delta",
+          "text": "int"
+        },
+        {
+          "type": "delta",
+          "text": ")"
+        },
+        {
+          "type": "delta",
+          "text": " []"
+        },
+        {
+          "type": "delta",
+          "text": "int"
+        },
+        {
+          "type": "delta",
+          "text": " {\n"
+        },
+        {
+          "type": "delta",
+          "text": "\tif"
+        },
+        {
+          "type": "delta",
+          "text": " values"
+        },
+        {
+          "type": "delta",
+          "text": " =="
+        },
+        {
+          "type": "delta",
+          "text": " nil"
+        },
+        {
+          "type": "delta",
+          "text": " ||"
+        },
+        {
+          "type": "delta",
+          "text": " len"
+        },
+        {
+          "type": "delta",
+          "text": "(values"
+        },
+        {
+          "type": "delta",
+          "text": ")"
+        },
+        {
+          "type": "delta",
+          "text": " =="
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " {\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "\treturn"
+        },
+        {
+          "type": "delta",
+          "text": " []"
+        },
+        {
+          "type": "delta",
+          "text": "int"
+        },
+        {
+          "type": "delta",
+          "text": "{}\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "seen"
+        },
+        {
+          "type": "delta",
+          "text": " :="
+        },
+        {
+          "type": "delta",
+          "text": " make"
+        },
+        {
+          "type": "delta",
+          "text": "(map"
+        },
+        {
+          "type": "delta",
+          "text": "[int"
+        },
+        {
+          "type": "delta",
+          "text": "]bool"
+        },
+        {
+          "type": "delta",
+          "text": ")\n"
+        },
+        {
+          "type": "delta",
+          "text": "\tresult"
+        },
+        {
+          "type": "delta",
+          "text": " :="
+        },
+        {
+          "type": "delta",
+          "text": " []"
+        },
+        {
+          "type": "delta",
+          "text": "int"
+        },
+        {
+          "type": "delta",
+          "text": "{}\n"
+        },
+        {
+          "type": "delta",
+          "text": "\tfor"
+        },
+        {
+          "type": "delta",
+          "text": " _,"
+        },
+        {
+          "type": "delta",
+          "text": " v"
+        },
+        {
+          "type": "delta",
+          "text": " :="
+        },
+        {
+          "type": "delta",
+          "text": " range"
+        },
+        {
+          "type": "delta",
+          "text": " values"
+        },
+        {
+          "type": "delta",
+          "text": " {\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "\tif"
+        },
+        {
+          "type": "delta",
+          "text": " !"
+        },
+        {
+          "type": "delta",
+          "text": "seen"
+        },
+        {
+          "type": "delta",
+          "text": "[v"
+        },
+        {
+          "type": "delta",
+          "text": "]"
+        },
+        {
+          "type": "delta",
+          "text": " {\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t\t"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "seen"
+        },
+        {
+          "type": "delta",
+          "text": "[v"
+        },
+        {
+          "type": "delta",
+          "text": "]"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " true"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t\t"
+        },
+        {
+          "type": "delta",
+          "text": "\tresult"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " append"
+        },
+        {
+          "type": "delta",
+          "text": "(result"
+        },
+        {
+          "type": "delta",
+          "text": ","
+        },
+        {
+          "type": "delta",
+          "text": " v"
+        },
+        {
+          "type": "delta",
+          "text": ")\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "\treturn"
+        },
+        {
+          "type": "delta",
+          "text": " result"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "}"
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 27.211397179,
+          "tokens": 81
+        }
+      ],
+      "answer": "func Unique(values []int) []int {\n\tif values == nil || len(values) == 0 {\n\t\treturn []int{}\n\t}\n\tseen := make(map[int]bool)\n\tresult := []int{}\n\tfor _, v := range values {\n\t\tif !seen[v] {\n\t\t\tseen[v] = true\n\t\t\tresult = append(result, v)\n\t\t}\n\t}\n\treturn result\n}",
+      "thinking": "",
+      "elapsed_seconds": 27.217006709000003,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "05-think",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Сколько будет 2 + 2? Ответь только числом."
+          }
+        ],
+        "think": true
+      },
+      "expected": "4",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 1
+        },
+        {
+          "type": "thinking",
+          "text": "Okay"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " user"
+        },
+        {
+          "type": "thinking",
+          "text": " is"
+        },
+        {
+          "type": "thinking",
+          "text": " asking"
+        },
+        {
+          "type": "thinking",
+          "text": " \""
+        },
+        {
+          "type": "thinking",
+          "text": "С"
+        },
+        {
+          "type": "thinking",
+          "text": "к"
+        },
+        {
+          "type": "thinking",
+          "text": "олько"
+        },
+        {
+          "type": "thinking",
+          "text": " будет"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": " +"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": "?\""
+        },
+        {
+          "type": "thinking",
+          "text": " which"
+        },
+        {
+          "type": "thinking",
+          "text": " translates"
+        },
+        {
+          "type": "thinking",
+          "text": " to"
+        },
+        {
+          "type": "thinking",
+          "text": " \""
+        },
+        {
+          "type": "thinking",
+          "text": "What"
+        },
+        {
+          "type": "thinking",
+          "text": " is"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": " +"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": "?\""
+        },
+        {
+          "type": "thinking",
+          "text": " in"
+        },
+        {
+          "type": "thinking",
+          "text": " English"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " They"
+        },
+        {
+          "type": "thinking",
+          "text": " want"
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " answer"
+        },
+        {
+          "type": "thinking",
+          "text": " as"
+        },
+        {
+          "type": "thinking",
+          "text": " a"
+        },
+        {
+          "type": "thinking",
+          "text": " number"
+        },
+        {
+          "type": "thinking",
+          "text": " only"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " Let"
+        },
+        {
+          "type": "thinking",
+          "text": " me"
+        },
+        {
+          "type": "thinking",
+          "text": " make"
+        },
+        {
+          "type": "thinking",
+          "text": " sure"
+        },
+        {
+          "type": "thinking",
+          "text": " I"
+        },
+        {
+          "type": "thinking",
+          "text": " understand"
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " question"
+        },
+        {
+          "type": "thinking",
+          "text": " correctly"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " It"
+        },
+        {
+          "type": "thinking",
+          "text": "'s"
+        },
+        {
+          "type": "thinking",
+          "text": " a"
+        },
+        {
+          "type": "thinking",
+          "text": " simple"
+        },
+        {
+          "type": "thinking",
+          "text": " arithmetic"
+        },
+        {
+          "type": "thinking",
+          "text": " problem"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " so"
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " answer"
+        },
+        {
+          "type": "thinking",
+          "text": " should"
+        },
+        {
+          "type": "thinking",
+          "text": " be"
+        },
+        {
+          "type": "thinking",
+          "text": " straightforward"
+        },
+        {
+          "type": "thinking",
+          "text": ".\n\n"
+        },
+        {
+          "type": "thinking",
+          "text": "First"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " I"
+        },
+        {
+          "type": "thinking",
+          "text": "'ll"
+        },
+        {
+          "type": "thinking",
+          "text": " perform"
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " addition"
+        },
+        {
+          "type": "thinking",
+          "text": ":"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": " +"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " Adding"
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " two"
+        },
+        {
+          "type": "thinking",
+          "text": " numbers"
+        },
+        {
+          "type": "thinking",
+          "text": " together"
+        },
+        {
+          "type": "thinking",
+          "text": " gives"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "4"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " The"
+        },
+        {
+          "type": "thinking",
+          "text": " user"
+        },
+        {
+          "type": "thinking",
+          "text": " specified"
+        },
+        {
+          "type": "thinking",
+          "text": " to"
+        },
+        {
+          "type": "thinking",
+          "text": " answer"
+        },
+        {
+          "type": "thinking",
+          "text": " only"
+        },
+        {
+          "type": "thinking",
+          "text": " with"
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " number"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " so"
+        },
+        {
+          "type": "thinking",
+          "text": " I"
+        },
+        {
+          "type": "thinking",
+          "text": " shouldn"
+        },
+        {
+          "type": "thinking",
+          "text": "'t"
+        },
+        {
+          "type": "thinking",
+          "text": " include"
+        },
+        {
+          "type": "thinking",
+          "text": " any"
+        },
+        {
+          "type": "thinking",
+          "text": " extra"
+        },
+        {
+          "type": "thinking",
+          "text": " text"
+        },
+        {
+          "type": "thinking",
+          "text": " or"
+        },
+        {
+          "type": "thinking",
+          "text": " explanations"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " I"
+        },
+        {
+          "type": "thinking",
+          "text": " need"
+        },
+        {
+          "type": "thinking",
+          "text": " to"
+        },
+        {
+          "type": "thinking",
+          "text": " confirm"
+        },
+        {
+          "type": "thinking",
+          "text": " there"
+        },
+        {
+          "type": "thinking",
+          "text": "'s"
+        },
+        {
+          "type": "thinking",
+          "text": " no"
+        },
+        {
+          "type": "thinking",
+          "text": " trick"
+        },
+        {
+          "type": "thinking",
+          "text": " or"
+        },
+        {
+          "type": "thinking",
+          "text": " hidden"
+        },
+        {
+          "type": "thinking",
+          "text": " part"
+        },
+        {
+          "type": "thinking",
+          "text": " to"
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " question"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " Since"
+        },
+        {
+          "type": "thinking",
+          "text": " it"
+        },
+        {
+          "type": "thinking",
+          "text": "'s"
+        },
+        {
+          "type": "thinking",
+          "text": " a"
+        },
+        {
+          "type": "thinking",
+          "text": " direct"
+        },
+        {
+          "type": "thinking",
+          "text": " math"
+        },
+        {
+          "type": "thinking",
+          "text": " problem"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " answer"
+        },
+        {
+          "type": "thinking",
+          "text": " is"
+        },
+        {
+          "type": "thinking",
+          "text": " definitely"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "4"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " No"
+        },
+        {
+          "type": "thinking",
+          "text": " need"
+        },
+        {
+          "type": "thinking",
+          "text": " to"
+        },
+        {
+          "type": "thinking",
+          "text": " consider"
+        },
+        {
+          "type": "thinking",
+          "text": " other"
+        },
+        {
+          "type": "thinking",
+          "text": " interpretations"
+        },
+        {
+          "type": "thinking",
+          "text": " here"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " Just"
+        },
+        {
+          "type": "thinking",
+          "text": " provide"
+        },
+        {
+          "type": "thinking",
+          "text": " the"
+        },
+        {
+          "type": "thinking",
+          "text": " numerical"
+        },
+        {
+          "type": "thinking",
+          "text": " result"
+        },
+        {
+          "type": "thinking",
+          "text": " as"
+        },
+        {
+          "type": "thinking",
+          "text": " requested"
+        },
+        {
+          "type": "thinking",
+          "text": ".\n"
+        },
+        {
+          "type": "delta",
+          "text": "4"
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 45.622653938,
+          "tokens": 161
+        }
+      ],
+      "answer": "4",
+      "thinking": "Okay, the user is asking \"Сколько будет 2 + 2?\" which translates to \"What is 2 + 2?\" in English. They want the answer as a number only. Let me make sure I understand the question correctly. It's a simple arithmetic problem, so the answer should be straightforward.\n\nFirst, I'll perform the addition: 2 + 2. Adding the two numbers together gives 4. The user specified to answer only with the number, so I shouldn't include any extra text or explanations. I need to confirm there's no trick or hidden part to the question. Since it's a direct math problem, the answer is definitely 4. No need to consider other interpretations here. Just provide the numerical result as requested.\n",
+      "elapsed_seconds": 45.627705042,
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "code_validation": {
+    "passed": true,
+    "returncode": 0,
+    "stdout": "=== RUN   TestUnique\n--- PASS: TestUnique (0.00s)\nPASS\nok  \tgenerated\t0.891s\n",
+    "stderr": ""
+  },
+  "failure_count": 0
+}

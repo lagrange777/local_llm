@@ -1,0 +1,77 @@
+{
+  "captured_at": "2026-10-11T17:17:24.342430+00:00",
+  "status": {
+    "model": "qwen3:8b",
+    "ready": true,
+    "version": "0.40.3"
+  },
+  "containers": [
+    {
+      "name": "local-llm-app-1",
+      "image": "local-llm-web:local",
+      "state": "running",
+      "health": "healthy",
+      "networks": [
+        "local-llm_runtime"
+      ],
+      "no_cloud": false,
+      "ports": {
+        "8080/tcp": null
+      }
+    },
+    {
+      "name": "local-llm-ollama-1",
+      "image": "ollama/ollama:0.40.3@sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99",
+      "state": "running",
+      "health": "healthy",
+      "networks": [
+        "local-llm_runtime"
+      ],
+      "no_cloud": true,
+      "ports": {
+        "11434/tcp": null
+      }
+    },
+    {
+      "name": "local-llm-gateway-1",
+      "image": "nginx:stable-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94",
+      "state": "running",
+      "health": "healthy",
+      "networks": [
+        "local-llm_ingress",
+        "local-llm_runtime"
+      ],
+      "no_cloud": false,
+      "ports": {
+        "8080/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "8081"
+          }
+        ]
+      }
+    },
+    {
+      "name": "local-llm-model-init-1",
+      "image": "ollama/ollama:0.40.3@sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99",
+      "state": "exited",
+      "health": null,
+      "networks": [
+        "local-llm_bootstrap"
+      ],
+      "no_cloud": true,
+      "ports": {}
+    }
+  ],
+  "runtime_network": {
+    "name": "local-llm_runtime",
+    "internal": true
+  },
+  "outbound_tcp_probe": {
+    "target": "1.1.1.1:443",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "bash: connect: Network is unreachable\nbash: line 1: /dev/tcp/1.1.1.1/443: Network is unreachable\n"
+  },
+  "model_runtime": "NAME        ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL              \nqwen3:8b    b3d9ba7c899c    5.9 GB    100% CPU     4096       llamacpp    9 minutes from now    \n"
+}

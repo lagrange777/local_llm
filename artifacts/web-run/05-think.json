@@ -1,0 +1,655 @@
+{
+  "id": "05-think",
+  "request": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Сколько будет 2 + 2? Ответь только числом."
+      }
+    ],
+    "think": true
+  },
+  "expected": "4",
+  "events": [
+    {
+      "type": "start",
+      "model": "qwen3:8b",
+      "messages_used": 1
+    },
+    {
+      "type": "thinking",
+      "text": "Okay"
+    },
+    {
+      "type": "thinking",
+      "text": ","
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " user"
+    },
+    {
+      "type": "thinking",
+      "text": " is"
+    },
+    {
+      "type": "thinking",
+      "text": " asking"
+    },
+    {
+      "type": "thinking",
+      "text": " \""
+    },
+    {
+      "type": "thinking",
+      "text": "С"
+    },
+    {
+      "type": "thinking",
+      "text": "к"
+    },
+    {
+      "type": "thinking",
+      "text": "олько"
+    },
+    {
+      "type": "thinking",
+      "text": " будет"
+    },
+    {
+      "type": "thinking",
+      "text": " "
+    },
+    {
+      "type": "thinking",
+      "text": "2"
+    },
+    {
+      "type": "thinking",
+      "text": " +"
+    },
+    {
+      "type": "thinking",
+      "text": " "
+    },
+    {
+      "type": "thinking",
+      "text": "2"
+    },
+    {
+      "type": "thinking",
+      "text": "?\""
+    },
+    {
+      "type": "thinking",
+      "text": " which"
+    },
+    {
+      "type": "thinking",
+      "text": " translates"
+    },
+    {
+      "type": "thinking",
+      "text": " to"
+    },
+    {
+      "type": "thinking",
+      "text": " \""
+    },
+    {
+      "type": "thinking",
+      "text": "What"
+    },
+    {
+      "type": "thinking",
+      "text": " is"
+    },
+    {
+      "type": "thinking",
+      "text": " "
+    },
+    {
+      "type": "thinking",
+      "text": "2"
+    },
+    {
+      "type": "thinking",
+      "text": " +"
+    },
+    {
+      "type": "thinking",
+      "text": " "
+    },
+    {
+      "type": "thinking",
+      "text": "2"
+    },
+    {
+      "type": "thinking",
+      "text": "?\""
+    },
+    {
+      "type": "thinking",
+      "text": " in"
+    },
+    {
+      "type": "thinking",
+      "text": " English"
+    },
+    {
+      "type": "thinking",
+      "text": "."
+    },
+    {
+      "type": "thinking",
+      "text": " They"
+    },
+    {
+      "type": "thinking",
+      "text": " want"
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " answer"
+    },
+    {
+      "type": "thinking",
+      "text": " as"
+    },
+    {
+      "type": "thinking",
+      "text": " a"
+    },
+    {
+      "type": "thinking",
+      "text": " number"
+    },
+    {
+      "type": "thinking",
+      "text": " only"
+    },
+    {
+      "type": "thinking",
+      "text": "."
+    },
+    {
+      "type": "thinking",
+      "text": " Let"
+    },
+    {
+      "type": "thinking",
+      "text": " me"
+    },
+    {
+      "type": "thinking",
+      "text": " make"
+    },
+    {
+      "type": "thinking",
+      "text": " sure"
+    },
+    {
+      "type": "thinking",
+      "text": " I"
+    },
+    {
+      "type": "thinking",
+      "text": " understand"
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " question"
+    },
+    {
+      "type": "thinking",
+      "text": " correctly"
+    },
+    {
+      "type": "thinking",
+      "text": "."
+    },
+    {
+      "type": "thinking",
+      "text": " It"
+    },
+    {
+      "type": "thinking",
+      "text": "'s"
+    },
+    {
+      "type": "thinking",
+      "text": " a"
+    },
+    {
+      "type": "thinking",
+      "text": " simple"
+    },
+    {
+      "type": "thinking",
+      "text": " arithmetic"
+    },
+    {
+      "type": "thinking",
+      "text": " problem"
+    },
+    {
+      "type": "thinking",
+      "text": ","
+    },
+    {
+      "type": "thinking",
+      "text": " so"
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " answer"
+    },
+    {
+      "type": "thinking",
+      "text": " should"
+    },
+    {
+      "type": "thinking",
+      "text": " be"
+    },
+    {
+      "type": "thinking",
+      "text": " straightforward"
+    },
+    {
+      "type": "thinking",
+      "text": ".\n\n"
+    },
+    {
+      "type": "thinking",
+      "text": "First"
+    },
+    {
+      "type": "thinking",
+      "text": ","
+    },
+    {
+      "type": "thinking",
+      "text": " I"
+    },
+    {
+      "type": "thinking",
+      "text": "'ll"
+    },
+    {
+      "type": "thinking",
+      "text": " perform"
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " addition"
+    },
+    {
+      "type": "thinking",
+      "text": ":"
+    },
+    {
+      "type": "thinking",
+      "text": " "
+    },
+    {
+      "type": "thinking",
+      "text": "2"
+    },
+    {
+      "type": "thinking",
+      "text": " +"
+    },
+    {
+      "type": "thinking",
+      "text": " "
+    },
+    {
+      "type": "thinking",
+      "text": "2"
+    },
+    {
+      "type": "thinking",
+      "text": "."
+    },
+    {
+      "type": "thinking",
+      "text": " Adding"
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " two"
+    },
+    {
+      "type": "thinking",
+      "text": " numbers"
+    },
+    {
+      "type": "thinking",
+      "text": " together"
+    },
+    {
+      "type": "thinking",
+      "text": " gives"
+    },
+    {
+      "type": "thinking",
+      "text": " "
+    },
+    {
+      "type": "thinking",
+      "text": "4"
+    },
+    {
+      "type": "thinking",
+      "text": "."
+    },
+    {
+      "type": "thinking",
+      "text": " The"
+    },
+    {
+      "type": "thinking",
+      "text": " user"
+    },
+    {
+      "type": "thinking",
+      "text": " specified"
+    },
+    {
+      "type": "thinking",
+      "text": " to"
+    },
+    {
+      "type": "thinking",
+      "text": " answer"
+    },
+    {
+      "type": "thinking",
+      "text": " only"
+    },
+    {
+      "type": "thinking",
+      "text": " with"
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " number"
+    },
+    {
+      "type": "thinking",
+      "text": ","
+    },
+    {
+      "type": "thinking",
+      "text": " so"
+    },
+    {
+      "type": "thinking",
+      "text": " I"
+    },
+    {
+      "type": "thinking",
+      "text": " shouldn"
+    },
+    {
+      "type": "thinking",
+      "text": "'t"
+    },
+    {
+      "type": "thinking",
+      "text": " include"
+    },
+    {
+      "type": "thinking",
+      "text": " any"
+    },
+    {
+      "type": "thinking",
+      "text": " extra"
+    },
+    {
+      "type": "thinking",
+      "text": " text"
+    },
+    {
+      "type": "thinking",
+      "text": " or"
+    },
+    {
+      "type": "thinking",
+      "text": " explanations"
+    },
+    {
+      "type": "thinking",
+      "text": "."
+    },
+    {
+      "type": "thinking",
+      "text": " I"
+    },
+    {
+      "type": "thinking",
+      "text": " need"
+    },
+    {
+      "type": "thinking",
+      "text": " to"
+    },
+    {
+      "type": "thinking",
+      "text": " confirm"
+    },
+    {
+      "type": "thinking",
+      "text": " there"
+    },
+    {
+      "type": "thinking",
+      "text": "'s"
+    },
+    {
+      "type": "thinking",
+      "text": " no"
+    },
+    {
+      "type": "thinking",
+      "text": " trick"
+    },
+    {
+      "type": "thinking",
+      "text": " or"
+    },
+    {
+      "type": "thinking",
+      "text": " hidden"
+    },
+    {
+      "type": "thinking",
+      "text": " part"
+    },
+    {
+      "type": "thinking",
+      "text": " to"
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " question"
+    },
+    {
+      "type": "thinking",
+      "text": "."
+    },
+    {
+      "type": "thinking",
+      "text": " Since"
+    },
+    {
+      "type": "thinking",
+      "text": " it"
+    },
+    {
+      "type": "thinking",
+      "text": "'s"
+    },
+    {
+      "type": "thinking",
+      "text": " a"
+    },
+    {
+      "type": "thinking",
+      "text": " direct"
+    },
+    {
+      "type": "thinking",
+      "text": " math"
+    },
+    {
+      "type": "thinking",
+      "text": " problem"
+    },
+    {
+      "type": "thinking",
+      "text": ","
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " answer"
+    },
+    {
+      "type": "thinking",
+      "text": " is"
+    },
+    {
+      "type": "thinking",
+      "text": " definitely"
+    },
+    {
+      "type": "thinking",
+      "text": " "
+    },
+    {
+      "type": "thinking",
+      "text": "4"
+    },
+    {
+      "type": "thinking",
+      "text": "."
+    },
+    {
+      "type": "thinking",
+      "text": " No"
+    },
+    {
+      "type": "thinking",
+      "text": " need"
+    },
+    {
+      "type": "thinking",
+      "text": " to"
+    },
+    {
+      "type": "thinking",
+      "text": " consider"
+    },
+    {
+      "type": "thinking",
+      "text": " other"
+    },
+    {
+      "type": "thinking",
+      "text": " interpretations"
+    },
+    {
+      "type": "thinking",
+      "text": " here"
+    },
+    {
+      "type": "thinking",
+      "text": "."
+    },
+    {
+      "type": "thinking",
+      "text": " Just"
+    },
+    {
+      "type": "thinking",
+      "text": " provide"
+    },
+    {
+      "type": "thinking",
+      "text": " the"
+    },
+    {
+      "type": "thinking",
+      "text": " numerical"
+    },
+    {
+      "type": "thinking",
+      "text": " result"
+    },
+    {
+      "type": "thinking",
+      "text": " as"
+    },
+    {
+      "type": "thinking",
+      "text": " requested"
+    },
+    {
+      "type": "thinking",
+      "text": ".\n"
+    },
+    {
+      "type": "delta",
+      "text": "4"
+    },
+    {
+      "type": "done",
+      "model": "qwen3:8b",
+      "seconds": 45.622653938,
+      "tokens": 161
+    }
+  ],
+  "answer": "4",
+  "thinking": "Okay, the user is asking \"Сколько будет 2 + 2?\" which translates to \"What is 2 + 2?\" in English. They want the answer as a number only. Let me make sure I understand the question correctly. It's a simple arithmetic problem, so the answer should be straightforward.\n\nFirst, I'll perform the addition: 2 + 2. Adding the two numbers together gives 4. The user specified to answer only with the number, so I shouldn't include any extra text or explanations. I need to confirm there's no trick or hidden part to the question. Since it's a direct math problem, the answer is definitely 4. No need to consider other interpretations here. Just provide the numerical result as requested.\n",
+  "elapsed_seconds": 45.627705042,
+  "passed": true,
+  "failures": []
+}

@@ -1,0 +1,1184 @@
+{
+  "base_url": "http://127.0.0.1:8081",
+  "completed_at": "2026-10-11T17:12:53.106382+00:00",
+  "results": [
+    {
+      "id": "01-fact",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Назови столицу Франции. Ответь одним словом по-русски."
+          }
+        ],
+        "think": false
+      },
+      "expected": "Париж",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 1
+        },
+        {
+          "type": "delta",
+          "text": "П"
+        },
+        {
+          "type": "delta",
+          "text": "ари"
+        },
+        {
+          "type": "delta",
+          "text": "ж"
+        },
+        {
+          "type": "delta",
+          "text": "."
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 34.993198808,
+          "tokens": 5
+        }
+      ],
+      "answer": "Париж.",
+      "thinking": "",
+      "elapsed_seconds": 35.006387542,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "02-math",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Покупатель берёт 3 товара по 1200 рублей. Скидка 15% на всю сумму. Сколько он заплатит? Ответь только итоговой суммой в рублях."
+          }
+        ],
+        "think": false
+      },
+      "expected": "3060",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 1
+        },
+        {
+          "type": "delta",
+          "text": "1"
+        },
+        {
+          "type": "delta",
+          "text": "7"
+        },
+        {
+          "type": "delta",
+          "text": "1"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 5.371637878,
+          "tokens": 5
+        }
+      ],
+      "answer": "1710",
+      "thinking": "",
+      "elapsed_seconds": 5.374489124999997,
+      "passed": false,
+      "failures": [
+        "expected answer missing"
+      ]
+    },
+    {
+      "id": "03-history",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Покупатель берёт 3 товара по 1200 рублей. Скидка 15% на всю сумму. Сколько он заплатит? Ответь только итоговой суммой в рублях."
+          },
+          {
+            "role": "assistant",
+            "content": "1710"
+          },
+          {
+            "role": "user",
+            "content": "А если скидка 20%? Ответь только новой итоговой суммой в рублях."
+          }
+        ],
+        "think": false
+      },
+      "expected": "2880",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 3
+        },
+        {
+          "type": "delta",
+          "text": "1"
+        },
+        {
+          "type": "delta",
+          "text": "4"
+        },
+        {
+          "type": "delta",
+          "text": "4"
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 4.245277002,
+          "tokens": 5
+        }
+      ],
+      "answer": "1440",
+      "thinking": "",
+      "elapsed_seconds": 4.250761707999999,
+      "passed": false,
+      "failures": [
+        "expected answer missing"
+      ]
+    },
+    {
+      "id": "04-code",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Напиши на Go только функцию Unique(values []int) []int, без package и import. Она удаляет дубликаты, сохраняет порядок первого появления, использует map и работает за O(n) в среднем. Для nil и пустого ввода длина результата 0. Для [3, 1, 3, 2, 1] результат [3, 1, 2]."
+          }
+        ],
+        "think": false
+      },
+      "expected": "Unique",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 1
+        },
+        {
+          "type": "delta",
+          "text": "```"
+        },
+        {
+          "type": "delta",
+          "text": "go"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "func"
+        },
+        {
+          "type": "delta",
+          "text": " Unique"
+        },
+        {
+          "type": "delta",
+          "text": "(values"
+        },
+        {
+          "type": "delta",
+          "text": " []"
+        },
+        {
+          "type": "delta",
+          "text": "int"
+        },
+        {
+          "type": "delta",
+          "text": ")"
+        },
+        {
+          "type": "delta",
+          "text": " []"
+        },
+        {
+          "type": "delta",
+          "text": "int"
+        },
+        {
+          "type": "delta",
+          "text": " {\n"
+        },
+        {
+          "type": "delta",
+          "text": "\tif"
+        },
+        {
+          "type": "delta",
+          "text": " len"
+        },
+        {
+          "type": "delta",
+          "text": "(values"
+        },
+        {
+          "type": "delta",
+          "text": ")"
+        },
+        {
+          "type": "delta",
+          "text": " =="
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": " {\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "\treturn"
+        },
+        {
+          "type": "delta",
+          "text": " []"
+        },
+        {
+          "type": "delta",
+          "text": "int"
+        },
+        {
+          "type": "delta",
+          "text": "{}\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "seen"
+        },
+        {
+          "type": "delta",
+          "text": " :="
+        },
+        {
+          "type": "delta",
+          "text": " make"
+        },
+        {
+          "type": "delta",
+          "text": "(map"
+        },
+        {
+          "type": "delta",
+          "text": "[int"
+        },
+        {
+          "type": "delta",
+          "text": "]bool"
+        },
+        {
+          "type": "delta",
+          "text": ")\n"
+        },
+        {
+          "type": "delta",
+          "text": "\tresult"
+        },
+        {
+          "type": "delta",
+          "text": " :="
+        },
+        {
+          "type": "delta",
+          "text": " make"
+        },
+        {
+          "type": "delta",
+          "text": "([]"
+        },
+        {
+          "type": "delta",
+          "text": "int"
+        },
+        {
+          "type": "delta",
+          "text": ","
+        },
+        {
+          "type": "delta",
+          "text": " "
+        },
+        {
+          "type": "delta",
+          "text": "0"
+        },
+        {
+          "type": "delta",
+          "text": ","
+        },
+        {
+          "type": "delta",
+          "text": " len"
+        },
+        {
+          "type": "delta",
+          "text": "(values"
+        },
+        {
+          "type": "delta",
+          "text": "))\n"
+        },
+        {
+          "type": "delta",
+          "text": "\tfor"
+        },
+        {
+          "type": "delta",
+          "text": " _,"
+        },
+        {
+          "type": "delta",
+          "text": " v"
+        },
+        {
+          "type": "delta",
+          "text": " :="
+        },
+        {
+          "type": "delta",
+          "text": " range"
+        },
+        {
+          "type": "delta",
+          "text": " values"
+        },
+        {
+          "type": "delta",
+          "text": " {\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "\tif"
+        },
+        {
+          "type": "delta",
+          "text": " !"
+        },
+        {
+          "type": "delta",
+          "text": "seen"
+        },
+        {
+          "type": "delta",
+          "text": "[v"
+        },
+        {
+          "type": "delta",
+          "text": "]"
+        },
+        {
+          "type": "delta",
+          "text": " {\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t\t"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "seen"
+        },
+        {
+          "type": "delta",
+          "text": "[v"
+        },
+        {
+          "type": "delta",
+          "text": "]"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " true"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t\t"
+        },
+        {
+          "type": "delta",
+          "text": "\tresult"
+        },
+        {
+          "type": "delta",
+          "text": " ="
+        },
+        {
+          "type": "delta",
+          "text": " append"
+        },
+        {
+          "type": "delta",
+          "text": "(result"
+        },
+        {
+          "type": "delta",
+          "text": ","
+        },
+        {
+          "type": "delta",
+          "text": " v"
+        },
+        {
+          "type": "delta",
+          "text": ")\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "\t"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "\treturn"
+        },
+        {
+          "type": "delta",
+          "text": " result"
+        },
+        {
+          "type": "delta",
+          "text": "\n"
+        },
+        {
+          "type": "delta",
+          "text": "}\n"
+        },
+        {
+          "type": "delta",
+          "text": "```"
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 29.327255097,
+          "tokens": 88
+        }
+      ],
+      "answer": "```go\nfunc Unique(values []int) []int {\n\tif len(values) == 0 {\n\t\treturn []int{}\n\t}\n\tseen := make(map[int]bool)\n\tresult := make([]int, 0, len(values))\n\tfor _, v := range values {\n\t\tif !seen[v] {\n\t\t\tseen[v] = true\n\t\t\tresult = append(result, v)\n\t\t}\n\t}\n\treturn result\n}\n```",
+      "thinking": "",
+      "elapsed_seconds": 29.330555583,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "id": "05-think",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Сколько будет 2 + 2? Ответь только числом."
+          }
+        ],
+        "think": true
+      },
+      "expected": "4",
+      "events": [
+        {
+          "type": "start",
+          "model": "qwen3:8b",
+          "messages_used": 1
+        },
+        {
+          "type": "thinking",
+          "text": "Х"
+        },
+        {
+          "type": "thinking",
+          "text": "оро"
+        },
+        {
+          "type": "thinking",
+          "text": "ш"
+        },
+        {
+          "type": "thinking",
+          "text": "о"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " пользоват"
+        },
+        {
+          "type": "thinking",
+          "text": "ель"
+        },
+        {
+          "type": "thinking",
+          "text": " сп"
+        },
+        {
+          "type": "thinking",
+          "text": "ра"
+        },
+        {
+          "type": "thinking",
+          "text": "ш"
+        },
+        {
+          "type": "thinking",
+          "text": "ивает"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " ск"
+        },
+        {
+          "type": "thinking",
+          "text": "олько"
+        },
+        {
+          "type": "thinking",
+          "text": " будет"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": " +"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " и"
+        },
+        {
+          "type": "thinking",
+          "text": " прос"
+        },
+        {
+          "type": "thinking",
+          "text": "ит"
+        },
+        {
+          "type": "thinking",
+          "text": " ответ"
+        },
+        {
+          "type": "thinking",
+          "text": "ить"
+        },
+        {
+          "type": "thinking",
+          "text": " только"
+        },
+        {
+          "type": "thinking",
+          "text": " чис"
+        },
+        {
+          "type": "thinking",
+          "text": "лом"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " Н"
+        },
+        {
+          "type": "thinking",
+          "text": "уж"
+        },
+        {
+          "type": "thinking",
+          "text": "но"
+        },
+        {
+          "type": "thinking",
+          "text": " у"
+        },
+        {
+          "type": "thinking",
+          "text": "бед"
+        },
+        {
+          "type": "thinking",
+          "text": "иться"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " что"
+        },
+        {
+          "type": "thinking",
+          "text": " я"
+        },
+        {
+          "type": "thinking",
+          "text": " правильно"
+        },
+        {
+          "type": "thinking",
+          "text": " пон"
+        },
+        {
+          "type": "thinking",
+          "text": "я"
+        },
+        {
+          "type": "thinking",
+          "text": "л"
+        },
+        {
+          "type": "thinking",
+          "text": " зад"
+        },
+        {
+          "type": "thinking",
+          "text": "ание"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " В"
+        },
+        {
+          "type": "thinking",
+          "text": " пред"
+        },
+        {
+          "type": "thinking",
+          "text": "ы"
+        },
+        {
+          "type": "thinking",
+          "text": "д"
+        },
+        {
+          "type": "thinking",
+          "text": "ущ"
+        },
+        {
+          "type": "thinking",
+          "text": "их"
+        },
+        {
+          "type": "thinking",
+          "text": " сообщ"
+        },
+        {
+          "type": "thinking",
+          "text": "ения"
+        },
+        {
+          "type": "thinking",
+          "text": "х"
+        },
+        {
+          "type": "thinking",
+          "text": " не"
+        },
+        {
+          "type": "thinking",
+          "text": " было"
+        },
+        {
+          "type": "thinking",
+          "text": " конт"
+        },
+        {
+          "type": "thinking",
+          "text": "ек"
+        },
+        {
+          "type": "thinking",
+          "text": "ста"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " который"
+        },
+        {
+          "type": "thinking",
+          "text": " бы"
+        },
+        {
+          "type": "thinking",
+          "text": " влия"
+        },
+        {
+          "type": "thinking",
+          "text": "л"
+        },
+        {
+          "type": "thinking",
+          "text": " на"
+        },
+        {
+          "type": "thinking",
+          "text": " этот"
+        },
+        {
+          "type": "thinking",
+          "text": " вопрос"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " Пр"
+        },
+        {
+          "type": "thinking",
+          "text": "ост"
+        },
+        {
+          "type": "thinking",
+          "text": "о"
+        },
+        {
+          "type": "thinking",
+          "text": " а"
+        },
+        {
+          "type": "thinking",
+          "text": "ри"
+        },
+        {
+          "type": "thinking",
+          "text": "ф"
+        },
+        {
+          "type": "thinking",
+          "text": "мет"
+        },
+        {
+          "type": "thinking",
+          "text": "ическая"
+        },
+        {
+          "type": "thinking",
+          "text": " опер"
+        },
+        {
+          "type": "thinking",
+          "text": "ация"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": " п"
+        },
+        {
+          "type": "thinking",
+          "text": "лю"
+        },
+        {
+          "type": "thinking",
+          "text": "с"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "2"
+        },
+        {
+          "type": "thinking",
+          "text": " равно"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "4"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " П"
+        },
+        {
+          "type": "thinking",
+          "text": "ользоват"
+        },
+        {
+          "type": "thinking",
+          "text": "ель"
+        },
+        {
+          "type": "thinking",
+          "text": " хочет"
+        },
+        {
+          "type": "thinking",
+          "text": " только"
+        },
+        {
+          "type": "thinking",
+          "text": " число"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " значит"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " нужно"
+        },
+        {
+          "type": "thinking",
+          "text": " ответ"
+        },
+        {
+          "type": "thinking",
+          "text": "ить"
+        },
+        {
+          "type": "thinking",
+          "text": " циф"
+        },
+        {
+          "type": "thinking",
+          "text": "р"
+        },
+        {
+          "type": "thinking",
+          "text": "ой"
+        },
+        {
+          "type": "thinking",
+          "text": " "
+        },
+        {
+          "type": "thinking",
+          "text": "4"
+        },
+        {
+          "type": "thinking",
+          "text": " без"
+        },
+        {
+          "type": "thinking",
+          "text": " как"
+        },
+        {
+          "type": "thinking",
+          "text": "их"
+        },
+        {
+          "type": "thinking",
+          "text": "-"
+        },
+        {
+          "type": "thinking",
+          "text": "либо"
+        },
+        {
+          "type": "thinking",
+          "text": " по"
+        },
+        {
+          "type": "thinking",
+          "text": "ясн"
+        },
+        {
+          "type": "thinking",
+          "text": "ений"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " П"
+        },
+        {
+          "type": "thinking",
+          "text": "ровер"
+        },
+        {
+          "type": "thinking",
+          "text": "я"
+        },
+        {
+          "type": "thinking",
+          "text": "ю"
+        },
+        {
+          "type": "thinking",
+          "text": ","
+        },
+        {
+          "type": "thinking",
+          "text": " нет"
+        },
+        {
+          "type": "thinking",
+          "text": " ли"
+        },
+        {
+          "type": "thinking",
+          "text": " возмож"
+        },
+        {
+          "type": "thinking",
+          "text": "ных"
+        },
+        {
+          "type": "thinking",
+          "text": " ошиб"
+        },
+        {
+          "type": "thinking",
+          "text": "ок"
+        },
+        {
+          "type": "thinking",
+          "text": " или"
+        },
+        {
+          "type": "thinking",
+          "text": " под"
+        },
+        {
+          "type": "thinking",
+          "text": "во"
+        },
+        {
+          "type": "thinking",
+          "text": "х"
+        },
+        {
+          "type": "thinking",
+          "text": "ов"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " В"
+        },
+        {
+          "type": "thinking",
+          "text": "род"
+        },
+        {
+          "type": "thinking",
+          "text": "е"
+        },
+        {
+          "type": "thinking",
+          "text": " всё"
+        },
+        {
+          "type": "thinking",
+          "text": " просто"
+        },
+        {
+          "type": "thinking",
+          "text": "."
+        },
+        {
+          "type": "thinking",
+          "text": " От"
+        },
+        {
+          "type": "thinking",
+          "text": "в"
+        },
+        {
+          "type": "thinking",
+          "text": "еча"
+        },
+        {
+          "type": "thinking",
+          "text": "ю"
+        },
+        {
+          "type": "thinking",
+          "text": " чет"
+        },
+        {
+          "type": "thinking",
+          "text": "ко"
+        },
+        {
+          "type": "thinking",
+          "text": " и"
+        },
+        {
+          "type": "thinking",
+          "text": " кор"
+        },
+        {
+          "type": "thinking",
+          "text": "от"
+        },
+        {
+          "type": "thinking",
+          "text": "ко"
+        },
+        {
+          "type": "thinking",
+          "text": ".\n"
+        },
+        {
+          "type": "delta",
+          "text": "4"
+        },
+        {
+          "type": "done",
+          "model": "qwen3:8b",
+          "seconds": 57.758177734,
+          "tokens": 157
+        }
+      ],
+      "answer": "4",
+      "thinking": "Хорошо, пользователь спрашивает, сколько будет 2 + 2, и просит ответить только числом. Нужно убедиться, что я правильно понял задание. В предыдущих сообщениях не было контекста, который бы влиял на этот вопрос. Просто арифметическая операция. 2 плюс 2 равно 4. Пользователь хочет только число, значит, нужно ответить цифрой 4 без каких-либо пояснений. Проверяю, нет ли возможных ошибок или подвохов. Вроде всё просто. Отвечаю четко и коротко.\n",
+      "elapsed_seconds": 57.76631033300001,
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "code_validation": {
+    "passed": true,
+    "returncode": 0,
+    "stdout": "=== RUN   TestUnique\n--- PASS: TestUnique (0.00s)\nPASS\nok  \tgenerated\t0.854s\n",
+    "stderr": ""
+  },
+  "failure_count": 2
+}
