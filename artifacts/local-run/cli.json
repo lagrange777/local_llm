@@ -1,0 +1,13 @@
+{
+  "command": [
+    "ollama",
+    "run",
+    "qwen3:4b",
+    "--think=true",
+    "--hidethinking",
+    "Назови столицу Франции. Ответь одним предложением на русском языке."
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 42.947,
+  "response": "Столица Франции — Париж."
+}
