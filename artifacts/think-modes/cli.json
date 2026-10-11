@@ -1,0 +1,40 @@
+[
+  {
+    "command": [
+      "ollama",
+      "run",
+      "qwen3:8b",
+      "--think=false",
+      "--verbose",
+      "--keepalive",
+      "30m",
+      "Сколько будет 2 + 2? Ответь только числом."
+    ],
+    "returncode": 0,
+    "elapsed_seconds": 0.30894174999999996,
+    "stdout": "4\n\n",
+    "stderr": "⠙ ⠹ total duration:       267.42325ms\nload duration:        3.233875ms\nprompt eval count:    33 token(s)\nprompt eval cached:   3 token(s)\nprompt eval duration: 214.831ms\nprompt eval rate:     139.64 tokens/s\neval count:           2 token(s)\neval duration:        46.764ms\neval rate:            42.77 tokens/s\n",
+    "eval_count": 2,
+    "thinking_visible": false,
+    "passed": true
+  },
+  {
+    "command": [
+      "ollama",
+      "run",
+      "qwen3:8b",
+      "--think=true",
+      "--verbose",
+      "--keepalive",
+      "30m",
+      "Сколько будет 2 + 2? Ответь только числом."
+    ],
+    "returncode": 0,
+    "elapsed_seconds": 10.705351541999999,
+    "stdout": "Thinking...\nOkay, let's see. The user is asking \"Сколько будет 2 + 2?\" which translates\u001b[10D\u001b[K\ntranslates to \"What is 2 + 2?\" in English. They want the answer as a number\u001b[6D\u001b[K\nnumber only.\n\nFirst, I need to confirm the basic arithmetic here. 2 plus 2 is a simple ad\u001b[2D\u001b[K\naddition problem. Adding the two numbers together: 2 + 2 equals 4. That's s\u001b[1D\u001b[K\nstraightforward. \n\nWait, but maybe they're testing if I know the correct answer or if there's \u001b[K\na trick here. Sometimes people might think of different ways to add, like i\u001b[1D\u001b[K\nin different number bases. For example, in base 3, 2 + 2 would be 11, but t\u001b[1D\u001b[K\nthe question doesn't specify a different base. Since no context is given, i\u001b[1D\u001b[K\nit's safe to assume it's in base 10.\n\nAlso, the user specified to answer only with the number, so I shouldn't inc\u001b[3D\u001b[K\ninclude any text or explanations. Just the numerical result. Let me double-\u001b[7D\u001b[K\ndouble-check to make sure there's no mistake. Yes, 2 + 2 is definitely 4 in\u001b[2D\u001b[K\nin decimal. No other interpretations are necessary here. Alright, the answe\u001b[5D\u001b[K\nanswer should be 4.\n...done thinking.\n\n4\n\n",
+    "stderr": "⠙ total duration:       10.675331875s\nload duration:        2.114875ms\nprompt eval count:    27 token(s)\nprompt eval cached:   21 token(s)\nprompt eval duration: 127.741ms\nprompt eval rate:     46.97 tokens/s\neval count:           247 token(s)\neval duration:        10.54383s\neval rate:            23.43 tokens/s\n",
+    "eval_count": 247,
+    "thinking_visible": true,
+    "passed": true
+  }
+]

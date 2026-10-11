@@ -28,16 +28,17 @@ type result struct {
 
 func main() {
 	baseURL := flag.String("url", env("OLLAMA_BASE_URL", "http://127.0.0.1:11434"), "Ollama HTTP address")
-	model := flag.String("model", env("OLLAMA_MODEL", "qwen3:4b"), "local model")
-	output := flag.String("output", "artifacts/local-run", "directory for actual responses")
+	model := flag.String("model", env("OLLAMA_MODEL", "qwen3:8b"), "local model")
+	output := flag.String("output", "artifacts/verification", "directory for actual responses")
 	timeout := flag.Duration("timeout", 3*time.Minute, "timeout per request")
+	think := flag.Bool("think", false, "enable model reasoning")
 	flag.Parse()
-	if err := run(*baseURL, *model, *output, *timeout); err != nil {
+	if err := run(*baseURL, *model, *output, *timeout, *think); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }
-func run(baseURL, model, output string, timeout time.Duration) error {
+func run(baseURL, model, output string, timeout time.Duration, think bool) error {
 	if err := os.MkdirAll(output, 0755); err != nil {
 		return err
 	}
@@ -49,7 +50,7 @@ func run(baseURL, model, output string, timeout time.Duration) error {
 	results := make([]result, 0, len(cases))
 	client := ollama.Client{BaseURL: baseURL}
 	for _, tc := range cases {
-		request := ollama.Request{Model: model, Prompt: tc.Prompt, Think: true, KeepAlive: "30m", Options: ollama.Options{Temperature: 0.6, NumCtx: 4096, NumPredict: 3072}}
+		request := ollama.Request{Model: model, Prompt: tc.Prompt, Think: think, KeepAlive: "30m", Options: ollama.Options{Temperature: 0.6, NumCtx: 4096, NumPredict: 3072}}
 		fmt.Printf("Running %s (%s)...\n", tc.ID, tc.Difficulty)
 		ctx, cancel := context.WithTimeout(context.Background(), timeout)
 		started := time.Now()

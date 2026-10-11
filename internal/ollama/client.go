@@ -25,12 +25,14 @@ type Request struct {
 }
 
 type Options struct {
+	Seed        int     `json:"seed,omitempty"`
 	Temperature float64 `json:"temperature"`
 	NumCtx      int     `json:"num_ctx"`
 	NumPredict  int     `json:"num_predict"`
 }
 
 type Response struct {
+	Thinking        string `json:"thinking,omitempty"`
 	Model           string `json:"model"`
 	CreatedAt       string `json:"created_at"`
 	Response        string `json:"response"`
