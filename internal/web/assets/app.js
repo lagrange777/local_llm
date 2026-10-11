@@ -183,5 +183,4 @@ $("new-chat").addEventListener("click",()=>{
 });
 $("think").addEventListener("change",save);
 $("connection").addEventListener("click",refresh);
-document.querySelectorAll("[data-prompt]").forEach(button=>button.addEventListener("click",()=>{$("prompt").value=button.dataset.prompt; $("prompt").focus();}));
 restore(); turns.forEach(renderTurn); titles(); busy(false); refresh(); scrollDown();
