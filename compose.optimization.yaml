@@ -1,0 +1,13 @@
+services:
+  optimization-init:
+    image: ollama/ollama:0.40.3@sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99
+    entrypoint: ["/bin/sh", "/scripts/prepare-optimization.sh"]
+    environment:
+      OLLAMA_HOST: "127.0.0.1:11434"
+      OLLAMA_MODELS: /models
+      OLLAMA_NO_CLOUD: "1"
+    volumes:
+      - models:/models
+      - ./scripts/prepare-optimization.sh:/scripts/prepare-optimization.sh:ro
+    networks: [bootstrap]
+    restart: "no"

@@ -1,0 +1,1072 @@
+{
+  "reviewer": "Codex assistant: inspected saved answer text and displayed quotations; deterministic exact-quote check; not an independent human audit",
+  "questions": {
+    "q01": {
+      "baseline": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная замена названы и прямо содержатся в цитате.",
+          "run_sha256": "1c5c606cdfbe07afb4cc0055eba0915a047fc1579b6d1c934f777b776ef6c8ac"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная замена названы и прямо содержатся в цитате.",
+          "run_sha256": "ed079c1f497ad1027b6051fb7eb9e91ececa931fefd855d3f30188300b07127a"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная замена названы и прямо содержатся в цитате.",
+          "run_sha256": "f4efabc556264666479e43f7561088f2aa410aac7b6100e9981b9a5e42420687"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Атомарная замена верна и подтверждена. Временный файл находится только в цитате, а не в утверждении.",
+          "run_sha256": "d07f1575d02f81232e0f017e6419d9a39850892f94f36b094fa02cc15dd18e0c"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Атомарная замена верна и подтверждена. Временный файл находится только в цитате, а не в утверждении.",
+          "run_sha256": "f1085d736fb93759504e5d826195e27281322cf5ee8913f3dcfa80f97ac99ffa"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Атомарная замена верна и подтверждена. Временный файл находится только в цитате, а не в утверждении.",
+          "run_sha256": "6630822f74d4cd6bbb7be310ffb65afbc3abb99fb7c48127fb75e7059689a477"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная операция названы, но добавлена неподтверждённая гарантия согласованности между контейнерами от именованного тома. Том сам по себе не гарантирует согласованные записи.",
+          "run_sha256": "e5db6777a50746f38844d35c725e4bf8ff3459e7b47e2bc9deb03fb6990d4092"
+        },
+        "2": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная операция названы, но добавлена неподтверждённая гарантия согласованности между контейнерами от именованного тома. Том сам по себе не гарантирует согласованные записи.",
+          "run_sha256": "9d82d0ba97218c5ce0880584239ef9e80b9d87900e1f53b86f7627285d450d1e"
+        },
+        "3": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная операция названы, но добавлена неподтверждённая гарантия согласованности между контейнерами от именованного тома. Том сам по себе не гарантирует согласованные записи.",
+          "run_sha256": "da86ca845c02aeb099a8482fcb49fcc894032197e1a3dcf4f09cb200045f95c9"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная операция названы, но добавлены ложные причинные гарантии: удаление ревизии другого хранилища и один процесс не обеспечивают целостность JSON при аварии. Цитата S1 не доказывает однопроцессную гарантию.",
+          "run_sha256": "bd8571d7f0711c6cad0b7e8c99ef363588c2960d2892eaeb0d04ca33bb274e04"
+        },
+        "2": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная операция названы, но добавлены ложные причинные гарантии: удаление ревизии другого хранилища и один процесс не обеспечивают целостность JSON при аварии. Цитата S1 не доказывает однопроцессную гарантию.",
+          "run_sha256": "acec70228b430723ad6eab37caf41ce63f17c9657b0827b2ab3a4cb82ff1c02a"
+        },
+        "3": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная операция названы, но добавлены ложные причинные гарантии: удаление ревизии другого хранилища и один процесс не обеспечивают целостность JSON при аварии. Цитата S1 не доказывает однопроцессную гарантию.",
+          "run_sha256": "5479b3ddc188249d64a18d1b5cc7c28bf51fe497a9283586d9738cb0b1b003f1"
+        }
+      }
+    },
+    "q02": {
+      "baseline": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен и подтверждён. Сохранение истории на диске есть только в цитате, а не в утверждении ответа.",
+          "run_sha256": "e1e9bd2de659a5a04349629d898fbba1da72cdf5637c594d14725174b13e0377"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен и подтверждён. Сохранение истории на диске есть только в цитате, а не в утверждении ответа.",
+          "run_sha256": "f161d77cf9233988b12a240f7095fbdb6474c1530d54391bb3dccda945f020c1"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен и подтверждён. Сохранение истории на диске есть только в цитате, а не в утверждении ответа.",
+          "run_sha256": "b78762dc84adec2d75d72a65f23ec3a47587a2886f4bcb7fadb15cc3396d8eaf"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен. История на диске упомянута только в цитате.",
+          "run_sha256": "df961c481770dfe3670259dbc0c39426657e3cdb5fc0331125040807a8552cfb"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен. История на диске упомянута только в цитате.",
+          "run_sha256": "01fa68655c1745e374140df49ab742d6efb05b4a5d27d794c1f200bf34e0150d"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен. История на диске упомянута только в цитате.",
+          "run_sha256": "ec9b21761ca6d99424d2aa5c4f17e715263615c6cc4945827c6701b0bb4f462a"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен и подтверждён; сохранение истории на диске есть только в цитате.",
+          "run_sha256": "0d324715b7cd1df49b26c10c71f07f18353d5ef3b5dbb7087fb03d07ac304143"
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "2d853fed8e292875be597e21115a73435b7b414578a80bef4c86a45fc711857f"
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "79fb9224d8247e0f85434f9bbd81ad342b1515680369b09a4058cfcdf5c02fcd"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен и подтверждён. Сохранение истории на диске есть только в цитате.",
+          "run_sha256": "c9270c4b0a78d514023edcf1b5427aa5407aad9f3d0d71c8e0ec4256d3efac78"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен и подтверждён. Сохранение истории на диске есть только в цитате.",
+          "run_sha256": "5f17d83269cdff84ed58f9b3ad856d53f30f822c2f064347e1f27261b2412c4a"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Срок 12 часов верен и подтверждён. Сохранение истории на диске есть только в цитате.",
+          "run_sha256": "d0e1768cd6a07942eb26724b831de07cb49794a7f625443e6345cde7544ff4ac"
+        }
+      }
+    },
+    "q03": {
+      "baseline": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Точный лимит 1 МиБ прямо подтверждён строкой источника.",
+          "run_sha256": "a4a8ae36dc2f88c9cbea152c07da258511b0568dbf40b4fa84ef867cd0d3395c"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Точный лимит 1 МиБ прямо подтверждён строкой источника.",
+          "run_sha256": "f89d6dda8e2b4ff1f22a409c566c268cbff379ce6ff51fa6b03f604232993cab"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Точный лимит 1 МиБ прямо подтверждён строкой источника.",
+          "run_sha256": "ca051f9479f2c78b4a4ac9853e9d6583edb96f717bafa059b9c9314ac3812234"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Лимит 1 МиБ прямо подтверждён цитатой.",
+          "run_sha256": "59c92ce52652fe391d26451fc6517f2e594d59b37bb3a76102ce6507204f0a86"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Лимит 1 МиБ прямо подтверждён цитатой.",
+          "run_sha256": "b00be8d777a67b529a7637d9cc45973b4c252748ad01ed3c2b8f470f7b145e80"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Лимит 1 МиБ прямо подтверждён цитатой.",
+          "run_sha256": "5014a894f8714e068dd9dd73c6ed8b3f743a8ef104b19f863647aacda1a9e3ed"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Точный лимит 1 МиБ подтверждён строкой источника.",
+          "run_sha256": "42e58f8a04e2847207f4c659c2d9e0dd266201ae983b3ac09c45b186b9c3c8f5"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Точный лимит 1 МиБ подтверждён строкой источника.",
+          "run_sha256": "d6799da272213893aaff43b7e26812a6308e0c13f94749a079d7caf98b714391"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Точный лимит 1 МиБ подтверждён строкой источника.",
+          "run_sha256": "448a5fce3f2480cfb36782663b963418110527da9294ba4c0ff60e5287cc53f7"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Точный лимит 1 МиБ прямо подтверждён строкой источника.",
+          "run_sha256": "73082167cf0b61c9df6e62b48fde37deda392880d03876ee0ac48f0dab722865"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Точный лимит 1 МиБ прямо подтверждён строкой источника.",
+          "run_sha256": "1c65c254e77d4076b696dd023aed4296272b52c61547b54894446c10a0f75ec0"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Точный лимит 1 МиБ прямо подтверждён строкой источника.",
+          "run_sha256": "129f8e06645bf6128781a9b3c3c5868f9bd4693439ac2723f30276eac5390f51"
+        }
+      }
+    },
+    "q04": {
+      "baseline": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "f149f526c677b413b0c8b383bf5ae70a904cc9fb7e658c4f43af311ec6622db4"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Причина о скрытой серверной цепочке верна, но окно выбранных сообщений не объяснено. Цитата начинается после строки с отрицанием перед previous_response_id.",
+          "run_sha256": "50e8bac29563c8e59503e99a77311e1918484f53e6beca3511c34ad123284d83"
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "8555591db2e6e8d3bd312d2a54de63ae9ad2aa6c9328dc86954747bb85eef83e"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Поведение с последними N сообщениями верно, но причина о возврате отброшенной истории в утверждении пропущена. Цитата S1 обрезана перед строкой, доказывающей последние N; S3 содержит правильное отрицание.",
+          "run_sha256": "8b98f5dcb7fb236a35b5800ee79c6ddd40ec723a18701e6a0c1ff6f9c3919a10"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Поведение с последними N сообщениями верно, но причина о возврате отброшенной истории в утверждении пропущена. Цитата S1 обрезана перед строкой, доказывающей последние N; S3 содержит правильное отрицание.",
+          "run_sha256": "941e5fdee7826f5f108edf11b35b85f423d5eea7555f7906c31235de510189ff"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Поведение с последними N сообщениями верно, но причина о возврате отброшенной истории в утверждении пропущена. Цитата S1 обрезана перед строкой, доказывающей последние N; S3 содержит правильное отрицание.",
+          "run_sha256": "30b4bc42c892cac406605c98b29a5e5ed84914ed953b931e47b89c825bb223ea"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Названы скрытая цепочка, возврат отброшенной истории и последние N сообщений. Совокупность цитат S1 и S4 доказывает эти факты; S3 обрезана, но дублирующее объяснение присутствует в S1.",
+          "run_sha256": "ae6f2bb48bedf4945dbd786ac667693d797886963596a8b229dac38daf98c7d2"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Названы скрытая цепочка, возврат отброшенной истории и последние N сообщений. Совокупность цитат S1 и S4 доказывает эти факты; S3 обрезана, но дублирующее объяснение присутствует в S1.",
+          "run_sha256": "e461d29e13da7ee6f0ba2c90099a7773038d73081aad80b656862d0211843176"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Названы скрытая цепочка, возврат отброшенной истории и последние N сообщений. Совокупность цитат S1 и S4 доказывает эти факты; S3 обрезана, но дублирующее объяснение присутствует в S1.",
+          "run_sha256": "546cb5ff87c0cb26f681d910b1d4ae4016e38e9f9ac5cf3b68b756386f96f615"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Причина возврата отброшенной истории через серверную цепочку верна и полностью содержится в цитате. Явное окно выбранных сообщений не объяснено.",
+          "run_sha256": "58f51c46e22e1fdfec0ebc121841eac1ee9993dd6ad652fe8a03e16ae8116e69"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Причина возврата отброшенной истории через серверную цепочку верна и полностью содержится в цитате. Явное окно выбранных сообщений не объяснено.",
+          "run_sha256": "bccdb88cf38fe60fc9c226fe3ce2c5433928bf61a3697d32f81045a9984009d6"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Причина возврата отброшенной истории через серверную цепочку верна и полностью содержится в цитате. Явное окно выбранных сообщений не объяснено.",
+          "run_sha256": "875c7b3828b4812a398bfc0b437c359bc1395a4519b0214816882626a9b9321e"
+        }
+      }
+    },
+    "q06": {
+      "baseline": {
+        "1": {
+          "correctness": 1,
+          "completeness": 0,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Файлы и каталог подтверждены цитатами, но новые ревизии и атомарная смена CURRENT.json не объяснены.",
+          "run_sha256": "8efbd7520ea281a94a5fdee62db2079470530fc4b0b887bd0b279812a1691e7b"
+        },
+        "2": {
+          "correctness": 1,
+          "completeness": 0,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Файлы и каталог подтверждены цитатами, но новые ревизии и атомарная смена CURRENT.json не объяснены.",
+          "run_sha256": "38400b2bb58e390f308707991534fde2a0582e5f25634045e5fbb5ad8d5224a3"
+        },
+        "3": {
+          "correctness": 1,
+          "completeness": 0,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Файлы и каталог подтверждены цитатами, но новые ревизии и атомарная смена CURRENT.json не объяснены.",
+          "run_sha256": "fb1e8da10f16276f2dacfdfda49affbc4451e69808579d83984c2e41dc4884e3"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "176471449708e55479f5b767a4aba37f66d7008d23e2cc031a79267932d972e2"
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "95fb1132caf605efa1aad0f2d9668013a8787f5a0a6d14b31249e110f6a1f232"
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "5409b686614d9d5b28f9440b5dfc1c0225b451e76b3536c137f2900d697eeb01"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 1,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Названы файлы и новая ревизия, но атомарная замена приписана файлам вместо указателя CURRENT.json. Удаление предыдущей ревизии ошибочно представлено как причина согласованности; цитата про удаление обрезана.",
+          "run_sha256": "0cbf86440a2c40a60d96ebe929b313c34b98a15ba3598d640fa1a5a987a3ea4b"
+        },
+        "2": {
+          "correctness": 1,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Названы файлы и новая ревизия, но атомарная замена приписана файлам вместо указателя CURRENT.json. Удаление предыдущей ревизии ошибочно представлено как причина согласованности; цитата про удаление обрезана.",
+          "run_sha256": "f80f29e90b8a35265633175bdbbca9a18bce2141dc42effe9cd8c21edb63de93"
+        },
+        "3": {
+          "correctness": 1,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Названы файлы и новая ревизия, но атомарная замена приписана файлам вместо указателя CURRENT.json. Удаление предыдущей ревизии ошибочно представлено как причина согласованности; цитата про удаление обрезана.",
+          "run_sha256": "92e77f4001d3fc06508a02e402fe6903e1a9a6c0e9718afa1eedafb4e43fae5e"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Верно названы новая ревизия, атомарная смена CURRENT.json и согласованное чтение, но CURRENT.json ошибочно назван каталогом для файлов. Часть показанных цитат обрезана перед working.json и атомарной заменой.",
+          "run_sha256": "c2fb8643c33706fb8563209b1303ce77917bcc70da567f9949665e066e8f6a08"
+        },
+        "2": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Верно названы новая ревизия, атомарная смена CURRENT.json и согласованное чтение, но CURRENT.json ошибочно назван каталогом для файлов. Часть показанных цитат обрезана перед working.json и атомарной заменой.",
+          "run_sha256": "d8460dc26099d2a0829e1c1426383f88ad54e8db42e0a3b864c2823ee2c82cea"
+        },
+        "3": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Верно названы новая ревизия, атомарная смена CURRENT.json и согласованное чтение, но CURRENT.json ошибочно назван каталогом для файлов. Часть показанных цитат обрезана перед working.json и атомарной заменой.",
+          "run_sha256": "29bc0fc0bcb50742a3cc1df21c63520e371e779933f1748338072a3e8d20bd18"
+        }
+      }
+    },
+    "q07": {
+      "baseline": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Вопрос о подтверждении памяти подменён вопросом о продолжении диалога. Цитата TASK_STATE.md не доказывает правило; нужный фрагмент не найден.",
+          "run_sha256": "d7aa6976b11e5ba1312918ca5618f47345b7722a0fc6974a3c740a3caa7cd0ce"
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Вопрос о подтверждении памяти подменён вопросом о продолжении диалога. Цитата TASK_STATE.md не доказывает правило; нужный фрагмент не найден.",
+          "run_sha256": "f0f62a255222fd3da8e36a6a137f5ee38fa4b9671b99992771517092b4221ac4"
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Вопрос о подтверждении памяти подменён вопросом о продолжении диалога. Цитата TASK_STATE.md не доказывает правило; нужный фрагмент не найден.",
+          "run_sha256": "90dff5db089ff86e6d8ffacd7c07379464be76d066b7e0ca8e1f48994acf20f3"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Подтверждение памяти ошибочно объявлено необязательным. TASK_STATE.md о накопленных результатах не доказывает правило подтверждения извлечённых предложений.",
+          "run_sha256": "6e8114319868754d09f996330dbf1b962d64e496839b83b6cf249a82188f951e"
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Подтверждение памяти ошибочно объявлено необязательным. TASK_STATE.md о накопленных результатах не доказывает правило подтверждения извлечённых предложений.",
+          "run_sha256": "e0130f985b39a5ae3501b96b57cbddecb6e3d5e07a99d3a875f1824ff382a73c"
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Подтверждение памяти ошибочно объявлено необязательным. TASK_STATE.md о накопленных результатах не доказывает правило подтверждения извлечённых предложений.",
+          "run_sha256": "c05506ba392f5fe3a6bcf00ec15f906a7034722fc25519cfcc9bce8891181b28"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 1,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ да о подтверждении частично верен, но его обоснование смешивает предложения памяти с утверждением плана и checkpoint. Условие замены предложения только после подтверждения противоречит TASK_STATE.md.",
+          "run_sha256": "b99909d3cb13bce71ad884e30e4a5bc1016bbb19a87780deae1063bfb3db7d67"
+        },
+        "2": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Основной ответ да и отсутствие влияния неподтверждённых сведений соответствуют ожиданиям. Дополнительный вывод о ручном подтверждении при сбое checkpoint не доказывает правило памяти; цитаты обрезаны до строк, подтверждающих изменение ответа.",
+          "run_sha256": "a3518181daba6832656451881e9a00014a48e9d85905fc2856c0ef125d7dc834"
+        },
+        "3": {
+          "correctness": 1,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Основной ответ да и отсутствие влияния неподтверждённых сведений соответствуют ожиданиям. Дополнительный вывод о ручном подтверждении при сбое checkpoint не доказывает правило памяти; цитаты обрезаны до строк, подтверждающих изменение ответа.",
+          "run_sha256": "29cadcc64ca449f910920c47c072c66167f18de732d73bc93bc7af7da1f8b31f"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Требование подтверждения и изменение ответа после него подтверждены цитатой тестового поведения. В утверждении не сказано, что неподтверждённые предложения не добавляются в основной запрос.",
+          "run_sha256": "d4b1a72c0871643d9f23adc7d19894d4cde8f844a733f524cec40714f6c85f44"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Требование подтверждения и отсутствие влияния неподтверждённых сведений соответствуют ожиданиям. Цитата обрезана перед строками, доказывающими эти факты.",
+          "run_sha256": "34e78b681fc2e249e7c4929edfa39917e91b1d3cf186262fa83bccd830a04c48"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Требование подтверждения и отсутствие влияния неподтверждённых сведений соответствуют ожиданиям. Цитата обрезана перед строками, доказывающими эти факты.",
+          "run_sha256": "cba4d21d2b90a4898a9519f9ee2319390c9357f84560b63318976ba0b664b88b"
+        }
+      }
+    },
+    "q09": {
+      "baseline": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Приоритет явной просьбы выше профиля прямо подтверждён списком в цитате.",
+          "run_sha256": "85c4152ca6afa9e7bfb818b23693cb143aeda901d2a7bd105a5c44631a6add64"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Приоритет явной просьбы выше профиля прямо подтверждён списком в цитате.",
+          "run_sha256": "9d1f258c2bb5ee877ae9f422eaa3ffd4b0c90c352ccb29cfd9176a98fcfb10d1"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Приоритет явной просьбы выше профиля прямо подтверждён списком в цитате.",
+          "run_sha256": "7c2d5e899ed67cbb408870488b9e64c667fdaf13814d97049623329ee6d562ab"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Приоритет явной просьбы выше профиля прямо подтверждён списком источника.",
+          "run_sha256": "abec856d25fd920f02930a51feb7defdbbc578f18a92b33a64c21d058ae53d71"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Приоритет явной просьбы выше профиля прямо подтверждён списком источника.",
+          "run_sha256": "348bba8d8a6cff26efdb35e4fdd51adcf631ad90dbe7aa4664c4399543284098"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Приоритет явной просьбы выше профиля прямо подтверждён списком источника.",
+          "run_sha256": "b8afbb3d651042260a9bd5dbe4fa9b963a3f66b96d8babbac94060933abe0750"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "cb26465ee7259635e2837c325a1f6f52222e86da36def8004d1cc4f052331fd5"
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "d9e66567794ee28cfacc2b26695b9170ef86f0e0fbdd5f5e4db3f4ec19908b9a"
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "ee02f2b4c08663ed37d264f0f1e87b5f62d6858028884d84823eb3deddfabf50"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "2b8306328a604d4c6cf15a5aaa1c063cfeeb614eb62267de8cc9287b0b3f590a"
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "d25e23709c15817f63af4930afbba37b2a549c502db03c265905aabf57b40bed"
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос.",
+          "run_sha256": "b22b574535cfaa5ba6e257879b97b9452a7d4b1cad02e3143afb8c5d23a1c0a6"
+        }
+      }
+    },
+    "n01": {
+      "baseline": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер не нашёл допустимого контекста и корректно отказался без вызова модели.",
+          "run_sha256": "5d82bf58b5e16719c712204a294244065b5520b0df66bca321c7de5598bef22d"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер не нашёл допустимого контекста и корректно отказался без вызова модели.",
+          "run_sha256": "0e51d1ef9085bd09f082d31b640f3283a72806a6ae78db4f8b50e682a94e448c"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер не нашёл допустимого контекста и корректно отказался без вызова модели.",
+          "run_sha256": "3d66a33a97ab99b736c7fa6f6ecb153a91976c3a47d8dbf22d30f6efc0ec297d"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без вызова модели: в найденном контексте нет запрошенной настройки.",
+          "run_sha256": "ed381a828c20a9c1d942aebeec30cea2ff80a0378666cb136cd94b476478a35c"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без вызова модели: в найденном контексте нет запрошенной настройки.",
+          "run_sha256": "34b60db57c3a65ef237e8f73e0f26251cba466d5d2f1f0181ffbda07996df1dc"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без вызова модели: в найденном контексте нет запрошенной настройки.",
+          "run_sha256": "cd1cdf3c1083da84669e38438c47c9388dba90b69c2bf278e3849c6ae7792c5d"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "155683020bdf19ef9336bb444eaaa04a50cfde6c8575fde543adc21d20e56509"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "47ce68ebf5ef3ae50084f2dfc467c000cc30dce1c43bfa896f0442e516273951"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "a49ba5ed3c238b45791a2de66d64932d72b322aee91b2cea9ef5bcf0fe369834"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "72d1f6ab38c66e52b489afefc3e7429512c1fbb397ff5f08c6e81f088b17314f"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "c36b1d2f8b9b74643a0f226f50d4f25d9c805bdb6b962367a0d13cb260e63d1c"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "c3803b2c9d0a6a2ab54ccb1d5441eb969aa30c8d706138e625af0895759c4017"
+        }
+      }
+    },
+    "n02": {
+      "baseline": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер не нашёл допустимого контекста и корректно отказался без вызова модели.",
+          "run_sha256": "c7b90eda40629ab8fc0cfc2b1ad6387ab8b3cc7740c6629d8208ae435d8cdd8e"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер не нашёл допустимого контекста и корректно отказался без вызова модели.",
+          "run_sha256": "d4d7fb68f9fe3ff2d82be03734be7a9a592e350984495694e56196ef932cd214"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер не нашёл допустимого контекста и корректно отказался без вызова модели.",
+          "run_sha256": "48e8f776f0ebb648bb69b85d4c08ef4788d6625c9da8906f77b50f5f5537c3b8"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без вызова модели: в найденном контексте нет запрошенной настройки.",
+          "run_sha256": "7e5d847f7fe5eddec52cea907cc8ee49fda4a328ec227fe8cc719817ff27ec2a"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без вызова модели: в найденном контексте нет запрошенной настройки.",
+          "run_sha256": "14f73ddbcfa7be6b16a359df6c1a4321137653d10e30aa4b90a6651d5f268c71"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без вызова модели: в найденном контексте нет запрошенной настройки.",
+          "run_sha256": "bf82ed0840ec8f64b5a3e62dc0be2c03bb1e693ebe50c05fc0c2b73aa010bdc8"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "2893ed0a1c14ecc3e5ee6f2d35e443150f3ab05a65352e9d65feff2e21ee154e"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "6b2cef44377a2c9bf5f60fec907c7ebf0a75a03b6d5f682190b5779d9047990c"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "d70f7d69baa12c0f01f1a6872147ff9411f653973b076ca6b98bd0576a06d9fe"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "e5286b470e63ebb49d9301267e7df7756ab795b156b143cb8fd28dea286c1ed4"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "cce189164f6feb9788e533e823a37c9b831bba98e7d13841a0fe69194cda46e9"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "b0cc2a2fd1e22adfad3aa988a7b78c5db1843c52470b6e1373f564573fced127"
+        }
+      }
+    },
+    "n03": {
+      "baseline": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер не нашёл допустимого контекста и корректно отказался без вызова модели.",
+          "run_sha256": "2fc53d4af22cb2b7ef5be37dec26111499971c5249bfe29c9ec2a1fb1335dbe5"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер не нашёл допустимого контекста и корректно отказался без вызова модели.",
+          "run_sha256": "40ddd5c95e6d88f439255a24f40415b002e218f9ffc34a0f016f609174e6e2df"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер не нашёл допустимого контекста и корректно отказался без вызова модели.",
+          "run_sha256": "e42f7b3804567742b650262375b0e59176c02f05e3082eb8df5706bbae7a8204"
+        }
+      },
+      "optimized-8b": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без вызова модели: в найденном контексте нет запрошенной настройки.",
+          "run_sha256": "bc325658489108aebacfef2687c0c5d3f943b3a3ed5f041bc49b35091f15d532"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без вызова модели: в найденном контексте нет запрошенной настройки.",
+          "run_sha256": "681933fbaa7615457fd53d2e6d48f6688bf34b001339fb7084fc8ec646a3b3fb"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без вызова модели: в найденном контексте нет запрошенной настройки.",
+          "run_sha256": "e5796eb2c1fdf56b27726b1b93c6ba22112c811acd1002b4cf1ed133e07aadb0"
+        }
+      },
+      "instruct-4b-q8": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "f6164c9914a038c3cb5ffa3cfba106f3e384206468759d3ef136e29078495177"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "a9ba78355d720b363be5bc156daa2a03b9ada26ab2a11a3ac3893c28b2dee4ef"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "5b1af57345f75d341789f4b953faa2da50f2af102b4d88c72c97e1242b66a0d6"
+        }
+      },
+      "instruct-4b-q4": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "243777aea58fde53bed07ff9e571e7442ee42c9ebfcb918427112018154599fc"
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "a7d56cc1d4d9b17ad7be7d8583232719bc182cbbff55b230b6fecd0529ec71b0"
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Сервер корректно отказался без генерации при отсутствии настройки в найденном контексте.",
+          "run_sha256": "77922f902db4efc7c12ea5b96bb4cb9d74f5d08ec2502f1c533fe1a4ea1406e9"
+        }
+      }
+    }
+  },
+  "runs_sha256": "df4d0ed82acbd41898b2d2e8683734fe246ee3092d7b065c6496b30adf83a45c",
+  "selection": {
+    "default_profile": "baseline",
+    "economy_profile": "instruct-4b-q4",
+    "criterion": "Prioritize citation support and errors for the default RAG; expose lower-resource alternatives without claiming Pareto superiority. No candidate preserved all quality and latency metrics.",
+    "rationale": "Q4 4B снижает рабочую память и быстрее генерирует токены, но её полные ответы длиннее, а смысл части утверждений не подтверждён цитатами. Для основного RAG оставлен исходный профиль 8B: он лучше по доле полностью подтверждённых ответов и числу ошибок. Экономный Q4 доступен отдельно. Эксперимент не показал единственного профиля, улучшающего все метрики одновременно."
+  }
+}

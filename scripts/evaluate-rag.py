@@ -20,7 +20,7 @@ def atomic_json(path, value):
 
 
 def call(base, question, mode, repeat):
-    body = {'messages': [{'role': 'user', 'content': question}], 'think': False, 'rag': mode == 'rag'}
+    body = {'messages': [{'role': 'user', 'content': question}], 'think': False, 'rag': mode == 'rag', 'profile':'baseline'}
     request = urllib.request.Request(base + '/api/chat', data=json.dumps(body).encode(), headers={'Content-Type': 'application/json'})
     run = {'mode': mode, 'repeat': repeat, 'request': body, 'complete': False, 'text': '', 'citations': [], 'events': [], 'error': None, 'first_answer_seconds': None}
     started = time.perf_counter()
@@ -94,7 +94,7 @@ def main():
     raw = pathlib.Path(args.questions).read_bytes()
     questions = json.loads(raw)
     cloud = json.loads(pathlib.Path(args.cloud).read_text())
-    with urllib.request.urlopen(base + '/api/status', timeout=10) as response:
+    with urllib.request.urlopen(base + '/api/status?profile=baseline', timeout=10) as response:
         environment = json.load(response)
     if not environment.get('ready') or not environment.get('rag_ready'):
         raise SystemExit('Model and RAG index must both be ready')

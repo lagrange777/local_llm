@@ -1,0 +1,50 @@
+{
+  "runs_sha256": "dc1f6f08cb06642f9274a85a95e40e83a2a745737fd1751357e88d99dc2fef49",
+  "selected_temperature": 0,
+  "reviewer": "Codex assistant; direct inspection of every tuning output and citation",
+  "rationale": "Both temperatures produced identical answer text on all three independent tuning questions and no errors. Default path is correct but HISTORY_PATH is not in the claim (completeness 1/2); all profile fields and unknown answer are complete. Quality tie: retain temperature 0. This small calibration does not prove general superiority.",
+  "grades": {
+    "t01": {
+      "optimized-8b": {
+        "correctness": 2,
+        "completeness": 1,
+        "supported": true,
+        "abstention": false
+      },
+      "optimized-8b-t02": {
+        "correctness": 2,
+        "completeness": 1,
+        "supported": true,
+        "abstention": false
+      }
+    },
+    "t02": {
+      "optimized-8b": {
+        "correctness": 2,
+        "completeness": 2,
+        "supported": true,
+        "abstention": false
+      },
+      "optimized-8b-t02": {
+        "correctness": 2,
+        "completeness": 2,
+        "supported": true,
+        "abstention": false
+      }
+    },
+    "t03": {
+      "optimized-8b": {
+        "correctness": 2,
+        "completeness": 2,
+        "supported": false,
+        "abstention": true
+      },
+      "optimized-8b-t02": {
+        "correctness": 2,
+        "completeness": 2,
+        "supported": false,
+        "abstention": true
+      }
+    }
+  }
+}

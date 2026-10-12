@@ -1,0 +1,39 @@
+[
+  {
+    "id": "t01",
+    "query": "Где по умолчанию хранится файл истории?",
+    "answerable": true,
+    "relevant": [
+      {
+        "source": "MEMORY.md",
+        "quote": "HISTORY_PATH"
+      }
+    ],
+    "expectations": [
+      "История хранится в HISTORY_PATH; значение по умолчанию data/history.json."
+    ]
+  },
+  {
+    "id": "t02",
+    "query": "Какие параметры содержит профиль персонализации?",
+    "answerable": true,
+    "relevant": [
+      {
+        "source": "PERSONALIZATION.md",
+        "quote": "Профиль задаёт язык"
+      }
+    ],
+    "expectations": [
+      "Язык, уровень подготовки, стиль, подробность, формат, описание пользователя и дополнительные ограничения."
+    ]
+  },
+  {
+    "id": "t03",
+    "query": "Как настроена репликация Kafka?",
+    "answerable": false,
+    "relevant": [],
+    "expectations": [
+      "Не выдумывать настройку Kafka; сказать, что в документах нет данных, и попросить уточнение."
+    ]
+  }
+]

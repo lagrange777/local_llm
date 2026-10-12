@@ -6,7 +6,8 @@ services:
     environment:
       OLLAMA_HOST: "127.0.0.1:11434"
       OLLAMA_MODELS: /models
-      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:8b}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-rag29-baseline-8b}
+      RAG_PROFILE: ${RAG_PROFILE:-baseline}
       OLLAMA_NO_CLOUD: "1"
     volumes:
       - models:/models
@@ -41,8 +42,10 @@ services:
     environment:
       WEB_ADDR: "0.0.0.0:8080"
       OLLAMA_BASE_URL: "http://ollama:11434"
-      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:8b}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-rag29-baseline-8b}
       CHAT_TIMEOUT: ${CHAT_TIMEOUT:-5m}
+      RAG_PROFILE: ${RAG_PROFILE:-baseline}
+      OPTIMIZATION_REPORT_PATH: /optimization-reports/comparison.json
       OLLAMA_PROMPT_CACHE_MIB: ${OLLAMA_PROMPT_CACHE_MIB:-512}
       RAG_INDEX_PATH: /documents/chunks.json
       RAG_STRATEGY: ${RAG_STRATEGY:-structured}
@@ -53,6 +56,7 @@ services:
       RAG_REPORT_PATH: /reports/comparison.json
     volumes:
       - ./artifacts/rag28:/reports:ro
+      - ./artifacts/optimization29:/optimization-reports:ro
     networks: [runtime]
     depends_on:
       ollama:

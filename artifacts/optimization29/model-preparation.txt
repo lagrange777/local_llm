@@ -1,0 +1,16 @@
+Original CLI log sha256: 4b08a4701231ec92c88a8abef90d3dabf45a26be42f51511ac71f65a981bee3c
+success
+copied 'qwen3:8b' to 'rag29-baseline-8b'
+verifying sha256 digest ⠇ [GIN] 2026/10/12 - 04:24:11 | 200 |         1m34s |       127.0.0.1 | POST     "/api/pull"
+verifying sha256 digest
+writing manifest
+success
+copied 'qwen3:4b-instruct-2507-q4_K_M' to 'rag29-instruct-4b-q4'
+verifying sha256 digest ⠧ [GIN] 2026/10/12 - 04:26:44 | 200 |         2m32s |       127.0.0.1 | POST     "/api/pull"
+copied 'qwen3:4b-instruct-2507-q8_0' to 'rag29-instruct-4b-q8'
+NAME                             ID              SIZE      MODIFIED
+rag29-instruct-4b-q8:latest      aa7252f68dda    4.3 GB    Less than a second ago
+qwen3:4b-instruct-2507-q8_0      aa7252f68dda    4.3 GB    Less than a second ago
+rag29-instruct-4b-q4:latest      0edcdef34593    2.5 GB    2 minutes ago
+qwen3:4b-instruct-2507-q4_K_M    0edcdef34593    2.5 GB    2 minutes ago
+rag29-baseline-8b:latest         b3d9ba7c899c    5.2 GB    4 minutes ago

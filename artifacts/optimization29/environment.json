@@ -1,0 +1,111 @@
+{
+  "host_platform": "macOS-26.6.2-arm64-arm-64bit",
+  "docker": "29.6.1 8321515520 10",
+  "models": [
+    {
+      "name": "rag29-instruct-4b-q8:latest",
+      "digest": "aa7252f68dda4d25dfffa65b3760af6d2c3231a140c0060c78d444686d98a374",
+      "size": 4280418281,
+      "details": {
+        "family": "qwen3",
+        "parameter_size": "4.0B",
+        "quantization_level": "Q8_0"
+      }
+    },
+    {
+      "name": "qwen3:4b-instruct-2507-q8_0",
+      "digest": "aa7252f68dda4d25dfffa65b3760af6d2c3231a140c0060c78d444686d98a374",
+      "size": 4280418281,
+      "details": {
+        "family": "qwen3",
+        "parameter_size": "4.0B",
+        "quantization_level": "Q8_0"
+      }
+    },
+    {
+      "name": "rag29-instruct-4b-q4:latest",
+      "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "size": 2497293803,
+      "details": {
+        "family": "qwen3",
+        "parameter_size": "4.0B",
+        "quantization_level": "Q4_K_M"
+      }
+    },
+    {
+      "name": "qwen3:4b-instruct-2507-q4_K_M",
+      "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "size": 2497293803,
+      "details": {
+        "family": "qwen3",
+        "parameter_size": "4.0B",
+        "quantization_level": "Q4_K_M"
+      }
+    },
+    {
+      "name": "rag29-baseline-8b:latest",
+      "digest": "b3d9ba7c899cfd112df2574c6a91458a70b724c5e4e50dfffd75574b2d1648e7",
+      "size": 5225389023,
+      "details": {
+        "family": "qwen3",
+        "parameter_size": "8.2B",
+        "quantization_level": "Q4_K_M"
+      }
+    },
+    {
+      "name": "qwen3:8b",
+      "digest": "b3d9ba7c899cfd112df2574c6a91458a70b724c5e4e50dfffd75574b2d1648e7",
+      "size": 5225389023,
+      "details": {
+        "family": "qwen3",
+        "parameter_size": "8.2B",
+        "quantization_level": "Q4_K_M"
+      }
+    }
+  ],
+  "source_index_sha256": "51365971a8924237cfa50718437e52e420d9bdf3764df3733afc9e3b1c996895",
+  "containers": {
+    "app": {
+      "image": "local-llm-web:local",
+      "image_id": "sha256:bb0daa6e2092127314ad23f8f09735fed24e2578eb4516c317f949b55b6765b4",
+      "networks": [
+        "local-llm_runtime"
+      ],
+      "health": "healthy",
+      "ports": {
+        "8080/tcp": null
+      }
+    },
+    "ollama": {
+      "image": "ollama/ollama:0.40.3@sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99",
+      "image_id": "sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99",
+      "networks": [
+        "local-llm_runtime"
+      ],
+      "health": "healthy",
+      "ports": {
+        "11434/tcp": null
+      }
+    },
+    "gateway": {
+      "image": "nginx:stable-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94",
+      "image_id": "sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94",
+      "networks": [
+        "local-llm_ingress",
+        "local-llm_runtime"
+      ],
+      "health": "healthy",
+      "ports": {
+        "8080/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "8081"
+          }
+        ]
+      }
+    }
+  },
+  "runtime_internal": true,
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "source_index_unchanged": true
+}
