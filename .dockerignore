@@ -11,3 +11,6 @@ models
 artifacts
 *.log
 *.gguf
+
+__pycache__
+*.pyc

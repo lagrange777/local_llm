@@ -3,17 +3,20 @@ package main
 import (
 	"context"
 	"errors"
-	"local-llm-service/internal/ollama"
-	"local-llm-service/internal/web"
 	"log"
 	"net"
 	"net/http"
 	"net/url"
 	"os"
 	"os/signal"
+	"strconv"
 	"strings"
 	"syscall"
 	"time"
+
+	"local-llm-service/internal/ollama"
+	"local-llm-service/internal/rag"
+	"local-llm-service/internal/web"
 )
 
 func main() {
@@ -50,7 +53,35 @@ func main() {
 	// No environment proxy or alternate cloud provider is used.
 	transport := &http.Transport{DialContext: (&net.Dialer{Timeout: 5 * time.Second, KeepAlive: 30 * time.Second}).DialContext, ResponseHeaderTimeout: timeout, MaxIdleConns: 10, IdleConnTimeout: 90 * time.Second}
 	client := ollama.Client{BaseURL: baseURL, HTTP: &http.Client{Transport: transport}}
-	app := web.New(client, web.Config{Model: model, Timeout: timeout})
+	index, err := rag.Load(env("RAG_INDEX_PATH", "documents/chunks.json"), env("RAG_STRATEGY", "structured"))
+	if err != nil {
+		log.Fatalf("load local RAG index: %v", err)
+	}
+	ragConfig := rag.DefaultConfig()
+	for name, target := range map[string]*int{"RAG_TOP_K_BEFORE": &ragConfig.TopKBefore, "RAG_TOP_K_AFTER": &ragConfig.TopKAfter, "RAG_CONTEXT_CHARACTERS": &ragConfig.ContextCharacters} {
+		if value := os.Getenv(name); value != "" {
+			parsed, err := strconv.Atoi(value)
+			if err != nil {
+				log.Fatal(name, " must be an integer")
+			}
+			*target = parsed
+		}
+	}
+	if value := os.Getenv("RAG_MIN_COVERAGE"); value != "" {
+		ragConfig.MinCoverage, err = strconv.ParseFloat(value, 64)
+		if err != nil {
+			log.Fatal("invalid RAG_MIN_COVERAGE")
+		}
+	}
+	if err := ragConfig.Validate(); err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Loaded %d %s chunks; corpus=%s", index.Count(), index.Strategy, index.Origin.CorpusHash)
+	cacheMiB, err := strconv.Atoi(env("OLLAMA_PROMPT_CACHE_MIB", "512"))
+	if err != nil || cacheMiB < 0 || cacheMiB > 8192 {
+		log.Fatal("OLLAMA_PROMPT_CACHE_MIB must be 0-8192")
+	}
+	app := web.New(client, web.Config{CacheRAMMiB: cacheMiB, Model: model, Timeout: timeout, Index: index, RAG: ragConfig, ReportPath: env("RAG_REPORT_PATH", "artifacts/rag28/comparison.json")})
 	server := &http.Server{Addr: addr, Handler: app, ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 << 10}
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()

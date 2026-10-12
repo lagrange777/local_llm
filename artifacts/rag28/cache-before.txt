@@ -1,0 +1,331 @@
+ollama-1  | time=2026-10-11T17:08:43.789Z level=INFO source=routes.go:2373 msg="server config" env="map[CUDA_VISIBLE_DEVICES: GGML_VK_VISIBLE_DEVICES: GPU_DEVICE_ORDINAL: HIP_VISIBLE_DEVICES: HSA_OVERRIDE_GFX_VERSION: HTTPS_PROXY: HTTP_PROXY: LLAMA_ARG_FIT: LLAMA_ARG_FIT_TARGET: NO_PROXY: OLLAMA_CONTEXT_LENGTH:4096 OLLAMA_CREATE_REMOTE:false OLLAMA_DEBUG:INFO OLLAMA_DEBUG_LOG_REQUESTS:false OLLAMA_EDITOR: OLLAMA_FLASH_ATTENTION:false OLLAMA_GO_TEMPLATE:true OLLAMA_GPU_OVERHEAD:0 OLLAMA_HOST:http://0.0.0.0:11434 OLLAMA_IGPU_ENABLE: OLLAMA_KEEP_ALIVE:10m0s OLLAMA_KV_CACHE_TYPE: OLLAMA_LLM_LIBRARY: OLLAMA_LOAD_TIMEOUT:5m0s OLLAMA_MAX_LOADED_MODELS:0 OLLAMA_MAX_QUEUE:512 OLLAMA_MAX_TRANSFER_STREAMS:4 OLLAMA_MODELS:/models OLLAMA_NOHISTORY:false OLLAMA_NOPRUNE:false OLLAMA_NO_CLOUD:true OLLAMA_NUM_PARALLEL:1 OLLAMA_ORIGINS:[http://localhost https://localhost http://localhost:* https://localhost:* http://127.0.0.1 https://127.0.0.1 http://127.0.0.1:* https://127.0.0.1:* http://0.0.0.0 https://0.0.0.0 http://0.0.0.0:* https://0.0.0.0:* app://* file://* tauri://* vscode-webview://* vscode-file://*] OLLAMA_REMOTES:[ollama.com] OLLAMA_SCHED_SPREAD:false OLLAMA_VULKAN:true ROCR_VISIBLE_DEVICES: http_proxy: https_proxy: no_proxy:]"
+ollama-1  | time=2026-10-11T17:08:43.790Z level=INFO source=model_recommendations.go:177 msg="model recommendations cache sleep scheduled" wait=3h51m58.873022717s consecutive_failures=0
+ollama-1  | time=2026-10-11T17:10:39.813Z level=INFO source=sched.go:623 msg="system memory" total="7.8 GiB" free="7.7 GiB" free_swap="1024.0 MiB"
+ollama-1  | cmn  common_init_: fitting params to device memory ...
+ollama-1  | common_params_fit_impl: getting device memory data for initial parameters:
+ollama-1  | common_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+ollama-1  | common_memory_breakdown_print: |   - Host               |                 1307 =   623 +     576 +     108                |
+ollama-1  | common_memory_breakdown_print: |   - CPU_REPACK         |                 4354 =  4354 +       0 +       0                |
+ollama-1  | common_params_fit_impl: projected to use 1307 MiB of host memory vs. 7936 MiB of total host memory
+ollama-1  | common_params_fit_impl: will leave 6628 >= 1024 MiB of system memory, no changes needed
+ollama-1  | common_fit_params: successfully fit params to free device memory
+ollama-1  | common_fit_params: fitting params to free memory took 0.25 seconds
+ollama-1  | load: special tokens cache size = 27
+ollama-1  | load: token to piece cache size = 0.9311 MB
+ollama-1  | llama_kv_cache:        CPU KV buffer size =   576.00 MiB
+ollama-1  | llama_kv_cache: size =  576.00 MiB (  4096 cells,  36 layers,  1/1 seqs), K (f16):  288.00 MiB, V (f16):  288.00 MiB
+ollama-1  | llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 128
+ollama-1  | llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 128
+ollama-1  | srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+ollama-1  | srv    load_model: use `--cache-ram 0` to disable the prompt cache
+ollama-1  | srv          init: idle slots will be saved to prompt cache upon starting a new task
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 4096 tokens, 8589934592 est)
+ollama-1  | srv  get_availabl: prompt cache update took 0.01 ms
+ollama-1  | slot   operator(): id  0 | task 0 | cached n_tokens = 0, memory_seq_rm [0, end)
+ollama-1  | slot   operator(): id  0 | task 6 | cached n_tokens = 78, memory_seq_rm [78, end)
+ollama-1  | slot   operator(): id  0 | task 12 | cached n_tokens = 132, memory_seq_rm [132, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 1 prompts, 27.003 MiB (limits: 8192.000 MiB, 4096 tokens, 58247 est)
+ollama-1  | srv  get_availabl: prompt cache update took 23.59 ms
+ollama-1  | slot   operator(): id  0 | task 18 | cached n_tokens = 78, memory_seq_rm [78, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 2 prompts, 65.679 MiB (limits: 8192.000 MiB, 4096 tokens, 58247 est)
+ollama-1  | srv  get_availabl: prompt cache update took 74.13 ms
+ollama-1  | slot   operator(): id  0 | task 107 | cached n_tokens = 78, memory_seq_rm [78, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 2 prompts, 74.961 MiB (limits: 8192.000 MiB, 4096 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 143.89 ms
+ollama-1  | slot   operator(): id  0 | task 265 | cached n_tokens = 116, memory_seq_rm [116, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 3 prompts, 120.950 MiB (limits: 8192.000 MiB, 4096 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 125.68 ms
+ollama-1  | slot   operator(): id  0 | task 453 | cached n_tokens = 128, memory_seq_rm [128, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 4 prompts, 195.066 MiB (limits: 8192.000 MiB, 4096 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 160.28 ms
+ollama-1  | slot   operator(): id  0 | task 618 | cached n_tokens = 73, memory_seq_rm [73, end)
+ollama-1  | time=2026-10-11T17:19:58.361Z level=INFO source=routes.go:2373 msg="server config" env="map[CUDA_VISIBLE_DEVICES: GGML_VK_VISIBLE_DEVICES: GPU_DEVICE_ORDINAL: HIP_VISIBLE_DEVICES: HSA_OVERRIDE_GFX_VERSION: HTTPS_PROXY: HTTP_PROXY: LLAMA_ARG_FIT: LLAMA_ARG_FIT_TARGET: NO_PROXY: OLLAMA_CONTEXT_LENGTH:4096 OLLAMA_CREATE_REMOTE:false OLLAMA_DEBUG:INFO OLLAMA_DEBUG_LOG_REQUESTS:false OLLAMA_EDITOR: OLLAMA_FLASH_ATTENTION:false OLLAMA_GO_TEMPLATE:true OLLAMA_GPU_OVERHEAD:0 OLLAMA_HOST:http://0.0.0.0:11434 OLLAMA_IGPU_ENABLE: OLLAMA_KEEP_ALIVE:10m0s OLLAMA_KV_CACHE_TYPE: OLLAMA_LLM_LIBRARY: OLLAMA_LOAD_TIMEOUT:5m0s OLLAMA_MAX_LOADED_MODELS:0 OLLAMA_MAX_QUEUE:512 OLLAMA_MAX_TRANSFER_STREAMS:4 OLLAMA_MODELS:/models OLLAMA_NOHISTORY:false OLLAMA_NOPRUNE:false OLLAMA_NO_CLOUD:true OLLAMA_NUM_PARALLEL:1 OLLAMA_ORIGINS:[http://localhost https://localhost http://localhost:* https://localhost:* http://127.0.0.1 https://127.0.0.1 http://127.0.0.1:* https://127.0.0.1:* http://0.0.0.0 https://0.0.0.0 http://0.0.0.0:* https://0.0.0.0:* app://* file://* tauri://* vscode-webview://* vscode-file://*] OLLAMA_REMOTES:[ollama.com] OLLAMA_SCHED_SPREAD:false OLLAMA_VULKAN:true ROCR_VISIBLE_DEVICES: http_proxy: https_proxy: no_proxy:]"
+ollama-1  | time=2026-10-11T17:19:58.365Z level=INFO source=model_recommendations.go:177 msg="model recommendations cache sleep scheduled" wait=4h27m28.317928131s consecutive_failures=0
+ollama-1  | time=2026-10-11T17:19:58.653Z level=INFO source=sched.go:623 msg="system memory" total="7.8 GiB" free="7.7 GiB" free_swap="1021.5 MiB"
+ollama-1  | cmn  common_init_: fitting params to device memory ...
+ollama-1  | common_params_fit_impl: getting device memory data for initial parameters:
+ollama-1  | common_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+ollama-1  | common_memory_breakdown_print: |   - Host               |                 1307 =   623 +     576 +     108                |
+ollama-1  | common_memory_breakdown_print: |   - CPU_REPACK         |                 4354 =  4354 +       0 +       0                |
+ollama-1  | common_params_fit_impl: projected to use 1307 MiB of host memory vs. 7936 MiB of total host memory
+ollama-1  | common_params_fit_impl: will leave 6628 >= 1024 MiB of system memory, no changes needed
+ollama-1  | common_fit_params: successfully fit params to free device memory
+ollama-1  | common_fit_params: fitting params to free memory took 0.24 seconds
+ollama-1  | load: special tokens cache size = 27
+ollama-1  | load: token to piece cache size = 0.9311 MB
+ollama-1  | llama_kv_cache:        CPU KV buffer size =   576.00 MiB
+ollama-1  | llama_kv_cache: size =  576.00 MiB (  4096 cells,  36 layers,  1/1 seqs), K (f16):  288.00 MiB, V (f16):  288.00 MiB
+ollama-1  | llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 128
+ollama-1  | llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 128
+ollama-1  | srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+ollama-1  | srv    load_model: use `--cache-ram 0` to disable the prompt cache
+ollama-1  | srv          init: idle slots will be saved to prompt cache upon starting a new task
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 4096 tokens, 8589934592 est)
+ollama-1  | srv  get_availabl: prompt cache update took 0.34 ms
+ollama-1  | slot   operator(): id  0 | task 0 | cached n_tokens = 0, memory_seq_rm [0, end)
+ollama-1  | slot   operator(): id  0 | task 5 | cached n_tokens = 97, memory_seq_rm [97, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 1 prompts, 42.895 MiB (limits: 8192.000 MiB, 4096 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 36.99 ms
+ollama-1  | slot   operator(): id  0 | task 152 | cached n_tokens = 147, memory_seq_rm [147, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 2 prompts, 111.386 MiB (limits: 8192.000 MiB, 4096 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 137.83 ms
+ollama-1  | slot   operator(): id  0 | task 299 | cached n_tokens = 97, memory_seq_rm [97, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 3 prompts, 151.749 MiB (limits: 8192.000 MiB, 4096 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 62.69 ms
+ollama-1  | slot   operator(): id  0 | task 381 | cached n_tokens = 97, memory_seq_rm [97, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 4 prompts, 191.269 MiB (limits: 8192.000 MiB, 4096 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 50.92 ms
+ollama-1  | slot   operator(): id  0 | task 543 | cached n_tokens = 120, memory_seq_rm [120, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 235.570 MiB (limits: 8192.000 MiB, 4096 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 57.94 ms
+ollama-1  | slot   operator(): id  0 | task 739 | cached n_tokens = 114, memory_seq_rm [114, end)
+ollama-1  | time=2026-10-11T17:46:32.661Z level=INFO source=sched.go:623 msg="system memory" total="7.8 GiB" free="7.7 GiB" free_swap="992.7 MiB"
+ollama-1  | cmn  common_init_: fitting params to device memory ...
+ollama-1  | common_params_fit_impl: getting device memory data for initial parameters:
+ollama-1  | common_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+ollama-1  | common_memory_breakdown_print: |   - Host               |                 1307 =   623 +     576 +     108                |
+ollama-1  | common_memory_breakdown_print: |   - CPU_REPACK         |                 4354 =  4354 +       0 +       0                |
+ollama-1  | common_params_fit_impl: projected to use 1307 MiB of host memory vs. 7936 MiB of total host memory
+ollama-1  | common_params_fit_impl: will leave 6628 >= 1024 MiB of system memory, no changes needed
+ollama-1  | common_fit_params: successfully fit params to free device memory
+ollama-1  | common_fit_params: fitting params to free memory took 0.23 seconds
+ollama-1  | load: special tokens cache size = 27
+ollama-1  | load: token to piece cache size = 0.9311 MB
+ollama-1  | llama_kv_cache:        CPU KV buffer size =   576.00 MiB
+ollama-1  | llama_kv_cache: size =  576.00 MiB (  4096 cells,  36 layers,  1/1 seqs), K (f16):  288.00 MiB, V (f16):  288.00 MiB
+ollama-1  | llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 128
+ollama-1  | llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 128
+ollama-1  | srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+ollama-1  | srv    load_model: use `--cache-ram 0` to disable the prompt cache
+ollama-1  | srv          init: idle slots will be saved to prompt cache upon starting a new task
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 4096 tokens, 8589934592 est)
+ollama-1  | srv  get_availabl: prompt cache update took 0.08 ms
+ollama-1  | slot   operator(): id  0 | task 0 | cached n_tokens = 0, memory_seq_rm [0, end)
+ollama-1  | slot   operator(): id  0 | task 15 | cached n_tokens = 104, memory_seq_rm [104, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 1 prompts, 40.645 MiB (limits: 8192.000 MiB, 4096 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 85.63 ms
+ollama-1  | slot   operator(): id  0 | task 161 | cached n_tokens = 104, memory_seq_rm [104, end)
+ollama-1  | slot   operator(): id  0 | task 176 | cached n_tokens = 104, memory_seq_rm [104, end)
+ollama-1  | slot   operator(): id  0 | task 275 | cached n_tokens = 136, memory_seq_rm [136, end)
+ollama-1  | time=2026-10-11T18:12:22.741Z level=INFO source=sched.go:623 msg="system memory" total="7.8 GiB" free="7.3 GiB" free_swap="990.5 MiB"
+ollama-1  | cmn  common_init_: fitting params to device memory ...
+ollama-1  | common_params_fit_impl: getting device memory data for initial parameters:
+ollama-1  | common_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+ollama-1  | common_memory_breakdown_print: |   - Host               |                 1999 =   623 +    1152 +     224                |
+ollama-1  | common_memory_breakdown_print: |   - CPU_REPACK         |                 4354 =  4354 +       0 +       0                |
+ollama-1  | common_params_fit_impl: projected to use 1999 MiB of host memory vs. 7936 MiB of total host memory
+ollama-1  | common_params_fit_impl: will leave 5936 >= 1024 MiB of system memory, no changes needed
+ollama-1  | common_fit_params: successfully fit params to free device memory
+ollama-1  | common_fit_params: fitting params to free memory took 0.23 seconds
+ollama-1  | load: special tokens cache size = 27
+ollama-1  | load: token to piece cache size = 0.9311 MB
+ollama-1  | llama_kv_cache:        CPU KV buffer size =  1152.00 MiB
+ollama-1  | llama_kv_cache: size = 1152.00 MiB (  8192 cells,  36 layers,  1/1 seqs), K (f16):  576.00 MiB, V (f16):  576.00 MiB
+ollama-1  | llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 128
+ollama-1  | llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 128
+ollama-1  | srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+ollama-1  | srv    load_model: use `--cache-ram 0` to disable the prompt cache
+ollama-1  | srv          init: idle slots will be saved to prompt cache upon starting a new task
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 8192 tokens, 8589934592 est)
+ollama-1  | srv  get_availabl: prompt cache update took 0.03 ms
+ollama-1  | slot   operator(): id  0 | task 0 | cached n_tokens = 0, memory_seq_rm [0, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 1 prompts, 41.067 MiB (limits: 8192.000 MiB, 8192 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 75.98 ms
+ollama-1  | slot   operator(): id  0 | task 163 | cached n_tokens = 13, memory_seq_rm [13, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 2 prompts, 80.305 MiB (limits: 8192.000 MiB, 8192 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 27.20 ms
+ollama-1  | slot   operator(): id  0 | task 257 | cached n_tokens = 5, memory_seq_rm [5, end)
+ollama-1  | slot   operator(): id  0 | task 257 | cached n_tokens = 1029, memory_seq_rm [1029, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 2 prompts, 327.966 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 464.34 ms
+ollama-1  | slot   operator(): id  0 | task 314 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 3 prompts, 363.407 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 35.08 ms
+ollama-1  | slot   operator(): id  0 | task 376 | cached n_tokens = 5, memory_seq_rm [5, end)
+ollama-1  | slot   operator(): id  0 | task 376 | cached n_tokens = 1029, memory_seq_rm [1029, end)
+ollama-1  | slot   operator(): id  0 | task 376 | cached n_tokens = 2053, memory_seq_rm [2053, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 3 prompts, 629.351 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 1162.51 ms
+ollama-1  | slot   operator(): id  0 | task 441 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 4 prompts, 663.245 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 69.33 ms
+ollama-1  | slot   operator(): id  0 | task 504 | cached n_tokens = 5, memory_seq_rm [5, end)
+ollama-1  | slot   operator(): id  0 | task 504 | cached n_tokens = 1029, memory_seq_rm [1029, end)
+ollama-1  | slot   operator(): id  0 | task 504 | cached n_tokens = 2053, memory_seq_rm [2053, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 4 prompts, 985.724 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 727.58 ms
+ollama-1  | slot   operator(): id  0 | task 556 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 1024.541 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 18.74 ms
+ollama-1  | slot   operator(): id  0 | task 655 | cached n_tokens = 5, memory_seq_rm [5, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 882.357 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 781.53 ms
+ollama-1  | slot   operator(): id  0 | task 659 | cached n_tokens = 1985, memory_seq_rm [1985, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 1130.440 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 497.23 ms
+ollama-1  | slot   operator(): id  0 | task 716 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | slot   operator(): id  0 | task 793 | cached n_tokens = 186, memory_seq_rm [186, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 880.951 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 1293.42 ms
+ollama-1  | slot   operator(): id  0 | task 874 | cached n_tokens = 1985, memory_seq_rm [1985, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 866.465 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 3724.59 ms
+ollama-1  | slot   operator(): id  0 | task 930 | cached n_tokens = 2081, memory_seq_rm [2081, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 1130.440 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 1012.63 ms
+ollama-1  | slot   operator(): id  0 | task 993 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | slot   operator(): id  0 | task 1055 | cached n_tokens = 191, memory_seq_rm [191, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 864.496 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 538.02 ms
+ollama-1  | slot   operator(): id  0 | task 1117 | cached n_tokens = 2081, memory_seq_rm [2081, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 809.508 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 2991.15 ms
+ollama-1  | slot   operator(): id  0 | task 1180 | cached n_tokens = 2485, memory_seq_rm [2485, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 1130.440 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 663.06 ms
+ollama-1  | slot   operator(): id  0 | task 1230 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | slot   operator(): id  0 | task 1293 | cached n_tokens = 179, memory_seq_rm [179, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 807.679 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 411.40 ms
+ollama-1  | slot   operator(): id  0 | task 1354 | cached n_tokens = 2485, memory_seq_rm [2485, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 1019.337 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 2331.35 ms
+ollama-1  | slot   operator(): id  0 | task 1404 | cached n_tokens = 1029, memory_seq_rm [1029, end)
+ollama-1  | slot   operator(): id  0 | task 1471 | cached n_tokens = 1606, memory_seq_rm [1606, end)
+ollama-1  | slot   operator(): id  0 | task 1540 | cached n_tokens = 1593, memory_seq_rm [1593, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 1228.885 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 431.29 ms
+ollama-1  | slot   operator(): id  0 | task 1609 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | slot   operator(): id  0 | task 1708 | cached n_tokens = 178, memory_seq_rm [178, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 1023.697 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 1081.79 ms
+ollama-1  | slot   operator(): id  0 | task 1801 | cached n_tokens = 1593, memory_seq_rm [1593, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 5 prompts, 1220.869 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 322.42 ms
+ollama-1  | slot   operator(): id  0 | task 1868 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 6 prompts, 1257.998 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 31.77 ms
+ollama-1  | slot   operator(): id  0 | task 1945 | cached n_tokens = 5, memory_seq_rm [5, end)
+ollama-1  | slot   operator(): id  0 | task 1945 | cached n_tokens = 1029, memory_seq_rm [1029, end)
+ollama-1  | slot   operator(): id  0 | task 2006 | cached n_tokens = 1969, memory_seq_rm [1969, end)
+ollama-1  | slot   operator(): id  0 | task 2071 | cached n_tokens = 1956, memory_seq_rm [1956, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 6 prompts, 1538.427 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 1550.43 ms
+ollama-1  | slot   operator(): id  0 | task 2306 | cached n_tokens = 188, memory_seq_rm [188, end)
+ollama-1  | slot   operator(): id  0 | task 2383 | cached n_tokens = 188, memory_seq_rm [188, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 6 prompts, 1257.998 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 445.60 ms
+ollama-1  | slot   operator(): id  0 | task 2460 | cached n_tokens = 1956, memory_seq_rm [1956, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 6 prompts, 1512.691 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 438.01 ms
+ollama-1  | slot   operator(): id  0 | task 2567 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 7 prompts, 1546.304 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 19.43 ms
+ollama-1  | slot   operator(): id  0 | task 2624 | cached n_tokens = 5, memory_seq_rm [5, end)
+ollama-1  | slot   operator(): id  0 | task 2624 | cached n_tokens = 1029, memory_seq_rm [1029, end)
+ollama-1  | slot   operator(): id  0 | task 2679 | cached n_tokens = 1347, memory_seq_rm [1347, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 7 prompts, 1709.864 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 552.84 ms
+ollama-1  | slot   operator(): id  0 | task 2735 | cached n_tokens = 183, memory_seq_rm [183, end)
+ollama-1  | slot   operator(): id  0 | task 2792 | cached n_tokens = 183, memory_seq_rm [183, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 7 prompts, 1546.304 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 626.10 ms
+ollama-1  | slot   operator(): id  0 | task 2849 | cached n_tokens = 1347, memory_seq_rm [1347, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 7 prompts, 1709.864 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 597.30 ms
+ollama-1  | slot   operator(): id  0 | task 2905 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 8 prompts, 1744.461 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 79.69 ms
+ollama-1  | slot   operator(): id  0 | task 2965 | cached n_tokens = 5, memory_seq_rm [5, end)
+ollama-1  | slot   operator(): id  0 | task 2965 | cached n_tokens = 1029, memory_seq_rm [1029, end)
+ollama-1  | slot   operator(): id  0 | task 2965 | cached n_tokens = 2053, memory_seq_rm [2053, end)
+ollama-1  | slot   operator(): id  0 | task 3018 | cached n_tokens = 2305, memory_seq_rm [2305, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | time=2026-10-11T18:51:09.491Z level=WARN source=llama_server.go:1208 msg="llama-server process no longer running" sys=9 string="signal: killed"
+ollama-1  | time=2026-10-11T18:51:09.493Z level=WARN source=llama_server.go:1208 msg="llama-server process no longer running" sys=9 string="signal: killed"
+ollama-1  | time=2026-10-11T18:51:09.547Z level=INFO source=sched.go:623 msg="system memory" total="7.8 GiB" free="7.7 GiB" free_swap="977.4 MiB"
+ollama-1  | cmn  common_init_: fitting params to device memory ...
+ollama-1  | common_params_fit_impl: getting device memory data for initial parameters:
+ollama-1  | common_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+ollama-1  | common_memory_breakdown_print: |   - Host               |                 1999 =   623 +    1152 +     224                |
+ollama-1  | common_memory_breakdown_print: |   - CPU_REPACK         |                 4354 =  4354 +       0 +       0                |
+ollama-1  | common_params_fit_impl: projected to use 1999 MiB of host memory vs. 7936 MiB of total host memory
+ollama-1  | common_params_fit_impl: will leave 5936 >= 1024 MiB of system memory, no changes needed
+ollama-1  | common_fit_params: successfully fit params to free device memory
+ollama-1  | common_fit_params: fitting params to free memory took 0.24 seconds
+ollama-1  | load: special tokens cache size = 27
+ollama-1  | load: token to piece cache size = 0.9311 MB
+ollama-1  | llama_kv_cache:        CPU KV buffer size =  1152.00 MiB
+ollama-1  | llama_kv_cache: size = 1152.00 MiB (  8192 cells,  36 layers,  1/1 seqs), K (f16):  576.00 MiB, V (f16):  576.00 MiB
+ollama-1  | llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 128
+ollama-1  | llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 128
+ollama-1  | srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+ollama-1  | srv    load_model: use `--cache-ram 0` to disable the prompt cache
+ollama-1  | srv          init: idle slots will be saved to prompt cache upon starting a new task
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 8192 tokens, 8589934592 est)
+ollama-1  | srv  get_availabl: prompt cache update took 0.01 ms
+ollama-1  | slot   operator(): id  0 | task 0 | cached n_tokens = 0, memory_seq_rm [0, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 1 prompts, 34.597 MiB (limits: 8192.000 MiB, 8192 tokens, 58248 est)
+ollama-1  | srv  get_availabl: prompt cache update took 23.39 ms
+ollama-1  | slot   operator(): id  0 | task 60 | cached n_tokens = 5, memory_seq_rm [5, end)
+ollama-1  | slot   operator(): id  0 | task 60 | cached n_tokens = 1029, memory_seq_rm [1029, end)
+ollama-1  | slot   operator(): id  0 | task 60 | cached n_tokens = 2053, memory_seq_rm [2053, end)
+ollama-1  | srv  get_availabl: updating prompt cache
+ollama-1  | srv        update:  - cache state: 1 prompts, 331.200 MiB (limits: 8192.000 MiB, 8192 tokens, 58249 est)
+ollama-1  | srv  get_availabl: prompt cache update took 323.07 ms
+ollama-1  | slot   operator(): id  0 | task 113 | cached n_tokens = 152, memory_seq_rm [152, end)
+ollama-1  | slot   operator(): id  0 | task 215 | cached n_tokens = 182, memory_seq_rm [182, end)
+ollama-1  | slot   operator(): id  0 | task 317 | cached n_tokens = 182, memory_seq_rm [182, end)
+ollama-1  | slot   operator(): id  0 | task 419 | cached n_tokens = 154, memory_seq_rm [154, end)
+ollama-1  | slot   operator(): id  0 | task 477 | cached n_tokens = 190, memory_seq_rm [190, end)
+ollama-1  | slot   operator(): id  0 | task 533 | cached n_tokens = 190, memory_seq_rm [190, end)
+ollama-1  | slot   operator(): id  0 | task 589 | cached n_tokens = 153, memory_seq_rm [153, end)
+ollama-1  | slot   operator(): id  0 | task 619 | cached n_tokens = 183, memory_seq_rm [183, end)
+ollama-1  | slot   operator(): id  0 | task 649 | cached n_tokens = 183, memory_seq_rm [183, end)

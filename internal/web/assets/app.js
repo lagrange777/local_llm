@@ -8,7 +8,7 @@ let refreshTimer;
 const welcome = $("welcome");
 function notice(message) { $("notice").textContent = message || ""; $("notice").hidden = !message; }
 function save() {
-  try { localStorage.setItem(storageKey, JSON.stringify({turns:turns.slice(-100),think:$("think").checked})); }
+  try { localStorage.setItem(storageKey, JSON.stringify({turns:turns.slice(-100),think:$("think").checked,rag:$("rag").checked})); }
   catch (_) { notice("История не сохранилась: браузер не разрешает запись или хранилище заполнено."); }
 }
 function restore() {
@@ -22,6 +22,7 @@ function restore() {
       }
     }
     $("think").checked = data.think === true;
+    $("rag").checked = data.rag !== false;
   } catch (_) { turns=[]; }
 }
 function titles() {
@@ -74,9 +75,10 @@ function renderTurn(turn) {
   const pending=node("div","pending-label",turn.thinking ? "Формулирует ответ" : "Модель отвечает"); pending.hidden=turn.state!=="pending";
   const meta=node("div","message-meta"); meta.hidden=true;
   const error=node("div","message-error",turn.error||""); error.hidden=!turn.error;
-  body.append(thinking,answer,pending,meta,error); assistant.append(body); container.append(user,assistant);
+  const sources=node("div","sources"); sources.hidden=true;
+  body.append(thinking,answer,pending,meta,sources,error); assistant.append(body); container.append(user,assistant);
   $("conversation").append(container);
-  const view={thinking,thought,answer,pending,meta,error};
+  const view={thinking,thought,answer,pending,meta,sources,error};
   updateTurn(turn,view);
   return view;
 }
@@ -86,10 +88,22 @@ function updateTurn(turn, view) {
   view.answer.textContent=turn.content;
   if (turn.state==="complete") answerMarkup(view.answer,turn.content);
   view.pending.hidden=turn.state!=="pending";
-  view.pending.textContent=turn.thinking ? "Формулирует ответ" : "Модель отвечает";
+  view.pending.textContent=turn.thinking ? "Формулирует ответ" : turn.rag ? "Ищет контекст и проверяет ссылки…" : "Модель отвечает";
   view.error.textContent=turn.error||""; view.error.hidden=!turn.error;
   view.meta.hidden=turn.state!=="complete";
-  if (turn.state==="complete") view.meta.textContent=(Number(turn.seconds)||0).toFixed(1)+" с · "+(Number(turn.tokens)||0)+" токенов · "+(turn.think?"С рассуждениями":"Без рассуждений")+(turn.trimmed?" · Ранние сообщения не вошли в контекст":"");
+  view.sources.replaceChildren();
+  const citations=Array.isArray(turn.citations)?turn.citations:[];
+  view.sources.hidden=turn.state!=="complete" || !turn.rag;
+  if (!view.sources.hidden) {
+    if (!citations.length) view.sources.append(node("p","source-empty","Источники: подтверждённого ответа в найденном контексте нет."));
+    for (const source of citations) {
+      const details=node("details","source-card");
+      details.append(node("summary","","["+source.ref+"] "+source.source+" · "+source.section));
+      details.append(node("p","source-id","chunk_id: "+source.chunk_id+" · строки "+source.start+"–"+source.end));
+      details.append(node("blockquote","",source.quote));view.sources.append(details);
+    }
+  }
+  if (turn.state==="complete") view.meta.textContent=(Number(turn.seconds)||0).toFixed(1)+" с · "+(Number(turn.tokens)||0)+" токенов · "+(turn.think?"С рассуждениями":"Без рассуждений")+(turn.rag?" · BM25: "+(Number(turn.retrieval_ms)||0).toFixed(1)+" мс · RAG":" · Без RAG")+(turn.trimmed?" · Ранние сообщения не вошли в контекст":"");
 }
 function scrollDown() {
   const messages=$("messages");
@@ -97,7 +111,7 @@ function scrollDown() {
 }
 function busy(value) {
   $("send").hidden=value; $("stop").hidden=!value;
-  $("prompt").disabled=value; $("new-chat").disabled=value; $("think").disabled=value;
+  $("prompt").disabled=value; $("new-chat").disabled=value; $("think").disabled=value; $("rag").disabled=value;
   $("send").disabled=!ready;
   $("composer-hint").textContent=value?"Ответ генерируется на локальной модели":"Enter — отправить · Shift + Enter — новая строка";
 }
@@ -131,7 +145,7 @@ async function sendQuestion(event) {
   while (contextSize>6000 && history.length>1) {
     contextSize-=history[0].content.length+history[1].content.length; history.splice(0,2); trimmed=true;
   }
-  const turn={question,content:"",thinking:"",state:"pending",think:$("think").checked,trimmed};
+  const turn={question,content:"",thinking:"",state:"pending",think:$("think").checked,rag:$("rag").checked,trimmed};
   turns.push(turn); titles(); save();
   const view=renderTurn(turn);
   controller=new AbortController();
@@ -140,6 +154,8 @@ async function sendQuestion(event) {
   let finished=false;
   function receive(item) {
     if (item.type==="start") turn.trimmed=turn.trimmed || item.history_trimmed===true;
+    else if (item.type==="retrieval") turn.retrieval_ms=item.retrieval.duration_ms;
+    else if (item.type==="sources") {turn.citations=item.answer.citations; turn.status=item.answer.status;}
     else if (item.type==="delta") turn.content+=item.text||"";
     else if (item.type==="thinking") turn.thinking+=item.text||"";
     else if (item.type==="done") { finished=true; turn.state="complete"; turn.seconds=item.seconds; turn.tokens=item.tokens; }
@@ -147,7 +163,7 @@ async function sendQuestion(event) {
     updateTurn(turn,view); scrollDown();
   }
   try {
-    const response=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history,think:turn.think}),signal:activeController.signal});
+    const response=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history,think:turn.think,rag:turn.rag}),signal:activeController.signal});
     if (!response.ok) { const error=await response.json(); throw new Error(error.message||"Не удалось отправить сообщение."); }
     if (!response.body) throw new Error("Браузер не поддерживает потоковый ответ.");
     const reader=response.body.getReader(); const decoder=new TextDecoder(); let buffer="";
@@ -182,5 +198,6 @@ $("new-chat").addEventListener("click",()=>{
   turns=[]; $("conversation").replaceChildren(); $("prompt").value=""; titles(); save(); notice(""); $("prompt").focus();
 });
 $("think").addEventListener("change",save);
+$("rag").addEventListener("change",save);
 $("connection").addEventListener("click",refresh);
 restore(); turns.forEach(renderTurn); titles(); busy(false); refresh(); scrollDown();

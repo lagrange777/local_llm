@@ -1,0 +1,497 @@
+{
+  "runs_sha256": "948ee0579cd20316e42b4099ef762ec3b880dae1f91e95be59cb5cf676438bfe",
+  "reviewer": "Codex assistant: manual review of all saved outputs against expectations and exact quoted lines; not an independent human audit",
+  "rubric": "Correctness and completeness score the generated answer claims, not additional facts appearing only in citation cards. Supported requires every claim to follow from the displayed quoted fragment. API failures score 0/0. Unknown answers have no evidence, so supported=false is not itself a quality failure.",
+  "questions": {
+    "q01": {
+      "plain": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Вместо временного файла и атомарной замены предложены предположения о транзакциях, хешах или резервных копиях."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Вместо временного файла и атомарной замены предложены предположения о транзакциях, хешах или резервных копиях."
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Вместо временного файла и атомарной замены предложены предположения о транзакциях, хешах или резервных копиях."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная замена верно названы и прямо содержатся в цитате."
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная замена верно названы и прямо содержатся в цитате."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Временный файл и атомарная замена верно названы и прямо содержатся в цитате."
+        }
+      },
+      "note": "RAG исправляет выдуманный механизм записи."
+    },
+    "q02": {
+      "plain": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Нет установленного срока 12 часов и сохранения JSON-истории на диске."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Нет установленного срока 12 часов и сохранения JSON-истории на диске."
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Нет установленного срока 12 часов и сохранения JSON-истории на диске."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Верный срок 12 часов подтверждён цитатой. Сохранение истории на диске есть в цитате, но не в утверждении ответа."
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Верный срок 12 часов подтверждён цитатой. Сохранение истории на диске есть в цитате, но не в утверждении ответа."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Верный срок 12 часов подтверждён цитатой. Сохранение истории на диске есть в цитате, но не в утверждении ответа."
+        }
+      },
+      "note": "Срок верен; судьба истории в утверждении пропущена."
+    },
+    "q03": {
+      "plain": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Не указан точный лимит 1 МиБ: утверждение об отсутствии лимита или диапазон 1–2 МБ не соответствует базе."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Не указан точный лимит 1 МиБ: утверждение об отсутствии лимита или диапазон 1–2 МБ не соответствует базе."
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Не указан точный лимит 1 МиБ: утверждение об отсутствии лимита или диапазон 1–2 МБ не соответствует базе."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Лимит 1 МиБ прямо указан в точной цитате."
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Лимит 1 МиБ прямо указан в точной цитате."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Лимит 1 МиБ прямо указан в точной цитате."
+        }
+      },
+      "note": "RAG даёт точный лимит."
+    },
+    "q04": {
+      "plain": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Нет причины о скрытой серверной цепочке, возвращающей отброшенную историю; версия о нестабильных ID выдумана."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Нет причины о скрытой серверной цепочке, возвращающей отброшенную историю; версия о нестабильных ID выдумана."
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Нет причины о скрытой серверной цепочке, возвращающей отброшенную историю; версия о нестабильных ID выдумана."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Верно объяснён возврат отброшенной истории; нет явного окна сообщений. В показанной цитате отрезана предыдущая строка с «не» перед previous_response_id, поэтому самостоятельное доказательство неполно."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Модель не смогла подтвердить ответ корректными ссылками и цитатами. Повторите или уточните вопрос."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Верно объяснён возврат отброшенной истории; нет явного окна сообщений. В показанной цитате отрезана предыдущая строка с «не» перед previous_response_id, поэтому самостоятельное доказательство неполно."
+        }
+      },
+      "note": "Один отказ проверки ссылок; цитата успешных ответов начинается после отрицания."
+    },
+    "q06": {
+      "plain": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Общий механизм синхронизации не объясняет ревизии файлов и атомарный указатель CURRENT.json."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Общий механизм синхронизации не объясняет ревизии файлов и атомарный указатель CURRENT.json."
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Общий механизм синхронизации не объясняет ревизии файлов и атомарный указатель CURRENT.json."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 1,
+          "completeness": 0,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Имена файлов подтверждены цитатами, но механизм согласованных ревизий и атомарной смены указателя не объяснён."
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 1,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Верно названы файлы и атомарная смена CURRENT.json, но создание новой ревизии и согласованное чтение не объяснены. Цитата про указатель обрезана перед строкой CURRENT.json."
+        },
+        "3": {
+          "correctness": 1,
+          "completeness": 0,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Имена файлов подтверждены цитатами, но механизм согласованных ревизий и атомарной смены указателя не объяснён."
+        }
+      },
+      "note": "Ответы меняют полноту; цитата указателя обрезана."
+    },
+    "q07": {
+      "plain": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ложное утверждение: предложения памяти требуют подтверждения и до него не входят в основной запрос."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ложное утверждение: предложения памяти требуют подтверждения и до него не входят в основной запрос."
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ложное утверждение: предложения памяти требуют подтверждения и до него не входят в основной запрос."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ подменяет вопрос о подтверждении памяти вопросом о продолжении диалога. Цитата TASK_STATE.md не доказывает правило; нужный фрагмент MEMORY.md не найден."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ подменяет вопрос о подтверждении памяти вопросом о продолжении диалога. Цитата TASK_STATE.md не доказывает правило; нужный фрагмент MEMORY.md не найден."
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ подменяет вопрос о подтверждении памяти вопросом о продолжении диалога. Цитата TASK_STATE.md не доказывает правило; нужный фрагмент MEMORY.md не найден."
+        }
+      },
+      "note": "BM25 не нашёл ожидаемый фрагмент; точная цитата не подтверждает смысл."
+    },
+    "q09": {
+      "plain": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Верно установлен приоритет явной просьбы над профилем; доказательств из документов без RAG нет."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Ответ не завершён: Ollama не смогла завершить ответ. Проверьте состояние модели и повторите запрос."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Верно установлен приоритет явной просьбы над профилем; доказательств из документов без RAG нет."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Верный приоритет явной просьбы над профилем прямо подтверждён списком в цитате."
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Верный приоритет явной просьбы над профилем прямо подтверждён списком в цитате."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": true,
+          "abstention": false,
+          "rationale": "Верный приоритет явной просьбы над профилем прямо подтверждён списком в цитате."
+        }
+      },
+      "note": "Один OOM в исходном plain; после ограничения кэша выполнен отдельный повтор."
+    },
+    "n01": {
+      "plain": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Число не придумано, но ложно предполагается хранение истории в Redis вместо признания отсутствия Redis в корпусе."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Число не придумано, но ложно предполагается хранение истории в Redis вместо признания отсутствия Redis в корпусе."
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Число не придумано, но ложно предполагается хранение истории в Redis вместо признания отсутствия Redis в корпусе."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Локальный поиск не дал допустимого контекста; сервер отказался без генерации и попросил уточнение."
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Локальный поиск не дал допустимого контекста; сервер отказался без генерации и попросил уточнение."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Локальный поиск не дал допустимого контекста; сервер отказался без генерации и попросил уточнение."
+        }
+      },
+      "note": "Без RAG выдумано использование Redis; RAG отказывается."
+    },
+    "n02": {
+      "plain": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "SLA не выдуман; явно сказано, что конкретных данных нет."
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "SLA не выдуман; явно сказано, что конкретных данных нет."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "SLA не выдуман; явно сказано, что конкретных данных нет."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Локальный поиск не дал допустимого контекста; сервер отказался без генерации и попросил уточнение."
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Локальный поиск не дал допустимого контекста; сервер отказался без генерации и попросил уточнение."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Локальный поиск не дал допустимого контекста; сервер отказался без генерации и попросил уточнение."
+        }
+      },
+      "note": "Оба режима корректно отказываются."
+    },
+    "n03": {
+      "plain": {
+        "1": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Выдумана версия PostgreSQL 13, которой нет в документах."
+        },
+        "2": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Выдумана версия PostgreSQL 13, которой нет в документах."
+        },
+        "3": {
+          "correctness": 0,
+          "completeness": 0,
+          "supported": false,
+          "abstention": false,
+          "rationale": "Выдумана версия PostgreSQL 13, которой нет в документах."
+        }
+      },
+      "rag": {
+        "1": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Локальный поиск не дал допустимого контекста; сервер отказался без генерации и попросил уточнение."
+        },
+        "2": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Локальный поиск не дал допустимого контекста; сервер отказался без генерации и попросил уточнение."
+        },
+        "3": {
+          "correctness": 2,
+          "completeness": 2,
+          "supported": false,
+          "abstention": true,
+          "rationale": "Локальный поиск не дал допустимого контекста; сервер отказался без генерации и попросил уточнение."
+        }
+      },
+      "note": "Без RAG выдумана версия PostgreSQL; RAG отказывается."
+    }
+  }
+}

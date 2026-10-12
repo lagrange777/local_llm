@@ -27,22 +27,25 @@ type Message struct {
 	Thinking string `json:"thinking,omitempty"`
 }
 type ChatRequest struct {
-	Model     string    `json:"model"`
-	Messages  []Message `json:"messages"`
-	Stream    bool      `json:"stream"`
-	Think     bool      `json:"think"`
-	KeepAlive string    `json:"keep_alive"`
-	Options   Options   `json:"options"`
+	Model     string          `json:"model"`
+	Messages  []Message       `json:"messages"`
+	Stream    bool            `json:"stream"`
+	Format    json.RawMessage `json:"format,omitempty"`
+	Think     bool            `json:"think"`
+	KeepAlive string          `json:"keep_alive"`
+	Options   Options         `json:"options"`
 }
 type ChatChunk struct {
-	Model         string  `json:"model"`
-	Message       Message `json:"message"`
-	Done          bool    `json:"done"`
-	DoneReason    string  `json:"done_reason,omitempty"`
-	EvalCount     int     `json:"eval_count,omitempty"`
-	EvalDuration  int64   `json:"eval_duration,omitempty"`
-	TotalDuration int64   `json:"total_duration,omitempty"`
-	Error         string  `json:"error,omitempty"`
+	Model           string  `json:"model"`
+	Message         Message `json:"message"`
+	Done            bool    `json:"done"`
+	DoneReason      string  `json:"done_reason,omitempty"`
+	EvalCount       int     `json:"eval_count,omitempty"`
+	LoadDuration    int64   `json:"load_duration,omitempty"`
+	PromptEvalCount int     `json:"prompt_eval_count,omitempty"`
+	EvalDuration    int64   `json:"eval_duration,omitempty"`
+	TotalDuration   int64   `json:"total_duration,omitempty"`
+	Error           string  `json:"error,omitempty"`
 }
 
 // Chat forwards chunks as they arrive. Canceling ctx closes the upstream request.

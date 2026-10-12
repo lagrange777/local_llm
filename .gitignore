@@ -9,3 +9,6 @@
 /.ollama/
 *.log
 *.gguf
+
+__pycache__/
+*.pyc

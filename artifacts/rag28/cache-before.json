@@ -1,0 +1,7 @@
+{
+  "stage": "before cache RAM cap; main 60-request pilot",
+  "container": "local-llm-ollama-1",
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 1\noom_group_kill 0\n",
+  "memory_peak": "7663243264\n",
+  "configured_cache_mib": 8192
+}
