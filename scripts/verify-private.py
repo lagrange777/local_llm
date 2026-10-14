@@ -4,6 +4,7 @@ import argparse
 import concurrent.futures
 import datetime
 import json
+import ipaddress
 from pathlib import Path
 import statistics
 import threading
@@ -23,10 +24,18 @@ def main():
     p.add_argument('--output',type=Path,default=Path('artifacts/private30'))
     p.add_argument('--phase',choices=['all','stability','limits','parallel','rate','cancel','timeout','smoke'],default='all')
     p.add_argument('--sequential',type=int,default=20)
+    p.add_argument('--allow-lan-http',action='store_true',help='Explicit opt-in for unencrypted RFC1918 IPv4 HTTP')
     args=p.parse_args()
     u=urlsplit(args.url)
-    if u.username or u.password or u.query or u.fragment or u.path not in ('','/') or (u.scheme!='https' and not (u.scheme=='http' and u.hostname in ('localhost','127.0.0.1','::1'))):
-        p.error('Use HTTPS origin or loopback HTTP; credentials in URL are forbidden')
+    lan=False
+    if args.allow_lan_http:
+        try:
+            addr=ipaddress.IPv4Address(u.hostname)
+            lan=any(addr in ipaddress.IPv4Network(n) for n in ('10.0.0.0/8','172.16.0.0/12','192.168.0.0/16'))
+        except ValueError:pass
+        if not lan:p.error('--allow-lan-http requires an RFC1918 IPv4 address')
+    if u.username or u.password or u.query or u.fragment or u.path not in ('','/') or (u.scheme!='https' and not (u.scheme=='http' and (u.hostname in ('localhost','127.0.0.1','::1') or lan))):
+        p.error('Use HTTPS, loopback HTTP, or explicit RFC1918 LAN HTTP; credentials in URL are forbidden')
     if not 1<=args.sequential<=100:p.error('--sequential must be 1-100')
     token=args.token_file.read_text().strip();base=args.url.rstrip('/')
     args.output.mkdir(parents=True,exist_ok=True)

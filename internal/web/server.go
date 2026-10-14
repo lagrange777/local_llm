@@ -142,11 +142,12 @@ func (a *App) status(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, data)
 }
 func (a *App) chat(w http.ResponseWriter, r *http.Request) {
-	origin := ""
+
+	allowed := sameOrigin(r, "")
 	if a.access != nil {
-		origin = a.access.config.PublicOrigin
+		allowed = a.access.allowedOrigin(r)
 	}
-	if !sameOrigin(r, origin) {
+	if !allowed {
 		writeJSON(w, 403, map[string]string{"code": "origin", "message": "Запрос разрешён только из интерфейса приложения."})
 		return
 	}

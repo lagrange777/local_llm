@@ -1,0 +1,38 @@
+{
+  "scope": "HTTP LAN address checked from server Mac; second physical device not yet checked",
+  "url": "http://192.168.31.43:8081",
+  "login_checks": [
+    {
+      "origin": "http://192.168.31.43:8081",
+      "status": 200,
+      "cookie_flags": {
+        "http_only": true,
+        "secure": false,
+        "same_site": "Strict"
+      }
+    },
+    {
+      "origin": "http://127.0.0.1:8081",
+      "status": 200,
+      "cookie_flags": {
+        "http_only": true,
+        "secure": false,
+        "same_site": "Strict"
+      }
+    },
+    {
+      "origin": "https://foreign.example",
+      "status": 403,
+      "cookie_flags": {}
+    }
+  ],
+  "browser": {
+    "answer": "56",
+    "seconds": 2.8
+  },
+  "gateway_ports": "8080/tcp -> 127.0.0.1:8081\n8080/tcp -> 192.168.31.43:8081\n",
+  "ollama_ports": "",
+  "go_tests_race": "passed",
+  "go_vet": "passed",
+  "docker_build": "passed"
+}

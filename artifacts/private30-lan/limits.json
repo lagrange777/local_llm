@@ -1,0 +1,329 @@
+{
+  "started_at": "2026-10-14T04:29:35.743446+00:00",
+  "url": "http://192.168.31.43:8081",
+  "phase": "limits",
+  "scope": "network endpoint",
+  "complete": true,
+  "checks": [
+    {
+      "name": "unauthorized-/api/status",
+      "passed": true,
+      "response": {
+        "status": 401,
+        "seconds": 0.0015,
+        "retry_after": null,
+        "events": [
+          {
+            "code": "unauthorized",
+            "message": "Для доступа нужен ключ или вход в сервис."
+          }
+        ],
+        "text": "",
+        "code": "unauthorized"
+      }
+    },
+    {
+      "name": "unauthorized-/api/service/status",
+      "passed": true,
+      "response": {
+        "status": 401,
+        "seconds": 0.0017,
+        "retry_after": null,
+        "events": [
+          {
+            "code": "unauthorized",
+            "message": "Для доступа нужен ключ или вход в сервис."
+          }
+        ],
+        "text": "",
+        "code": "unauthorized"
+      }
+    },
+    {
+      "name": "unauthorized-/api/optimization/report",
+      "passed": true,
+      "response": {
+        "status": 401,
+        "seconds": 0.0018,
+        "retry_after": null,
+        "events": [
+          {
+            "code": "unauthorized",
+            "message": "Для доступа нужен ключ или вход в сервис."
+          }
+        ],
+        "text": "",
+        "code": "unauthorized"
+      }
+    },
+    {
+      "name": "unauthorized-/api/rag/search?query=history",
+      "passed": true,
+      "response": {
+        "status": 401,
+        "seconds": 0.0015,
+        "retry_after": null,
+        "events": [
+          {
+            "code": "unauthorized",
+            "message": "Для доступа нужен ключ или вход в сервис."
+          }
+        ],
+        "text": "",
+        "code": "unauthorized"
+      }
+    },
+    {
+      "name": "wrong-key",
+      "passed": true,
+      "response": {
+        "status": 401,
+        "seconds": 0.0016,
+        "retry_after": null,
+        "events": [
+          {
+            "code": "unauthorized",
+            "message": "Для доступа нужен ключ или вход в сервис."
+          }
+        ],
+        "text": "",
+        "code": "unauthorized"
+      }
+    },
+    {
+      "name": "foreign-origin",
+      "passed": true,
+      "response": {
+        "status": 403,
+        "seconds": 0.0015,
+        "retry_after": null,
+        "events": [
+          {
+            "code": "origin",
+            "message": "Запрос разрешён только из интерфейса приложения."
+          }
+        ],
+        "text": "",
+        "code": "origin"
+      }
+    },
+    {
+      "name": "body-limit",
+      "passed": true,
+      "response": {
+        "status": 413,
+        "seconds": 0.0016,
+        "retry_after": null,
+        "events": [],
+        "text": "",
+        "code": null
+      }
+    },
+    {
+      "name": "context-limit",
+      "passed": true,
+      "response": {
+        "status": 400,
+        "seconds": 0.0021,
+        "retry_after": null,
+        "events": [
+          {
+            "code": "context_budget",
+            "message": "Диалог превышает бюджет контекста. Сократите вопрос или начните новый диалог."
+          }
+        ],
+        "text": "",
+        "code": "context_budget"
+      }
+    },
+    {
+      "name": "arbitrary-model",
+      "passed": true,
+      "response": {
+        "status": 400,
+        "seconds": 0.0017,
+        "retry_after": null,
+        "events": [
+          {
+            "message": "Некорректный запрос или слишком большой диалог."
+          }
+        ],
+        "text": "",
+        "code": null
+      }
+    },
+    {
+      "name": "arbitrary-options",
+      "passed": true,
+      "response": {
+        "status": 400,
+        "seconds": 0.0016,
+        "retry_after": null,
+        "events": [
+          {
+            "message": "Некорректный запрос или слишком большой диалог."
+          }
+        ],
+        "text": "",
+        "code": null
+      }
+    },
+    {
+      "name": "all-profiles-capped",
+      "passed": true,
+      "profiles": [
+        {
+          "id": "baseline",
+          "label": "Исходная 8B Q4",
+          "model": "rag29-baseline-8b",
+          "options": {
+            "seed": 42,
+            "temperature": 0,
+            "num_ctx": 4096,
+            "num_predict": 384
+          },
+          "prompt": "baseline",
+          "think_supported": true
+        },
+        {
+          "id": "optimized-8b",
+          "label": "Настроенная 8B Q4",
+          "model": "rag29-baseline-8b",
+          "options": {
+            "seed": 42,
+            "temperature": 0,
+            "num_ctx": 4096,
+            "num_predict": 384
+          },
+          "prompt": "optimized",
+          "think_supported": true
+        },
+        {
+          "id": "optimized-8b-t02",
+          "label": "8B · temperature 0.2 (подбор)",
+          "model": "rag29-baseline-8b",
+          "options": {
+            "seed": 42,
+            "temperature": 0.2,
+            "num_ctx": 4096,
+            "num_predict": 384
+          },
+          "prompt": "optimized",
+          "think_supported": true
+        },
+        {
+          "id": "instruct-4b-q8",
+          "label": "4B Instruct · Q8",
+          "model": "rag29-instruct-4b-q8",
+          "options": {
+            "seed": 42,
+            "temperature": 0,
+            "num_ctx": 4096,
+            "num_predict": 384
+          },
+          "prompt": "optimized",
+          "think_supported": false
+        },
+        {
+          "id": "instruct-4b-q4",
+          "label": "4B Instruct · Q4",
+          "model": "rag29-instruct-4b-q4",
+          "options": {
+            "seed": 42,
+            "temperature": 0,
+            "num_ctx": 4096,
+            "num_predict": 384
+          },
+          "prompt": "optimized",
+          "think_supported": false
+        }
+      ]
+    }
+  ],
+  "service": {
+    "active": 0,
+    "limits": {
+      "allow_lan_http": true,
+      "public_origin": "http://192.168.31.43:8081",
+      "cookie_secure": false,
+      "requests_per_minute": 6,
+      "queue_capacity": 2,
+      "max_context_tokens": 4096,
+      "max_output_tokens": 384
+    },
+    "max_concurrent": 1,
+    "max_request_bytes": 65536,
+    "metrics": {
+      "accepted": 0,
+      "canceled": 0,
+      "completed": 0,
+      "failed": 0,
+      "output_tokens": 0,
+      "queue_full": 0,
+      "rate_limited": 0
+    },
+    "private": true,
+    "queued": 0,
+    "remaining_requests": 6,
+    "timeout_seconds": 300,
+    "window_reset_after_seconds": 0
+  },
+  "model": {
+    "chunks": 143,
+    "corpus_hash": "80dd1e87e95e96642d1f8a56a9b573ad5a11170a8a675f90ea52432d91b70e77",
+    "generation": {
+      "seed": 42,
+      "temperature": 0,
+      "num_ctx": 4096,
+      "num_predict": 384
+    },
+    "index_sha256": "ba6882beccc8080e0c5d56f1acfced6fe9b5dd924c4e5828d5825c9bce75703e",
+    "model": "rag29-instruct-4b-q4",
+    "profile": "instruct-4b-q4",
+    "profiles_sha256": "e09ddcdd727207452c90969162bc0688b612a62957270624339b8586c0ceb9cd",
+    "prompt_cache_mib": 512,
+    "prompt_sha256": "62475530a4143efce3950201f7ac372a0653401a85d4015fd9190fd88194230e",
+    "rag_config": {
+      "top_k_before": 10,
+      "top_k_after": 4,
+      "min_coverage": 0.22,
+      "context_characters": 5000
+    },
+    "rag_ready": true,
+    "ready": true,
+    "strategy": "structured",
+    "think_supported": false,
+    "version": "0.40.3"
+  },
+  "final_service": {
+    "active": 0,
+    "limits": {
+      "allow_lan_http": true,
+      "public_origin": "http://192.168.31.43:8081",
+      "cookie_secure": false,
+      "requests_per_minute": 6,
+      "queue_capacity": 2,
+      "max_context_tokens": 4096,
+      "max_output_tokens": 384
+    },
+    "max_concurrent": 1,
+    "max_request_bytes": 65536,
+    "metrics": {
+      "accepted": 0,
+      "canceled": 0,
+      "completed": 0,
+      "failed": 0,
+      "output_tokens": 0,
+      "queue_full": 0,
+      "rate_limited": 0
+    },
+    "private": true,
+    "queued": 0,
+    "remaining_requests": 6,
+    "timeout_seconds": 300,
+    "window_reset_after_seconds": 0
+  },
+  "sequential_median_seconds": null,
+  "passed": true,
+  "completed_at": "2026-10-14T04:29:35.793065+00:00"
+}

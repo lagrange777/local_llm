@@ -12,6 +12,7 @@ import (
 	"log"
 	"math"
 	"net/http"
+	"net/netip"
 	"net/url"
 	"os"
 	"strconv"
@@ -25,6 +26,7 @@ import (
 )
 
 type ServiceConfig struct {
+	AllowLANHTTP      bool   `json:"allow_lan_http"`
 	Token             string `json:"-"`
 	PublicOrigin      string `json:"public_origin"`
 	CookieSecure      bool   `json:"cookie_secure"`
@@ -47,6 +49,10 @@ func LoadServiceConfig() (*ServiceConfig, error) {
 		return nil, fmt.Errorf("cannot read SERVICE_TOKEN_FILE")
 	}
 	c := &ServiceConfig{Token: strings.TrimSpace(string(data)), PublicOrigin: os.Getenv("SERVICE_PUBLIC_ORIGIN")}
+	c.AllowLANHTTP, err = strconv.ParseBool(envService("SERVICE_ALLOW_LAN_HTTP", "false"))
+	if err != nil {
+		return nil, fmt.Errorf("invalid SERVICE_ALLOW_LAN_HTTP")
+	}
 	c.CookieSecure, err = strconv.ParseBool(envService("SERVICE_COOKIE_SECURE", "true"))
 	if err != nil {
 		return nil, fmt.Errorf("invalid SERVICE_COOKIE_SECURE")
@@ -78,10 +84,14 @@ func (c ServiceConfig) Validate() error {
 		return fmt.Errorf("SERVICE_PUBLIC_ORIGIN must be an origin without path")
 	}
 	local := u.Hostname() == "127.0.0.1" || u.Hostname() == "localhost" || u.Hostname() == "::1"
-	if u.Scheme != "https" && !(u.Scheme == "http" && local && !c.CookieSecure) {
-		return fmt.Errorf("private service requires HTTPS; HTTP is allowed only for loopback tests with insecure cookie")
+	lan := c.AllowLANHTTP && u.Scheme == "http" && !c.CookieSecure && rfc1918Host(u.Hostname())
+	if c.AllowLANHTTP && !lan {
+		return fmt.Errorf("SERVICE_ALLOW_LAN_HTTP requires an HTTP RFC1918 IPv4 origin and insecure cookie")
 	}
-	if !c.CookieSecure && !local {
+	if u.Scheme != "https" && !(u.Scheme == "http" && (local || lan) && !c.CookieSecure) {
+		return fmt.Errorf("private service requires HTTPS; HTTP needs loopback or explicit RFC1918 LAN opt-in")
+	}
+	if !c.CookieSecure && !local && !lan {
 		return fmt.Errorf("secure cookies are required outside loopback tests")
 	}
 	if c.RequestsPerMinute < 1 || c.RequestsPerMinute > 600 || c.QueueCapacity < 0 || c.QueueCapacity > 16 || c.MaxContext < 512 || c.MaxContext > 8192 || c.MaxOutput < 16 || c.MaxOutput > 1024 || c.MaxOutput >= c.MaxContext {
@@ -187,7 +197,7 @@ func sameOrigin(r *http.Request, configured string) bool {
 	return err == nil && u.Host == r.Host && u.User == nil && u.Path == "" && u.RawQuery == "" && u.Fragment == "" && (u.Scheme == "http" || u.Scheme == "https")
 }
 func (p *privateAccess) login(w http.ResponseWriter, r *http.Request) {
-	if !sameOrigin(r, p.config.PublicOrigin) {
+	if !p.allowedOrigin(r) {
 		writeJSON(w, 403, map[string]string{"code": "origin", "message": "Вход разрешён только из интерфейса сервиса."})
 		return
 	}
@@ -238,7 +248,7 @@ func (p *privateAccess) login(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, 200, map[string]bool{"authenticated": true})
 }
 func (p *privateAccess) logout(w http.ResponseWriter, r *http.Request) {
-	if !sameOrigin(r, p.config.PublicOrigin) {
+	if !p.allowedOrigin(r) {
 		writeJSON(w, 403, map[string]string{"message": "Недопустимый Origin."})
 		return
 	}
@@ -399,4 +409,30 @@ func (a *App) profileList() []optimization.Profile {
 func (a *App) profilesHash() string {
 	b, _ := json.Marshal(a.profileList())
 	return fmt.Sprintf("%x", sha256.Sum256(b))
+}
+
+func rfc1918Host(host string) bool {
+	ip, err := netip.ParseAddr(host)
+	if err != nil || !ip.Is4() {
+		return false
+	}
+	for _, s := range []string{"10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"} {
+		if netip.MustParsePrefix(s).Contains(ip) {
+			return true
+		}
+	}
+	return false
+}
+func (p *privateAccess) allowedOrigin(r *http.Request) bool {
+	if sameOrigin(r, p.config.PublicOrigin) {
+		return true
+	}
+	if !p.config.AllowLANHTTP || !sameOrigin(r, "") {
+		return false
+	}
+	u, err := url.Parse(r.Header.Get("Origin"))
+	if err != nil || u.Scheme != "http" {
+		return false
+	}
+	return u.Hostname() == "localhost" || u.Hostname() == "127.0.0.1" || u.Hostname() == "::1"
 }

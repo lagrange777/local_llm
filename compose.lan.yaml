@@ -1,0 +1,9 @@
+# Explicit opt-in for unencrypted access from a trusted home network.
+services:
+  app:
+    environment:
+      SERVICE_ALLOW_LAN_HTTP: "true"
+  gateway:
+    ports: !override
+      - "127.0.0.1:${WEB_PORT:-8081}:8080"
+      - "${LAN_BIND_IP:?Run scripts/setup-lan.py first}:${LAN_PORT:-8081}:8080"

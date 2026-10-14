@@ -259,3 +259,66 @@ func TestPrivateExpiredSessionRejected(t *testing.T) {
 		t.Fatal("expired session accepted")
 	}
 }
+
+func TestExplicitLANHTTPExceptionIsRestricted(t *testing.T) {
+	cases := []struct {
+		origin               string
+		optIn, secure, valid bool
+	}{
+		{"http://192.168.1.20:8081", false, false, false},
+		{"http://192.168.1.20:8081", true, false, true},
+		{"http://10.1.2.3:8081", true, false, true},
+		{"http://172.16.2.3:8081", true, false, true},
+		{"http://192.168.1.20:8081", true, true, false},
+		{"http://0.0.0.0:8081", true, false, false},
+		{"http://8.8.8.8:8081", true, false, false},
+		{"http://100.64.0.1:8081", true, false, false},
+		{"http://169.254.1.2:8081", true, false, false},
+		{"http://private.example:8081", true, false, false},
+		{"https://public.example", false, true, true},
+	}
+	for _, tc := range cases {
+		c := *privateConfig()
+		c.PublicOrigin = tc.origin
+		c.AllowLANHTTP = tc.optIn
+		c.CookieSecure = tc.secure
+		if (c.Validate() == nil) != tc.valid {
+			t.Fatalf("unexpected LAN policy for %+v", tc)
+		}
+	}
+}
+func TestLANHTTPOriginAndAuthentication(t *testing.T) {
+	c := privateConfig()
+	c.AllowLANHTTP = true
+	c.PublicOrigin = "http://192.168.1.20:8081"
+	h := New(ollama.Client{}, Config{Service: c, Timeout: time.Second})
+	if w := privateRequest(t, h, "GET", "/api/status", "", ""); w.Code != 401 {
+		t.Fatal("LAN bypassed authentication")
+	}
+	for _, tc := range []struct {
+		host, origin string
+		want         int
+	}{
+		{"192.168.1.20:8081", "http://192.168.1.20:8081", 200},
+		{"127.0.0.1:8081", "http://127.0.0.1:8081", 200},
+		{"localhost:8081", "http://localhost:8081", 200},
+		{"192.168.1.20:8081", "http://192.168.1.99:8081", 403},
+		{"127.0.0.1:8081", "http://localhost:8081", 403},
+		{"192.168.1.20:8081", "https://evil.example", 403},
+	} {
+		r := httptest.NewRequest("POST", "/api/auth/login", strings.NewReader(`{"token":"`+testKey+`"}`))
+		r.Host = tc.host
+		r.Header.Set("Origin", tc.origin)
+		w := httptest.NewRecorder()
+		h.ServeHTTP(w, r)
+		if w.Code != tc.want {
+			t.Fatalf("origin %+v => %d", tc, w.Code)
+		}
+		if w.Code == 200 {
+			cookie := w.Result().Cookies()[0]
+			if cookie.Secure || !cookie.HttpOnly || cookie.SameSite != http.SameSiteStrictMode {
+				t.Fatal("LAN cookie settings")
+			}
+		}
+	}
+}
