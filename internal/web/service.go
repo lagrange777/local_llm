@@ -27,6 +27,7 @@ import (
 
 type ServiceConfig struct {
 	AllowLANHTTP      bool   `json:"allow_lan_http"`
+	PasswordHash      string `json:"-"`
 	Token             string `json:"-"`
 	PublicOrigin      string `json:"public_origin"`
 	CookieSecure      bool   `json:"cookie_secure"`
@@ -48,7 +49,11 @@ func LoadServiceConfig() (*ServiceConfig, error) {
 	if err != nil {
 		return nil, fmt.Errorf("cannot read SERVICE_TOKEN_FILE")
 	}
-	c := &ServiceConfig{Token: strings.TrimSpace(string(data)), PublicOrigin: os.Getenv("SERVICE_PUBLIC_ORIGIN")}
+	passwordHash, err := os.ReadFile(os.Getenv("SERVICE_PASSWORD_HASH_FILE"))
+	if err != nil {
+		return nil, fmt.Errorf("cannot read SERVICE_PASSWORD_HASH_FILE")
+	}
+	c := &ServiceConfig{PasswordHash: strings.TrimSpace(string(passwordHash)), Token: strings.TrimSpace(string(data)), PublicOrigin: os.Getenv("SERVICE_PUBLIC_ORIGIN")}
 	c.AllowLANHTTP, err = strconv.ParseBool(envService("SERVICE_ALLOW_LAN_HTTP", "false"))
 	if err != nil {
 		return nil, fmt.Errorf("invalid SERVICE_ALLOW_LAN_HTTP")
@@ -78,6 +83,9 @@ func envService(k, d string) string {
 func (c ServiceConfig) Validate() error {
 	if len(c.Token) < 32 || len(c.Token) > 256 || strings.ContainsAny(c.Token, " \t\n\r") {
 		return fmt.Errorf("service token must contain 32-256 non-whitespace bytes")
+	}
+	if _, err := parsePasswordHash(c.PasswordHash); err != nil {
+		return err
 	}
 	u, err := url.Parse(c.PublicOrigin)
 	if err != nil || u.Host == "" || u.User != nil || u.RawQuery != "" || u.Fragment != "" || u.Path != "" {
@@ -137,6 +145,7 @@ func (l *windowLimiter) snapshot(now time.Time) (int, int) {
 
 type privateAccess struct {
 	config       ServiceConfig
+	password     passwordRecord
 	tokenHash    [32]byte
 	mu           sync.Mutex
 	sessions     map[[32]byte]time.Time
@@ -158,7 +167,8 @@ func newAccess(c ServiceConfig) *privateAccess {
 	if err := c.Validate(); err != nil {
 		panic(err)
 	}
-	return &privateAccess{config: c, tokenHash: sha256.Sum256([]byte(c.Token)), sessions: make(map[[32]byte]time.Time), loginRate: windowLimiter{limit: 10, window: time.Minute}, chatRate: windowLimiter{limit: c.RequestsPerMinute, window: time.Minute}, waiting: make(chan struct{}, c.QueueCapacity)}
+	password, _ := parsePasswordHash(c.PasswordHash)
+	return &privateAccess{password: password, config: c, tokenHash: sha256.Sum256([]byte(c.Token)), sessions: make(map[[32]byte]time.Time), loginRate: windowLimiter{limit: 10, window: time.Minute}, chatRate: windowLimiter{limit: c.RequestsPerMinute, window: time.Minute}, waiting: make(chan struct{}, c.QueueCapacity)}
 }
 func (p *privateAccess) validToken(s string) bool {
 	h := sha256.Sum256([]byte(s))
@@ -207,7 +217,7 @@ func (p *privateAccess) login(w http.ResponseWriter, r *http.Request) {
 	}
 	r.Body = http.MaxBytesReader(w, r.Body, 1024)
 	var body struct {
-		Token string `json:"token"`
+		Password string `json:"password"`
 	}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
@@ -219,8 +229,8 @@ func (p *privateAccess) login(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, 400, map[string]string{"message": "Ожидается один запрос входа."})
 		return
 	}
-	if !p.validToken(body.Token) {
-		writeJSON(w, 401, map[string]string{"message": "Неверный ключ доступа."})
+	if !p.password.verify(body.Password) {
+		writeJSON(w, 401, map[string]string{"message": "Неверный пароль."})
 		return
 	}
 	var random [32]byte

@@ -15,8 +15,11 @@ import (
 
 const testKey = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 
+const testPassword = "browser-test-passphrase"
+const testPasswordHash = "pbkdf2-sha256$600000$AAECAwQFBgcICQoLDA0ODw$XmABm12hnceWAojZ9U8gz+URDm48NMo+uBMC9SzYX6M"
+
 func privateConfig() *ServiceConfig {
-	return &ServiceConfig{Token: testKey, PublicOrigin: "http://127.0.0.1:8081", RequestsPerMinute: 6, QueueCapacity: 2, MaxContext: 4096, MaxOutput: 384}
+	return &ServiceConfig{PasswordHash: testPasswordHash, Token: testKey, PublicOrigin: "http://127.0.0.1:8081", RequestsPerMinute: 6, QueueCapacity: 2, MaxContext: 4096, MaxOutput: 384}
 }
 func privateRequest(t *testing.T, h http.Handler, method, path, body, token string) *httptest.ResponseRecorder {
 	t.Helper()
@@ -42,7 +45,7 @@ func TestPrivateAuthenticationAndRevocation(t *testing.T) {
 	if w := privateRequest(t, h, "GET", "/api/service/status", "", "incorrect"); w.Code != 401 {
 		t.Fatal(w.Code)
 	}
-	login := privateRequest(t, h, "POST", "/api/auth/login", `{"token":"`+testKey+`"}`, "")
+	login := privateRequest(t, h, "POST", "/api/auth/login", `{"password":"`+testPassword+`"}`, "")
 	if login.Code != 200 {
 		t.Fatal(login.Body.String())
 	}
@@ -240,7 +243,7 @@ func TestPrivateCookieCannotResetBearerQuota(t *testing.T) {
 	for i := 0; i < 6; i++ {
 		privateRequest(t, h, "POST", "/api/chat", `{"messages":[{"role":"user","content":"hello"}]}`, testKey)
 	}
-	login := privateRequest(t, h, "POST", "/api/auth/login", `{"token":"`+testKey+`"}`, "")
+	login := privateRequest(t, h, "POST", "/api/auth/login", `{"password":"`+testPassword+`"}`, "")
 	r := httptest.NewRequest("POST", "/api/chat", strings.NewReader(`{"messages":[{"role":"user","content":"hello"}]}`))
 	r.AddCookie(login.Result().Cookies()[0])
 	w := httptest.NewRecorder()
@@ -306,7 +309,7 @@ func TestLANHTTPOriginAndAuthentication(t *testing.T) {
 		{"127.0.0.1:8081", "http://localhost:8081", 403},
 		{"192.168.1.20:8081", "https://evil.example", 403},
 	} {
-		r := httptest.NewRequest("POST", "/api/auth/login", strings.NewReader(`{"token":"`+testKey+`"}`))
+		r := httptest.NewRequest("POST", "/api/auth/login", strings.NewReader(`{"password":"`+testPassword+`"}`))
 		r.Host = tc.host
 		r.Header.Set("Origin", tc.origin)
 		w := httptest.NewRecorder()
@@ -320,5 +323,55 @@ func TestLANHTTPOriginAndAuthentication(t *testing.T) {
 				t.Fatal("LAN cookie settings")
 			}
 		}
+	}
+}
+
+func TestWebPasswordAndAPIKeyAreSeparate(t *testing.T) {
+	h := New(ollama.Client{}, Config{Service: privateConfig(), Timeout: time.Second})
+	for _, tc := range []struct {
+		body string
+		want int
+	}{
+		{`{"password":"` + testPassword + `"}`, 200},
+		{`{"password":"wrong-password"}`, 401},
+		{`{"password":"` + testKey + `"}`, 401},
+		{`{"token":"` + testKey + `"}`, 400},
+		{`{"password":123}`, 400},
+	} {
+		w := privateRequest(t, h, "POST", "/api/auth/login", tc.body, "")
+		if w.Code != tc.want {
+			t.Fatalf("credential separation: wanted %d, got %d", tc.want, w.Code)
+		}
+	}
+	if w := privateRequest(t, h, "GET", "/api/service/status", "", testPassword); w.Code != 401 {
+		t.Fatal("web password accepted as API bearer")
+	}
+	w := privateRequest(t, h, "GET", "/api/service/status", "", testKey)
+	if w.Code != 200 {
+		t.Fatal("original API key rejected")
+	}
+	for _, secret := range []string{testKey, testPassword, testPasswordHash} {
+		if strings.Contains(w.Body.String(), secret) {
+			t.Fatal("secret in status response")
+		}
+	}
+}
+func TestPasswordHashValidation(t *testing.T) {
+	p, err := parsePasswordHash(testPasswordHash)
+	if err != nil || !p.verify(testPassword) {
+		t.Fatal("known PBKDF2 fixture rejected", err)
+	}
+	if p.verify(testPassword+" ") || p.verify("") || p.verify(strings.Repeat("x", 257)) {
+		t.Fatal("incorrect password accepted")
+	}
+	for _, bad := range []string{"", testPassword, strings.Replace(testPasswordHash, "600000", "1", 1), strings.Replace(testPasswordHash, "600000", "2000000", 1), strings.Replace(testPasswordHash, "pbkdf2-sha256", "sha256", 1), testPasswordHash + "$extra", "pbkdf2-sha256$600000$short$short"} {
+		if _, err := parsePasswordHash(bad); err == nil {
+			t.Fatal("malformed or weak password hash accepted")
+		}
+	}
+	c := privateConfig()
+	c.PasswordHash = ""
+	if c.Validate() == nil {
+		t.Fatal("missing password hash accepted")
 	}
 }

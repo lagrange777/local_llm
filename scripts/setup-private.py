@@ -4,6 +4,8 @@ import argparse
 import os
 from pathlib import Path
 import secrets
+import subprocess
+import sys
 from urllib.parse import urlsplit
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--origin',required=True,help='HTTPS Tailscale origin; loopback HTTP allowed for local testing')
@@ -19,6 +21,7 @@ if not key.exists():
 # Compose file-backed secrets retain the file mode: the non-root container must read it.
 # Host access is restricted by the parent directory (0700).
 os.chmod(key,0o644)
+subprocess.run([sys.executable,str(root/'scripts/set-web-password.py'),'--generate','--if-missing'],check=True)
 env=root/'.private.env'
 if env.exists():
  p.error('.private.env already exists; edit it explicitly to change deployment origin. Existing key was preserved.')
