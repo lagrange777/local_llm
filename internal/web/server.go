@@ -8,13 +8,11 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"net/url"
 	"strings"
 	"time"
 	"unicode/utf8"
 
 	"local-llm-service/internal/ollama"
-	"local-llm-service/internal/optimization"
 	"local-llm-service/internal/rag"
 )
 
@@ -30,11 +28,13 @@ type Config struct {
 	ReportPath             string
 	OptimizationReportPath string
 	DefaultProfile         string
+	Service                *ServiceConfig
 }
 type App struct {
 	client ollama.Client
 	config Config
 	busy   chan struct{}
+	access *privateAccess
 }
 type chatInput struct {
 	Messages []ollama.Message `json:"messages"`
@@ -67,11 +67,15 @@ type event struct {
 
 func New(client ollama.Client, config Config) http.Handler {
 	app := &App{client: client, config: config, busy: make(chan struct{}, 1)}
+	if config.Service != nil {
+		app.access = newAccess(*config.Service)
+	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 	})
 	mux.HandleFunc("GET /api/status", app.status)
+	mux.HandleFunc("GET /api/service/status", app.serviceStatus)
 	mux.HandleFunc("POST /api/chat", app.chat)
 	mux.HandleFunc("GET /api/optimization/profiles", app.profiles)
 	mux.HandleFunc("GET /api/optimization/models", app.models)
@@ -93,7 +97,7 @@ func New(client ollama.Client, config Config) http.Handler {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		w.Write(data)
 	})
-	for _, name := range []string{"app.js", "style.css", "comparison.js", "optimization.js"} {
+	for _, name := range []string{"app.js", "style.css", "comparison.js", "optimization.js", "login.js"} {
 		mux.HandleFunc("GET /"+name, func(w http.ResponseWriter, r *http.Request) {
 			data, _ := assets.ReadFile("assets/" + name)
 			contentType := "text/javascript; charset=utf-8"
@@ -104,11 +108,12 @@ func New(client ollama.Client, config Config) http.Handler {
 			w.Write(data)
 		})
 	}
+	handler := app.privateWrap(mux)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("Cache-Control", "no-store")
 		w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; frame-ancestors 'none'; base-uri 'none'")
-		mux.ServeHTTP(w, r)
+		handler.ServeHTTP(w, r)
 	})
 }
 func (a *App) status(w http.ResponseWriter, r *http.Request) {
@@ -126,7 +131,7 @@ func (a *App) status(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusServiceUnavailable, map[string]any{"ready": false, "model": profile.Model, "code": code, "message": message})
 		return
 	}
-	data := map[string]any{"ready": true, "model": profile.Model, "profile": profile.ID, "think_supported": profile.ThinkSupported, "generation": profile.Options, "prompt_sha256": rag.PromptHash(profile.Prompt), "profiles_sha256": optimization.Fingerprint(a.config.Model), "version": status.Version, "rag_ready": a.config.Index != nil, "prompt_cache_mib": a.config.CacheRAMMiB}
+	data := map[string]any{"ready": true, "model": profile.Model, "profile": profile.ID, "think_supported": profile.ThinkSupported, "generation": profile.Options, "prompt_sha256": rag.PromptHash(profile.Prompt), "profiles_sha256": a.profilesHash(), "version": status.Version, "rag_ready": a.config.Index != nil, "prompt_cache_mib": a.config.CacheRAMMiB}
 	if a.config.Index != nil {
 		data["rag_config"] = a.config.RAG
 		data["corpus_hash"] = a.config.Index.Origin.CorpusHash
@@ -137,18 +142,24 @@ func (a *App) status(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, data)
 }
 func (a *App) chat(w http.ResponseWriter, r *http.Request) {
-	if origin := r.Header.Get("Origin"); origin != "" {
-		u, err := url.Parse(origin)
-		if err != nil || u.Host != r.Host || (u.Scheme != "http" && u.Scheme != "https") {
-			writeJSON(w, http.StatusForbidden, map[string]string{"message": "Запрос разрешён только из интерфейса приложения."})
-			return
-		}
+	origin := ""
+	if a.access != nil {
+		origin = a.access.config.PublicOrigin
+	}
+	if !sameOrigin(r, origin) {
+		writeJSON(w, 403, map[string]string{"code": "origin", "message": "Запрос разрешён только из интерфейса приложения."})
+		return
 	}
 	r.Body = http.MaxBytesReader(w, r.Body, 64<<10)
 	decoder := json.NewDecoder(r.Body)
 	decoder.DisallowUnknownFields()
 	var input chatInput
 	if err := decoder.Decode(&input); err != nil {
+		var tooLarge *http.MaxBytesError
+		if errors.As(err, &tooLarge) {
+			writeJSON(w, 413, map[string]string{"code": "body_limit", "message": "Запрос превышает 64 КиБ."})
+			return
+		}
 		writeJSON(w, http.StatusBadRequest, map[string]string{"message": "Некорректный запрос или слишком большой диалог."})
 		return
 	}
@@ -156,7 +167,7 @@ func (a *App) chat(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusBadRequest, map[string]string{"message": "Ожидается один JSON-запрос."})
 		return
 	}
-	messages, trimmed, err := prepareMessages(input.Messages)
+	messages, trimmed, err := prepareMessagesFor(input.Messages, a.access == nil)
 	if err != nil {
 		writeJSON(w, http.StatusBadRequest, map[string]string{"message": err.Error()})
 		return
@@ -174,21 +185,56 @@ func (a *App) chat(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, 400, map[string]string{"message": "Этот профиль поддерживает только ответы без рассуждений."})
 		return
 	}
-	select {
-	case a.busy <- struct{}{}:
-		defer func() { <-a.busy }()
-	default:
-		writeJSON(w, http.StatusTooManyRequests, map[string]string{"message": "Модель уже отвечает на другой запрос. Попробуйте после его завершения."})
+	if a.access != nil && estimatedTokens(messages)+profile.Options.NumPredict >= profile.Options.NumCtx {
+		writeJSON(w, 400, map[string]string{"code": "context_budget", "message": "Диалог превышает бюджет контекста. Сократите вопрос или начните новый диалог."})
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), a.config.Timeout)
 	defer cancel()
 	controller := http.NewResponseController(w)
 	controller.SetWriteDeadline(time.Now().Add(a.config.Timeout + 10*time.Second))
+	if a.access != nil {
+		release, code := a.access.acquire(ctx, a.busy)
+		if code != "" {
+			if code == "rate_limit" {
+				_, retry := a.access.chatRate.snapshot(time.Now())
+				reject429(w, code, max(1, retry))
+			} else if code == "queue_full" {
+				reject429(w, code, 2)
+			} else if r.Context().Err() == nil {
+				writeJSON(w, 504, map[string]string{"code": "timeout", "message": "Истекло время ожидания в очереди."})
+			}
+			return
+		}
+		defer release()
+		defer func() {
+			if r.Context().Err() != nil {
+				a.access.canceled.Add(1)
+			}
+		}()
+	} else {
+		select {
+		case a.busy <- struct{}{}:
+			defer func() { <-a.busy }()
+		default:
+			reject429(w, "queue_full", 2)
+			return
+		}
+	}
 	w.Header().Set("Content-Type", "application/x-ndjson; charset=utf-8")
 	w.Header().Set("X-Accel-Buffering", "no")
 	encoder := json.NewEncoder(w)
 	send := func(item event) error {
+		if a.access != nil {
+			if item.Type == "done" {
+				a.access.completed.Add(1)
+				a.access.outputTokens.Add(int64(item.Tokens))
+				log.Printf("private_generation tokens=%d seconds=%.3f", item.Tokens, item.Seconds)
+			}
+			if item.Type == "error" {
+				a.access.failed.Add(1)
+			}
+		}
 		if err := encoder.Encode(item); err != nil {
 			return err
 		}
@@ -210,7 +256,7 @@ func (a *App) chat(w http.ResponseWriter, r *http.Request) {
 	if input.RAG {
 		err = a.ragChat(ctx, input, messages, profile, send)
 		if err != nil && r.Context().Err() == nil {
-			log.Printf("rag failed: %v", err)
+			log.Printf("rag failed code=%s", func() string { code, _ := publicError(ctx, err); return code }())
 			code, message := publicError(ctx, err)
 			send(event{Type: "error", Code: code, Text: message})
 		}
@@ -219,7 +265,9 @@ func (a *App) chat(w http.ResponseWriter, r *http.Request) {
 	started := time.Now()
 	request := ollama.ChatRequest{Model: profile.Model, Messages: messages, Think: input.Think, KeepAlive: "10m", Options: profile.Options}
 	firstToken := 0.0
-	err = a.client.Chat(ctx, request, func(chunk ollama.ChatChunk) error {
+	var buffered []ollama.ChatChunk
+	bufferBytes := 0
+	consume := func(chunk ollama.ChatChunk) error {
 		if chunk.Message.Thinking != "" {
 			if err := send(event{Type: "thinking", Text: chunk.Message.Thinking}); err != nil {
 				return err
@@ -237,14 +285,41 @@ func (a *App) chat(w http.ResponseWriter, r *http.Request) {
 			return send(event{Type: "done", Model: chunk.Model, Seconds: time.Since(started).Seconds(), Tokens: chunk.EvalCount, FirstTokenSeconds: firstToken, GenerationSeconds: time.Since(started).Seconds(), Attempts: 1, LoadSeconds: float64(chunk.LoadDuration) / 1e9, PromptTokens: chunk.PromptEvalCount, EvalSeconds: float64(chunk.EvalDuration) / 1e9})
 		}
 		return nil
+	}
+	err = a.client.Chat(ctx, request, func(chunk ollama.ChatChunk) error {
+		if a.access == nil {
+			return consume(chunk)
+		}
+		if firstToken == 0 && chunk.Message.Content != "" {
+			firstToken = time.Since(started).Seconds()
+		}
+		bufferBytes += len(chunk.Message.Content) + len(chunk.Message.Thinking)
+		if bufferBytes > 2<<20 || len(buffered) > 8192 {
+			return ollama.ErrTruncated
+		}
+		if chunk.Done && chunk.PromptEvalCount+profile.Options.NumPredict >= profile.Options.NumCtx {
+			return rag.ErrPromptTooLarge
+		}
+		buffered = append(buffered, chunk)
+		return nil
 	})
+	if err == nil && a.access != nil {
+		for _, chunk := range buffered {
+			if err = consume(chunk); err != nil {
+				break
+			}
+		}
+	}
 	if err != nil && r.Context().Err() == nil {
-		log.Printf("chat failed: %v", err)
+		log.Printf("chat failed code=%s", func() string { code, _ := publicError(ctx, err); return code }())
 		code, message := publicError(ctx, err)
 		send(event{Type: "error", Code: code, Text: message})
 	}
 }
 func prepareMessages(input []ollama.Message) ([]ollama.Message, bool, error) {
+	return prepareMessagesFor(input, true)
+}
+func prepareMessagesFor(input []ollama.Message, allowTrim bool) ([]ollama.Message, bool, error) {
 	if len(input) == 0 || len(input) > 21 || len(input)%2 == 0 {
 		return nil, false, errors.New("Диалог должен заканчиваться вопросом и содержать не более 10 предыдущих обменов.")
 	}
@@ -268,7 +343,7 @@ func prepareMessages(input []ollama.Message) ([]ollama.Message, bool, error) {
 		total += utf8.RuneCountInString(m.Content)
 	}
 	trimmed := false
-	for total > 6000 && len(messages) > 1 {
+	for allowTrim && total > 6000 && len(messages) > 1 {
 		total -= utf8.RuneCountInString(messages[0].Content) + utf8.RuneCountInString(messages[1].Content)
 		messages = messages[2:]
 		trimmed = true

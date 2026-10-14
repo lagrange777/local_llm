@@ -39,3 +39,7 @@ CPU-вариант проверен на Docker Desktop / Apple M1 Pro с при
 ## Оптимизация модели
 
 Профиль по умолчанию задаётся RAG_PROFILE. Основное приложение включает индекс и оба prompt; результаты подключены в /optimization-reports только для чтения. model-init готовит модель выбранного профиля. Для полного эксперимента подготовьте все модели через compose.optimization.yaml; подробности в [OPTIMIZATION29.md](../OPTIMIZATION29.md). Кэш промптов ограничен 512 МиБ, даже при переключении моделей. Память контейнера и память Docker VM измеряются отдельно: уменьшение веса модели не уменьшает автоматически резерв всей VM.
+
+## Private deployment
+
+Dockerized Tailscale HTTPS ingress, API authorization and admission limits: [PRIVATE30.md](../PRIVATE30.md).

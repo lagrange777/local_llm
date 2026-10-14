@@ -1,0 +1,259 @@
+{
+  "timestamp": "2026-10-14T03:52:51.136827+00:00",
+  "scope": "loopback Docker Desktop only; remote deployment deferred by user",
+  "service": {
+    "active": 0,
+    "limits": {
+      "public_origin": "http://127.0.0.1:8081",
+      "cookie_secure": false,
+      "requests_per_minute": 6,
+      "queue_capacity": 2,
+      "max_context_tokens": 4096,
+      "max_output_tokens": 384
+    },
+    "max_concurrent": 1,
+    "max_request_bytes": 65536,
+    "metrics": {
+      "accepted": 2,
+      "canceled": 0,
+      "completed": 2,
+      "failed": 0,
+      "output_tokens": 5,
+      "queue_full": 0,
+      "rate_limited": 0
+    },
+    "private": true,
+    "queued": 0,
+    "remaining_requests": 5,
+    "timeout_seconds": 300,
+    "window_reset_after_seconds": 1
+  },
+  "validation": {
+    "go_test_race": "passed",
+    "go_vet": "passed",
+    "docker_build": "passed",
+    "compose_cpu_gpu_tailnet_config": "passed",
+    "js_python_shell_syntax": "passed",
+    "tailscale_cli_version": "1.104.1",
+    "tailnet_enrollment_and_https": "not executed"
+  },
+  "containers": [
+    {
+      "Command": "\"/local-llm\"",
+      "CreatedAt": "2026-10-14 10:50:33 +0700 +07",
+      "ExitCode": 0,
+      "Health": "healthy",
+      "ID": "e9f3558ea00c",
+      "Image": "local-llm-web:local",
+      "Labels": "com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/Users/mili/Desktop/local-llm-service/compose.yaml,/Users/mili/Desktop/local-llm-service/compose.private.yaml,com.docker.compose.replace=app-1,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/binds/1/Source=/Users/mili/Desktop/local-llm-service/artifacts/optimization29,desktop.docker.io/mounts/0/Target=/run/secrets/service_token,desktop.docker.io/ports.scheme=v2,com.docker.compose.depends_on=ollama:service_healthy:false,com.docker.compose.project=local-llm,com.docker.compose.project.environment_file=/Users/mili/Desktop/local-llm-service/.private.env,desktop.docker.io/binds/1/Target=/optimization-reports,desktop.docker.io/mounts/0/SourceKind=hostFile,com.docker.compose.image=sha256:726cad9efe85f15c06b9e6dda296064e0e109b75ffa44b964e20efcf499e381f,com.docker.compose.project.working_dir=/Users/mili/Desktop/local-llm-service,com.docker.compose.service=app,desktop.docker.io/binds/0/Target=/reports,desktop.docker.io/binds/1/SourceKind=hostFile,com.docker.compose.config-hash=577fd418fb33d41adbb40e699c790a8a9d401051658c5747ef7b69ee9b7b7ac3,com.docker.compose.container-number=1,com.docker.compose.version=5.2.0,desktop.docker.io/binds/0/Source=/Users/mili/Desktop/local-llm-service/artifacts/rag28,desktop.docker.io/mounts/0/Source=/Users/mili/Desktop/local-llm-service/.secrets/service_token",
+      "LocalVolumes": "0",
+      "Mounts": "/host_mnt/User…,/host_mnt/User…,/host_mnt/User…",
+      "Name": "local-llm-app-1",
+      "Names": "local-llm-app-1",
+      "Networks": "local-llm_runtime",
+      "Ports": "8080/tcp",
+      "Project": "local-llm",
+      "Publishers": [
+        {
+          "URL": "",
+          "TargetPort": 8080,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ],
+      "RunningFor": "2 minutes ago",
+      "Service": "app",
+      "Size": "0B",
+      "State": "running",
+      "Status": "Up 2 minutes (healthy)"
+    },
+    {
+      "Command": "\"nginx -g 'daemon of…\"",
+      "CreatedAt": "2026-10-14 10:39:43 +0700 +07",
+      "ExitCode": 0,
+      "Health": "healthy",
+      "ID": "9c19de6326ca",
+      "Image": "nginx:stable-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94",
+      "Labels": "com.docker.compose.config-hash=f54d34bbfc56575de2a4de52ef3a31c825d48ed7ac3200bd4c723182b440f1f0,com.docker.compose.depends_on=app:service_healthy:false,desktop.docker.io/binds/0/Source=/Users/mili/Desktop/local-llm-service/deploy/nginx.conf,maintainer=NGINX Docker Maintainers <docker-maint@nginx.com>,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.project.environment_file=/Users/mili/Desktop/local-llm-service/.private.env,com.docker.compose.service=gateway,com.docker.compose.project=local-llm,com.docker.compose.project.config_files=/Users/mili/Desktop/local-llm-service/compose.yaml,/Users/mili/Desktop/local-llm-service/compose.private.yaml,com.docker.compose.project.working_dir=/Users/mili/Desktop/local-llm-service,com.docker.compose.replace=gateway-1,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/ports.scheme=v2,com.docker.compose.image=sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94,com.docker.compose.version=5.2.0,desktop.docker.io/binds/0/Target=/etc/nginx/nginx.conf,desktop.docker.io/ports/8080/tcp=127.0.0.1:8081",
+      "LocalVolumes": "0",
+      "Mounts": "/host_mnt/User…",
+      "Name": "local-llm-gateway-1",
+      "Names": "local-llm-gateway-1",
+      "Networks": "local-llm_runtime,local-llm_ingress",
+      "Ports": "127.0.0.1:8081->8080/tcp",
+      "Project": "local-llm",
+      "Publishers": [
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 8080,
+          "PublishedPort": 8081,
+          "Protocol": "tcp"
+        }
+      ],
+      "RunningFor": "13 minutes ago",
+      "Service": "gateway",
+      "Size": "0B",
+      "State": "running",
+      "Status": "Up 12 minutes (healthy)"
+    },
+    {
+      "Command": "\"/bin/ollama serve\"",
+      "CreatedAt": "2026-10-14 10:39:42 +0700 +07",
+      "ExitCode": 0,
+      "Health": "healthy",
+      "ID": "70d637af734d",
+      "Image": "ollama/ollama:0.40.3@sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99",
+      "Labels": "com.docker.compose.image=sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99,com.docker.compose.oneoff=False,com.docker.compose.project=local-llm,com.docker.compose.project.config_files=/Users/mili/Desktop/local-llm-service/compose.yaml,/Users/mili/Desktop/local-llm-service/compose.private.yaml,com.docker.compose.project.environment_file=/Users/mili/Desktop/local-llm-service/.private.env,com.docker.compose.project.working_dir=/Users/mili/Desktop/local-llm-service,org.opencontainers.image.version=24.04,com.docker.compose.config-hash=b32e0e6eb56eee5e6d8d255ac7c2e693b178b8b0c1abb94944039ef5ae50317c,com.docker.compose.depends_on=model-init:service_completed_successfully:false,com.docker.compose.replace=ollama-1,com.docker.compose.service=ollama,com.docker.compose.version=5.2.0,desktop.docker.io/ports.scheme=v2,com.docker.compose.container-number=1",
+      "LocalVolumes": "1",
+      "Mounts": "local-llm_mode…",
+      "Name": "local-llm-ollama-1",
+      "Names": "local-llm-ollama-1",
+      "Networks": "local-llm_runtime",
+      "Ports": "11434/tcp",
+      "Project": "local-llm",
+      "Publishers": [
+        {
+          "URL": "",
+          "TargetPort": 11434,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ],
+      "RunningFor": "13 minutes ago",
+      "Service": "ollama",
+      "Size": "0B",
+      "State": "running",
+      "Status": "Up 13 minutes (healthy)"
+    }
+  ],
+  "resources_snapshot": "local-llm-app-1 11.01MiB / 512MiB 0.00%\nlocal-llm-ollama-1 3.334GiB / 7.75GiB 0.01%\nlocal-llm-gateway-1 2.809MiB / 128MiB 0.00%\n",
+  "runtime_internal": true,
+  "ollama_published_ports": "",
+  "oom_counters": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "logs": "app-1  | 2026/10/14 03:50:35 Loaded 143 structured chunks; corpus=80dd1e87e95e96642d1f8a56a9b573ad5a11170a8a675f90ea52432d91b70e77\napp-1  | 2026/10/14 03:50:35 Local LLM web chat: 0.0.0.0:8080 (model rag29-baseline-8b)\napp-1  | 2026/10/14 03:50:37 private_http method=GET route=/api/status status=401 duration_ms=0\napp-1  | 2026/10/14 03:50:37 private_http method=GET route=/login status=200 duration_ms=0\napp-1  | 2026/10/14 03:50:37 private_http method=GET route=other status=200 duration_ms=0\napp-1  | 2026/10/14 03:50:37 private_http method=GET route=other status=200 duration_ms=0\napp-1  | 2026/10/14 03:50:40 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:50:45 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:50:46 private_http method=GET route=/api/service/status status=200 duration_ms=0\napp-1  | 2026/10/14 03:50:46 private_http method=GET route=/api/status status=200 duration_ms=4\napp-1  | 2026/10/14 03:50:47 private_generation tokens=2 seconds=1.078\napp-1  | 2026/10/14 03:50:47 private_http method=POST route=/api/chat status=200 duration_ms=1078\napp-1  | 2026/10/14 03:50:47 private_http method=GET route=/api/service/status status=200 duration_ms=0\napp-1  | 2026/10/14 03:50:50 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:50:55 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:00 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:05 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:10 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:15 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:20 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:25 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:30 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:35 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:38 private_http method=GET route=/login status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:38 private_http method=GET route=other status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:38 private_http method=GET route=other status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:40 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:45 private_http method=POST route=/api/auth/login status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:45 private_http method=GET route=/ status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:45 private_http method=GET route=other status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:45 private_http method=GET route=other status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:45 private_http method=GET route=/api/service/status status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:45 private_http method=GET route=other status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:45 private_http method=GET route=/api/status status=200 duration_ms=5\napp-1  | 2026/10/14 03:51:45 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:50 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:51 private_http method=GET route=/api/status status=200 duration_ms=11\napp-1  | 2026/10/14 03:51:56 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:51:57 private_generation tokens=3 seconds=5.692\napp-1  | 2026/10/14 03:51:57 private_http method=POST route=/api/chat status=200 duration_ms=5692\napp-1  | 2026/10/14 03:52:00 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:06 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:10 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:16 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:20 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:21 private_http method=GET route=/api/status status=200 duration_ms=3\napp-1  | 2026/10/14 03:52:26 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:30 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:36 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:40 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:46 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:50 private_http method=GET route=/healthz status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:51 private_http method=GET route=/api/service/status status=200 duration_ms=0\napp-1  | 2026/10/14 03:52:51 private_http method=GET route=/api/status status=200 duration_ms=1\n",
+  "browser_checks": {
+    "login": "passed",
+    "logout": "passed",
+    "session_revoked_on_restart": "passed",
+    "chat_question": "7 x 8",
+    "chat_answer": "56",
+    "chat_seconds": 5.7,
+    "history_preserved": "passed"
+  },
+  "final_containers": [
+    {
+      "Command": "\"/local-llm\"",
+      "CreatedAt": "2026-10-14 10:54:43 +0700 +07",
+      "ExitCode": 0,
+      "Health": "healthy",
+      "ID": "19e89e4fd1df",
+      "Image": "local-llm-web:local",
+      "Labels": "com.docker.compose.image=sha256:62d2392eb252a0021fe9aa9cc84946c34b11c3346f49cf796aa98a034eb4bc95,com.docker.compose.project.environment_file=/Users/mili/Desktop/local-llm-service/.private.env,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/mounts/0/Source=/Users/mili/Desktop/local-llm-service/.secrets/service_token,com.docker.compose.oneoff=False,com.docker.compose.project=local-llm,com.docker.compose.replace=app-1,desktop.docker.io/binds/1/Target=/reports,desktop.docker.io/mounts/0/SourceKind=hostFile,desktop.docker.io/mounts/0/Target=/run/secrets/service_token,com.docker.compose.config-hash=577fd418fb33d41adbb40e699c790a8a9d401051658c5747ef7b69ee9b7b7ac3,com.docker.compose.project.working_dir=/Users/mili/Desktop/local-llm-service,com.docker.compose.service=app,desktop.docker.io/binds/0/Source=/Users/mili/Desktop/local-llm-service/artifacts/optimization29,com.docker.compose.depends_on=ollama:service_healthy:false,com.docker.compose.project.config_files=/Users/mili/Desktop/local-llm-service/compose.yaml,/Users/mili/Desktop/local-llm-service/compose.private.yaml,com.docker.compose.version=5.2.0,desktop.docker.io/binds/0/Target=/optimization-reports,desktop.docker.io/binds/1/Source=/Users/mili/Desktop/local-llm-service/artifacts/rag28,desktop.docker.io/ports.scheme=v2,com.docker.compose.container-number=1",
+      "LocalVolumes": "0",
+      "Mounts": "/host_mnt/User…,/host_mnt/User…,/host_mnt/User…",
+      "Name": "local-llm-app-1",
+      "Names": "local-llm-app-1",
+      "Networks": "local-llm_runtime",
+      "Ports": "8080/tcp",
+      "Project": "local-llm",
+      "Publishers": [
+        {
+          "URL": "",
+          "TargetPort": 8080,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ],
+      "RunningFor": "2 minutes ago",
+      "Service": "app",
+      "Size": "0B",
+      "State": "running",
+      "Status": "Up 2 minutes (healthy)"
+    },
+    {
+      "Command": "\"nginx -g 'daemon of…\"",
+      "CreatedAt": "2026-10-14 10:39:43 +0700 +07",
+      "ExitCode": 0,
+      "Health": "healthy",
+      "ID": "9c19de6326ca",
+      "Image": "nginx:stable-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94",
+      "Labels": "com.docker.compose.oneoff=False,com.docker.compose.project=local-llm,com.docker.compose.project.environment_file=/Users/mili/Desktop/local-llm-service/.private.env,com.docker.compose.service=gateway,desktop.docker.io/binds/0/Target=/etc/nginx/nginx.conf,com.docker.compose.project.config_files=/Users/mili/Desktop/local-llm-service/compose.yaml,/Users/mili/Desktop/local-llm-service/compose.private.yaml,com.docker.compose.project.working_dir=/Users/mili/Desktop/local-llm-service,com.docker.compose.version=5.2.0,desktop.docker.io/ports.scheme=v2,maintainer=NGINX Docker Maintainers <docker-maint@nginx.com>,com.docker.compose.config-hash=f54d34bbfc56575de2a4de52ef3a31c825d48ed7ac3200bd4c723182b440f1f0,com.docker.compose.depends_on=app:service_healthy:false,com.docker.compose.replace=gateway-1,com.docker.compose.image=sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94,desktop.docker.io/binds/0/Source=/Users/mili/Desktop/local-llm-service/deploy/nginx.conf,desktop.docker.io/ports/8080/tcp=127.0.0.1:8081,desktop.docker.io/binds/0/SourceKind=hostFile,com.docker.compose.container-number=1",
+      "LocalVolumes": "0",
+      "Mounts": "/host_mnt/User…",
+      "Name": "local-llm-gateway-1",
+      "Names": "local-llm-gateway-1",
+      "Networks": "local-llm_ingress,local-llm_runtime",
+      "Ports": "127.0.0.1:8081->8080/tcp",
+      "Project": "local-llm",
+      "Publishers": [
+        {
+          "URL": "127.0.0.1",
+          "TargetPort": 8080,
+          "PublishedPort": 8081,
+          "Protocol": "tcp"
+        }
+      ],
+      "RunningFor": "17 minutes ago",
+      "Service": "gateway",
+      "Size": "0B",
+      "State": "running",
+      "Status": "Up 17 minutes (healthy)"
+    },
+    {
+      "Command": "\"/bin/ollama serve\"",
+      "CreatedAt": "2026-10-14 10:39:42 +0700 +07",
+      "ExitCode": 0,
+      "Health": "healthy",
+      "ID": "70d637af734d",
+      "Image": "ollama/ollama:0.40.3@sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99",
+      "Labels": "desktop.docker.io/ports.scheme=v2,com.docker.compose.container-number=1,com.docker.compose.image=sha256:adca95a12c2b386a8f9a995e7fa0600e187e3323b5e5522f5a6c3b1ec73eff99,com.docker.compose.project=local-llm,com.docker.compose.project.environment_file=/Users/mili/Desktop/local-llm-service/.private.env,com.docker.compose.version=5.2.0,org.opencontainers.image.version=24.04,com.docker.compose.config-hash=b32e0e6eb56eee5e6d8d255ac7c2e693b178b8b0c1abb94944039ef5ae50317c,com.docker.compose.depends_on=model-init:service_completed_successfully:false,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=/Users/mili/Desktop/local-llm-service/compose.yaml,/Users/mili/Desktop/local-llm-service/compose.private.yaml,com.docker.compose.project.working_dir=/Users/mili/Desktop/local-llm-service,com.docker.compose.replace=ollama-1,com.docker.compose.service=ollama",
+      "LocalVolumes": "1",
+      "Mounts": "local-llm_mode…",
+      "Name": "local-llm-ollama-1",
+      "Names": "local-llm-ollama-1",
+      "Networks": "local-llm_runtime",
+      "Ports": "11434/tcp",
+      "Project": "local-llm",
+      "Publishers": [
+        {
+          "URL": "",
+          "TargetPort": 11434,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ],
+      "RunningFor": "17 minutes ago",
+      "Service": "ollama",
+      "Size": "0B",
+      "State": "running",
+      "Status": "Up 17 minutes (healthy)"
+    }
+  ],
+  "final_service": {
+    "active": 0,
+    "limits": {
+      "public_origin": "http://127.0.0.1:8081",
+      "cookie_secure": false,
+      "requests_per_minute": 6,
+      "queue_capacity": 2,
+      "max_context_tokens": 4096,
+      "max_output_tokens": 384
+    },
+    "max_concurrent": 1,
+    "max_request_bytes": 65536,
+    "metrics": {
+      "accepted": 0,
+      "canceled": 0,
+      "completed": 0,
+      "failed": 0,
+      "output_tokens": 0,
+      "queue_full": 0,
+      "rate_limited": 0
+    },
+    "private": true,
+    "queued": 0,
+    "remaining_requests": 6,
+    "timeout_seconds": 300,
+    "window_reset_after_seconds": 0
+  }
+}

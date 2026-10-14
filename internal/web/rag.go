@@ -81,11 +81,17 @@ func (a *App) ragChat(ctx context.Context, input chatInput, messages []ollama.Me
 	if profile.Prompt != "baseline" && estimate+profile.Options.NumPredict > profile.Options.NumCtx {
 		return rag.ErrPromptTooLarge
 	}
+	if a.access != nil && estimatedTokens(prompt)+profile.Options.NumPredict >= profile.Options.NumCtx {
+		return rag.ErrPromptTooLarge
+	}
 	request := ollama.ChatRequest{Model: profile.Model, Messages: prompt, Think: input.Think, Format: rag.Format, KeepAlive: "10m", Options: profile.Options}
 	tokens := 0
 	first := 0.0
 	generationStart := time.Now()
 	for attempt := 1; attempt <= 2; attempt++ {
+		if a.access != nil && estimatedTokens(request.Messages)+profile.Options.NumPredict >= profile.Options.NumCtx {
+			return rag.ErrPromptTooLarge
+		}
 		var raw strings.Builder
 		err = a.client.Chat(ctx, request, func(chunk ollama.ChatChunk) error {
 			if first == 0 && chunk.Message.Content != "" {
@@ -98,7 +104,7 @@ func (a *App) ragChat(ctx context.Context, input chatInput, messages []ollama.Me
 				}
 			}
 			if chunk.Done {
-				if profile.Prompt != "baseline" && chunk.PromptEvalCount+profile.Options.NumPredict >= profile.Options.NumCtx {
+				if (a.access != nil || profile.Prompt != "baseline") && chunk.PromptEvalCount+profile.Options.NumPredict >= profile.Options.NumCtx {
 					return rag.ErrPromptTooLarge
 				}
 				tokens += chunk.EvalCount

@@ -86,7 +86,11 @@ func main() {
 	if _, err := optimization.Resolve(defaultProfile, model); err != nil {
 		log.Fatal("Unknown RAG_PROFILE")
 	}
-	app := web.New(client, web.Config{DefaultProfile: defaultProfile, OptimizationReportPath: env("OPTIMIZATION_REPORT_PATH", "artifacts/optimization29/comparison.json"), CacheRAMMiB: cacheMiB, Model: model, Timeout: timeout, Index: index, RAG: ragConfig, ReportPath: env("RAG_REPORT_PATH", "artifacts/rag28/comparison.json")})
+	service, err := web.LoadServiceConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+	app := web.New(client, web.Config{Service: service, DefaultProfile: defaultProfile, OptimizationReportPath: env("OPTIMIZATION_REPORT_PATH", "artifacts/optimization29/comparison.json"), CacheRAMMiB: cacheMiB, Model: model, Timeout: timeout, Index: index, RAG: ragConfig, ReportPath: env("RAG_REPORT_PATH", "artifacts/rag28/comparison.json")})
 	server := &http.Server{Addr: addr, Handler: app, ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 << 10}
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()

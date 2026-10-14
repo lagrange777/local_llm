@@ -189,3 +189,7 @@ tmp/              журнал и PID (исключены из Git)
 Сервер веб-чата и Docker-конфигурация готовы. Следующий этап — выбрать облачный CPU/GPU-хост и настроить публичный доступ с TLS и авторизацией.
 
 Официальные источники: [режим рассуждений](https://docs.ollama.com/capabilities/thinking), [Qwen3 8B](https://ollama.com/library/qwen3:8b), [API генерации](https://docs.ollama.com/api/generate), [локальный режим и GPU](https://docs.ollama.com/faq).
+
+## Private service
+
+Deployment, authentication and stability checks: [PRIVATE30.md](PRIVATE30.md).

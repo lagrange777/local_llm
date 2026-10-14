@@ -1,0 +1,5 @@
+# Integration-test override only; keep production CHAT_TIMEOUT=5m.
+services:
+  app:
+    environment:
+      CHAT_TIMEOUT: "1s"
