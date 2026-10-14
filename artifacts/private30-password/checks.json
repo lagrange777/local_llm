@@ -1,0 +1,51 @@
+{
+  "scope": "LAN address checked from server Mac",
+  "checks": [
+    {
+      "check": "password-login",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "check": "api-key-as-password",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "check": "old-token-login",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "check": "wrong-password",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "check": "old-api-key-valid",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "check": "web-password-not-api-key",
+      "status": 401,
+      "passed": true
+    }
+  ],
+  "password_algorithm": "PBKDF2-HMAC-SHA256",
+  "iterations": 600000,
+  "app_mount_destinations": [
+    "/run/secrets/service_token",
+    "/run/secrets/web_password_hash",
+    "/reports",
+    "/optimization-reports"
+  ],
+  "plaintext_password_mounted": false,
+  "api_key_preserved": true,
+  "browser": {
+    "password_login": "passed",
+    "query": "9 x 9",
+    "answer": "81",
+    "seconds": 3.1
+  }
+}

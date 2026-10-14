@@ -12,3 +12,8 @@
 
 __pycache__/
 *.pyc
+
+.secrets/
+.private.env
+
+.lan.env

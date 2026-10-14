@@ -14,3 +14,8 @@ artifacts
 
 __pycache__
 *.pyc
+
+.secrets/
+.private.env
+
+.lan.env

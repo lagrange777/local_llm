@@ -1,0 +1,10 @@
+{
+  "groups": {"group:ai-owner": ["owner@example.com"]},
+  "tagOwners": {"tag:local-llm": ["group:ai-owner"]},
+  "grants": [
+    {"src": ["group:ai-owner"], "dst": ["tag:local-llm"], "ip": ["tcp:443"]}
+  ],
+  "tests": [
+    {"src": "owner@example.com", "accept": ["tag:local-llm:443"], "deny": ["tag:local-llm:11434", "tag:local-llm:8080"]}
+  ]
+}

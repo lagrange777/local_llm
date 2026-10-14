@@ -1,0 +1,31 @@
+services:
+  model-init:
+    environment:
+      RAG_PROFILE: ${PRIVATE_PROFILE:-instruct-4b-q4}
+  app:
+    environment:
+      PRIVATE_SERVICE: "true"
+      SERVICE_TOKEN_FILE: /run/secrets/service_token
+      SERVICE_PASSWORD_HASH_FILE: /run/secrets/web_password_hash
+      SERVICE_PUBLIC_ORIGIN: ${PRIVATE_PUBLIC_ORIGIN:?Set PRIVATE_PUBLIC_ORIGIN or run scripts/setup-private.py}
+      SERVICE_COOKIE_SECURE: ${PRIVATE_COOKIE_SECURE:-true}
+      SERVICE_RPM: ${PRIVATE_RPM:-6}
+      SERVICE_QUEUE: ${PRIVATE_QUEUE:-2}
+      SERVICE_MAX_CONTEXT: ${PRIVATE_MAX_CONTEXT:-4096}
+      SERVICE_MAX_OUTPUT: ${PRIVATE_MAX_OUTPUT:-384}
+      RAG_PROFILE: ${PRIVATE_PROFILE:-instruct-4b-q4}
+    secrets: [service_token, web_password_hash]
+    mem_limit: 512m
+    pids_limit: 128
+  ollama:
+    mem_limit: ${PRIVATE_MODEL_MEMORY:-10g}
+    pids_limit: 256
+  gateway:
+    mem_limit: 128m
+    pids_limit: 128
+secrets:
+  service_token:
+    file: ${SERVICE_SECRET_FILE:-./.secrets/service_token}
+
+  web_password_hash:
+    file: ${SERVICE_PASSWORD_HASH_FILE:-./.secrets/web_password_hash}

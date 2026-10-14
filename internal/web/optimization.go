@@ -17,12 +17,13 @@ func (a *App) resolveProfile(id string) (optimization.Profile, error) {
 	if id == "" {
 		id = "baseline"
 	}
-	return optimization.Resolve(id, a.config.Model)
+	p, err := optimization.Resolve(id, a.config.Model)
+	return a.boundedProfile(p), err
 }
 func (a *App) profiles(w http.ResponseWriter, r *http.Request) {
 	p, _ := a.resolveProfile("")
 	hashes := map[string]string{"baseline": rag.PromptHash("baseline"), "optimized": rag.PromptHash("optimized")}
-	writeJSON(w, 200, map[string]any{"default_profile": p.ID, "profiles": optimization.Profiles(a.config.Model), "fingerprint": optimization.Fingerprint(a.config.Model), "prompt_hashes": hashes})
+	writeJSON(w, 200, map[string]any{"default_profile": p.ID, "profiles": a.profileList(), "fingerprint": a.profilesHash(), "prompt_hashes": hashes})
 }
 func (a *App) optimizationReport(w http.ResponseWriter, r *http.Request) {
 	data, err := os.ReadFile(a.config.OptimizationReportPath)

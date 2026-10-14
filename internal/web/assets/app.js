@@ -7,6 +7,7 @@ let ready = false;
 let refreshTimer;
 let savedProfile="";
 let profiles=[];
+let privateService=false;
 const welcome = $("welcome");
 function notice(message) { $("notice").textContent = message || ""; $("notice").hidden = !message; }
 function save() {
@@ -123,6 +124,7 @@ async function refresh() {
   const selected=$("profile").value;
   try {
     const response=await fetch("/api/status?profile="+encodeURIComponent(selected),{signal:AbortSignal.timeout(7000)});
+    if(response.status===401){location.assign("/login");return;}
     const status=await response.json();
     if(selected!==$("profile").value)return;
     ready=response.ok && status.ready;
@@ -151,7 +153,7 @@ async function sendQuestion(event) {
   history.push({role:"user",content:question});
   let contextSize=history.reduce((size,message)=>size+message.content.length,0);
   let trimmed=turns.filter(t=>t.state==="complete").length>10;
-  while (contextSize>6000 && history.length>1) {
+  while (!privateService && contextSize>6000 && history.length>1) {
     contextSize-=history[0].content.length+history[1].content.length; history.splice(0,2); trimmed=true;
   }
   const turn={question,content:"",thinking:"",state:"pending",think:$("think").checked,rag:$("rag").checked,profile:$("profile").value,trimmed};
@@ -173,6 +175,7 @@ async function sendQuestion(event) {
   }
   try {
     const response=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history,think:turn.think,rag:turn.rag,profile:turn.profile}),signal:activeController.signal});
+    if (response.status===401){location.assign("/login");throw new Error("Сессия истекла. Войдите снова.");}
     if (!response.ok) { const error=await response.json(); throw new Error(error.message||"Не удалось отправить сообщение."); }
     if (!response.body) throw new Error("Браузер не поддерживает потоковый ответ.");
     const reader=response.body.getReader(); const decoder=new TextDecoder(); let buffer="";
@@ -211,6 +214,13 @@ $("rag").addEventListener("change",save);
 $("connection").addEventListener("click",refresh);
 async function initializeProfiles(){
  try{
+  const serviceResponse=await fetch("/api/service/status");
+  if(serviceResponse.status===401){location.assign("/login");return;}
+  if(!serviceResponse.ok)throw new Error("Не удалось получить состояние сервиса.");
+  const service=await serviceResponse.json();privateService=service.private===true;
+  $("private-settings").hidden=!privateService;
+  if(privateService)$("service-limits").textContent="Приватный сервис · "+service.limits.requests_per_minute+" запросов/мин · очередь до "+service.limits.queue_capacity+". Контекст: "+service.limits.max_context_tokens+" токенов.";
+
   const response=await fetch("/api/optimization/profiles");const data=await response.json();
   if(!response.ok)throw new Error("Не удалось загрузить профили.");
   profiles=data.profiles;
@@ -225,4 +235,5 @@ $("profile").addEventListener("change",()=>{
  if(p?.think_supported===false)$("think").checked=false;
  $("think").disabled=p?.think_supported===false;ready=false;$("send").disabled=true;save();notice("");refresh();
 });
+$("logout").addEventListener("click",async()=>{if(controller)controller.abort();const r=await fetch("/api/auth/logout",{method:"POST"});if(r.ok)location.assign("/login");else notice("Не удалось выйти. Повторите запрос.");});
 restore(); turns.forEach(renderTurn); titles(); busy(false); initializeProfiles(); scrollDown();
