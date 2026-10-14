@@ -5,10 +5,12 @@ let turns = [];
 let controller = null;
 let ready = false;
 let refreshTimer;
+let savedProfile="";
+let profiles=[];
 const welcome = $("welcome");
 function notice(message) { $("notice").textContent = message || ""; $("notice").hidden = !message; }
 function save() {
-  try { localStorage.setItem(storageKey, JSON.stringify({turns:turns.slice(-100),think:$("think").checked,rag:$("rag").checked})); }
+  try { localStorage.setItem(storageKey, JSON.stringify({turns:turns.slice(-100),think:$("think").checked,rag:$("rag").checked,profile:$("profile").value})); }
   catch (_) { notice("История не сохранилась: браузер не разрешает запись или хранилище заполнено."); }
 }
 function restore() {
@@ -23,6 +25,7 @@ function restore() {
     }
     $("think").checked = data.think === true;
     $("rag").checked = data.rag !== false;
+    savedProfile=typeof data.profile==="string"?data.profile:"";
   } catch (_) { turns=[]; }
 }
 function titles() {
@@ -103,7 +106,7 @@ function updateTurn(turn, view) {
       details.append(node("blockquote","",source.quote));view.sources.append(details);
     }
   }
-  if (turn.state==="complete") view.meta.textContent=(Number(turn.seconds)||0).toFixed(1)+" с · "+(Number(turn.tokens)||0)+" токенов · "+(turn.think?"С рассуждениями":"Без рассуждений")+(turn.rag?" · BM25: "+(Number(turn.retrieval_ms)||0).toFixed(1)+" мс · RAG":" · Без RAG")+(turn.trimmed?" · Ранние сообщения не вошли в контекст":"");
+  if (turn.state==="complete") view.meta.textContent=(turn.profile?turn.profile+" · ":"")+(turn.model?turn.model+" · ":"")+(Number(turn.seconds)||0).toFixed(1)+" с · "+(Number(turn.tokens)||0)+" токенов · "+(turn.think?"С рассуждениями":"Без рассуждений")+(turn.rag?" · BM25: "+(Number(turn.retrieval_ms)||0).toFixed(1)+" мс · RAG":" · Без RAG")+(turn.trimmed?" · Ранние сообщения не вошли в контекст":"");
 }
 function scrollDown() {
   const messages=$("messages");
@@ -111,22 +114,28 @@ function scrollDown() {
 }
 function busy(value) {
   $("send").hidden=value; $("stop").hidden=!value;
-  $("prompt").disabled=value; $("new-chat").disabled=value; $("think").disabled=value; $("rag").disabled=value;
+  $("prompt").disabled=value; $("new-chat").disabled=value; $("think").disabled=value || profiles.find(p=>p.id===$("profile").value)?.think_supported===false; $("rag").disabled=value; $("profile").disabled=value;
   $("send").disabled=!ready;
   $("composer-hint").textContent=value?"Ответ генерируется на локальной модели":"Enter — отправить · Shift + Enter — новая строка";
 }
 async function refresh() {
   clearTimeout(refreshTimer);
+  const selected=$("profile").value;
   try {
-    const response=await fetch("/api/status",{signal:AbortSignal.timeout(7000)});
+    const response=await fetch("/api/status?profile="+encodeURIComponent(selected),{signal:AbortSignal.timeout(7000)});
     const status=await response.json();
+    if(selected!==$("profile").value)return;
     ready=response.ok && status.ready;
+    $("think").disabled=controller!==null || status.think_supported===false;
+    if(status.think_supported===false && $("think").checked){$("think").checked=false;save();}
+    $("profile-note").textContent=status.think_supported===false?"Короткие ответы без рассуждений.":"Можно включить рассуждения.";
     $("model").textContent=status.model||"Qwen3";
     $("status-label").textContent=ready?"Доступна":"Недоступна";
     $("status-dot").className="status-dot "+(ready?"ready":"offline");
     if (!ready) notice(status.message||"Не удалось подключиться к локальной модели.");
     else if ($("notice").textContent.includes("Ollama") || $("notice").textContent.includes("Модель не установлена")) notice("");
   } catch (_) {
+    if(selected!==$("profile").value)return;
     ready=false; $("status-label").textContent="Нет связи"; $("status-dot").className="status-dot offline";
     notice("Нет связи с приложением. Проверьте, что сервер запущен.");
   }
@@ -145,7 +154,7 @@ async function sendQuestion(event) {
   while (contextSize>6000 && history.length>1) {
     contextSize-=history[0].content.length+history[1].content.length; history.splice(0,2); trimmed=true;
   }
-  const turn={question,content:"",thinking:"",state:"pending",think:$("think").checked,rag:$("rag").checked,trimmed};
+  const turn={question,content:"",thinking:"",state:"pending",think:$("think").checked,rag:$("rag").checked,profile:$("profile").value,trimmed};
   turns.push(turn); titles(); save();
   const view=renderTurn(turn);
   controller=new AbortController();
@@ -153,7 +162,7 @@ async function sendQuestion(event) {
   busy(true); notice(""); $("prompt").value=""; scrollDown();
   let finished=false;
   function receive(item) {
-    if (item.type==="start") turn.trimmed=turn.trimmed || item.history_trimmed===true;
+    if (item.type==="start") {turn.trimmed=turn.trimmed || item.history_trimmed===true;turn.profile=item.profile;turn.model=item.model;}
     else if (item.type==="retrieval") turn.retrieval_ms=item.retrieval.duration_ms;
     else if (item.type==="sources") {turn.citations=item.answer.citations; turn.status=item.answer.status;}
     else if (item.type==="delta") turn.content+=item.text||"";
@@ -163,7 +172,7 @@ async function sendQuestion(event) {
     updateTurn(turn,view); scrollDown();
   }
   try {
-    const response=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history,think:turn.think,rag:turn.rag}),signal:activeController.signal});
+    const response=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history,think:turn.think,rag:turn.rag,profile:turn.profile}),signal:activeController.signal});
     if (!response.ok) { const error=await response.json(); throw new Error(error.message||"Не удалось отправить сообщение."); }
     if (!response.body) throw new Error("Браузер не поддерживает потоковый ответ.");
     const reader=response.body.getReader(); const decoder=new TextDecoder(); let buffer="";
@@ -200,4 +209,20 @@ $("new-chat").addEventListener("click",()=>{
 $("think").addEventListener("change",save);
 $("rag").addEventListener("change",save);
 $("connection").addEventListener("click",refresh);
-restore(); turns.forEach(renderTurn); titles(); busy(false); refresh(); scrollDown();
+async function initializeProfiles(){
+ try{
+  const response=await fetch("/api/optimization/profiles");const data=await response.json();
+  if(!response.ok)throw new Error("Не удалось загрузить профили.");
+  profiles=data.profiles;
+  $("profile").replaceChildren();
+  for(const p of profiles){const option=node("option","",p.label);option.value=p.id;$("profile").append(option);}
+  $("profile").value=profiles.some(p=>p.id===savedProfile)?savedProfile:data.default_profile;
+ }catch(e){notice(e.message);}
+ refresh();
+}
+$("profile").addEventListener("change",()=>{
+ const p=profiles.find(p=>p.id===$("profile").value);
+ if(p?.think_supported===false)$("think").checked=false;
+ $("think").disabled=p?.think_supported===false;ready=false;$("send").disabled=true;save();notice("");refresh();
+});
+restore(); turns.forEach(renderTurn); titles(); busy(false); initializeProfiles(); scrollDown();

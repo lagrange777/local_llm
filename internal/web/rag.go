@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"local-llm-service/internal/ollama"
+	"local-llm-service/internal/optimization"
 	"local-llm-service/internal/rag"
 )
 
@@ -38,7 +39,7 @@ func (a *App) report(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Write(data)
 }
-func (a *App) ragChat(ctx context.Context, input chatInput, messages []ollama.Message, send func(event) error) error {
+func (a *App) ragChat(ctx context.Context, input chatInput, messages []ollama.Message, profile optimization.Profile, send func(event) error) error {
 	started := time.Now()
 	query := messages[len(messages)-1].Content
 	retrieval, err := a.config.Index.Search(query, a.config.RAG)
@@ -56,22 +57,31 @@ func (a *App) ragChat(ctx context.Context, input chatInput, messages []ollama.Me
 		if err := send(event{Type: "delta", Text: answer.Text}); err != nil {
 			return err
 		}
-		return send(event{Type: "done", Model: a.config.Model, Seconds: time.Since(started).Seconds(), Tokens: tokens, Status: answer.Status, Attempts: attempts, FirstTokenSeconds: first, GenerationSeconds: generation, LoadSeconds: loadSeconds, PromptTokens: promptTokens, EvalSeconds: evalSeconds})
+		return send(event{Type: "done", Model: profile.Model, Profile: profile.ID, PromptHash: rag.PromptHash(profile.Prompt), Seconds: time.Since(started).Seconds(), Tokens: tokens, Status: answer.Status, Attempts: attempts, FirstTokenSeconds: first, GenerationSeconds: generation, LoadSeconds: loadSeconds, PromptTokens: promptTokens, EvalSeconds: evalSeconds})
 	}
 	if len(retrieval.Sources) == 0 {
 		return finish(rag.Unknown(), 0, 0, 0, 0)
 	}
-	prompt := rag.Messages(query, messages[1:len(messages)-1], retrieval)
+	prompt := rag.MessagesFor(query, messages[1:len(messages)-1], retrieval, profile.Prompt)
 	// Character budget is a heuristic, not an exact tokenizer. Refuse oversized
 	// prompts instead of silently dropping the selected evidence.
 	characters := 0
 	for _, message := range prompt {
 		characters += len([]rune(message.Content))
 	}
-	if characters+1024 > 8192 {
+	if profile.Prompt == "baseline" && characters+profile.Options.NumPredict > profile.Options.NumCtx {
 		return rag.ErrPromptTooLarge
 	}
-	request := ollama.ChatRequest{Model: a.config.Model, Messages: prompt, Think: input.Think, Format: rag.Format, KeepAlive: "10m", Options: ollama.Options{Temperature: 0, Seed: 42, NumCtx: 8192, NumPredict: 1024}}
+	// Conservative byte heuristic, not a tokenizer. Actual near-capacity prompts
+	// are rejected after generation too, before publishing any claims.
+	estimate := 0
+	for _, m := range prompt {
+		estimate += (len(m.Content)+2)/3 + 16
+	}
+	if profile.Prompt != "baseline" && estimate+profile.Options.NumPredict > profile.Options.NumCtx {
+		return rag.ErrPromptTooLarge
+	}
+	request := ollama.ChatRequest{Model: profile.Model, Messages: prompt, Think: input.Think, Format: rag.Format, KeepAlive: "10m", Options: profile.Options}
 	tokens := 0
 	first := 0.0
 	generationStart := time.Now()
@@ -88,6 +98,9 @@ func (a *App) ragChat(ctx context.Context, input chatInput, messages []ollama.Me
 				}
 			}
 			if chunk.Done {
+				if profile.Prompt != "baseline" && chunk.PromptEvalCount+profile.Options.NumPredict >= profile.Options.NumCtx {
+					return rag.ErrPromptTooLarge
+				}
 				tokens += chunk.EvalCount
 				loadSeconds += float64(chunk.LoadDuration) / 1e9
 				evalSeconds += float64(chunk.EvalDuration) / 1e9

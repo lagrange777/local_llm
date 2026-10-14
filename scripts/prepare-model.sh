@@ -15,8 +15,19 @@ until ollama list >/dev/null 2>&1; do
   fi
   sleep 1
 done
+case "${RAG_PROFILE:-baseline}" in
+  instruct-4b-q4) OLLAMA_MODEL=rag29-instruct-4b-q4 ;;
+  instruct-4b-q8) OLLAMA_MODEL=rag29-instruct-4b-q8 ;;
+esac
 if ollama show "$OLLAMA_MODEL" >/dev/null 2>&1; then
   echo "Local model already present: $OLLAMA_MODEL"
 else
-  ollama pull "$OLLAMA_MODEL"
+  case "$OLLAMA_MODEL" in
+    rag29-baseline-8b) source=qwen3:8b ;;
+    rag29-instruct-4b-q4) source=qwen3:4b-instruct-2507-q4_K_M ;;
+    rag29-instruct-4b-q8) source=qwen3:4b-instruct-2507-q8_0 ;;
+    *) source=$OLLAMA_MODEL ;;
+  esac
+  if ! ollama show "$source" >/dev/null 2>&1; then ollama pull "$source"; fi
+  if [ "$source" != "$OLLAMA_MODEL" ]; then ollama cp "$source" "$OLLAMA_MODEL"; fi
 fi

@@ -14,6 +14,7 @@ import (
 	"unicode/utf8"
 
 	"local-llm-service/internal/ollama"
+	"local-llm-service/internal/optimization"
 	"local-llm-service/internal/rag"
 )
 
@@ -21,12 +22,14 @@ import (
 var assets embed.FS
 
 type Config struct {
-	Model       string
-	Timeout     time.Duration
-	Index       *rag.Index
-	RAG         rag.Config
-	CacheRAMMiB int
-	ReportPath  string
+	Model                  string
+	Timeout                time.Duration
+	Index                  *rag.Index
+	RAG                    rag.Config
+	CacheRAMMiB            int
+	ReportPath             string
+	OptimizationReportPath string
+	DefaultProfile         string
 }
 type App struct {
 	client ollama.Client
@@ -37,12 +40,15 @@ type chatInput struct {
 	Messages []ollama.Message `json:"messages"`
 	Think    bool             `json:"think"`
 	RAG      bool             `json:"rag"`
+	Profile  string           `json:"profile,omitempty"`
 }
 type event struct {
 	Type              string         `json:"type"`
 	Retrieval         *rag.Retrieval `json:"retrieval,omitempty"`
 	Answer            *rag.Answer    `json:"answer,omitempty"`
 	Status            string         `json:"status,omitempty"`
+	Profile           string         `json:"profile,omitempty"`
+	PromptHash        string         `json:"prompt_sha256,omitempty"`
 	Mode              string         `json:"mode,omitempty"`
 	Attempts          int            `json:"attempts"`
 	FirstTokenSeconds float64        `json:"model_first_token_seconds"`
@@ -67,6 +73,14 @@ func New(client ollama.Client, config Config) http.Handler {
 	})
 	mux.HandleFunc("GET /api/status", app.status)
 	mux.HandleFunc("POST /api/chat", app.chat)
+	mux.HandleFunc("GET /api/optimization/profiles", app.profiles)
+	mux.HandleFunc("GET /api/optimization/models", app.models)
+	mux.HandleFunc("GET /api/optimization/report", app.optimizationReport)
+	mux.HandleFunc("GET /optimization", func(w http.ResponseWriter, r *http.Request) {
+		data, _ := assets.ReadFile("assets/optimization.html")
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.Write(data)
+	})
 	mux.HandleFunc("GET /api/rag/search", app.search)
 	mux.HandleFunc("GET /api/rag/report", app.report)
 	mux.HandleFunc("GET /comparison", func(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +93,7 @@ func New(client ollama.Client, config Config) http.Handler {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		w.Write(data)
 	})
-	for _, name := range []string{"app.js", "style.css", "comparison.js"} {
+	for _, name := range []string{"app.js", "style.css", "comparison.js", "optimization.js"} {
 		mux.HandleFunc("GET /"+name, func(w http.ResponseWriter, r *http.Request) {
 			data, _ := assets.ReadFile("assets/" + name)
 			contentType := "text/javascript; charset=utf-8"
@@ -100,13 +114,19 @@ func New(client ollama.Client, config Config) http.Handler {
 func (a *App) status(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 	defer cancel()
-	status, err := a.client.Status(ctx, a.config.Model)
+	id := r.URL.Query().Get("profile")
+	profile, err := a.resolveProfile(id)
 	if err != nil {
-		code, message := publicError(ctx, err)
-		writeJSON(w, http.StatusServiceUnavailable, map[string]any{"ready": false, "model": a.config.Model, "code": code, "message": message})
+		writeJSON(w, 400, map[string]string{"message": "Unknown profile"})
 		return
 	}
-	data := map[string]any{"ready": true, "model": a.config.Model, "version": status.Version, "rag_ready": a.config.Index != nil, "prompt_cache_mib": a.config.CacheRAMMiB}
+	status, err := a.client.Status(ctx, profile.Model)
+	if err != nil {
+		code, message := publicError(ctx, err)
+		writeJSON(w, http.StatusServiceUnavailable, map[string]any{"ready": false, "model": profile.Model, "code": code, "message": message})
+		return
+	}
+	data := map[string]any{"ready": true, "model": profile.Model, "profile": profile.ID, "think_supported": profile.ThinkSupported, "generation": profile.Options, "prompt_sha256": rag.PromptHash(profile.Prompt), "profiles_sha256": optimization.Fingerprint(a.config.Model), "version": status.Version, "rag_ready": a.config.Index != nil, "prompt_cache_mib": a.config.CacheRAMMiB}
 	if a.config.Index != nil {
 		data["rag_config"] = a.config.RAG
 		data["corpus_hash"] = a.config.Index.Origin.CorpusHash
@@ -145,6 +165,15 @@ func (a *App) chat(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, 503, map[string]string{"message": "Локальный индекс не загружен."})
 		return
 	}
+	profile, err := a.resolveProfile(input.Profile)
+	if err != nil {
+		writeJSON(w, 400, map[string]string{"message": "Unknown profile"})
+		return
+	}
+	if input.Think && !profile.ThinkSupported {
+		writeJSON(w, 400, map[string]string{"message": "Этот профиль поддерживает только ответы без рассуждений."})
+		return
+	}
 	select {
 	case a.busy <- struct{}{}:
 		defer func() { <-a.busy }()
@@ -175,11 +204,11 @@ func (a *App) chat(w http.ResponseWriter, r *http.Request) {
 		used = len(history) + 1
 		trimmed = trimmed || len(history) < len(messages)-2
 	}
-	if err := send(event{Type: "start", Mode: mode, Model: a.config.Model, MessagesUsed: used, HistoryTrimmed: trimmed}); err != nil {
+	if err := send(event{Type: "start", Mode: mode, Model: profile.Model, Profile: profile.ID, PromptHash: rag.PromptHash(profile.Prompt), MessagesUsed: used, HistoryTrimmed: trimmed}); err != nil {
 		return
 	}
 	if input.RAG {
-		err = a.ragChat(ctx, input, messages, send)
+		err = a.ragChat(ctx, input, messages, profile, send)
 		if err != nil && r.Context().Err() == nil {
 			log.Printf("rag failed: %v", err)
 			code, message := publicError(ctx, err)
@@ -188,7 +217,7 @@ func (a *App) chat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	started := time.Now()
-	request := ollama.ChatRequest{Model: a.config.Model, Messages: messages, Think: input.Think, KeepAlive: "10m", Options: ollama.Options{Temperature: 0, Seed: 42, NumCtx: 8192, NumPredict: 1024}}
+	request := ollama.ChatRequest{Model: profile.Model, Messages: messages, Think: input.Think, KeepAlive: "10m", Options: profile.Options}
 	firstToken := 0.0
 	err = a.client.Chat(ctx, request, func(chunk ollama.ChatChunk) error {
 		if chunk.Message.Thinking != "" {
